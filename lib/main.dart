@@ -1,8 +1,9 @@
+import 'package:cafe_front/views/login/login_main.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-      home: const MyApp()
+      home: const LoginMain()
   ));
 }
 
