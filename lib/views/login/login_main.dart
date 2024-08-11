@@ -9,6 +9,7 @@ class LoginMain extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+          // 상반
           Expanded(flex: 7,child: Container(
             child: Column(
               children: [
@@ -19,10 +20,12 @@ class LoginMain extends StatelessWidget {
               ],
             ),
           )),
+          // 하반
           Expanded(
               flex:2,
               child: Column(
                 children: [
+                  // 로그인/회원가입
                   const SizedBox(
                     height: 20,
                     child: Row(
@@ -43,20 +46,27 @@ class LoginMain extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Expanded(flex:3,child: CustomButtonLayout(
-                    margin: const EdgeInsets.fromLTRB(10, 25, 10, 25),
-                    width: double.infinity,
-                    child: Stack(
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            width: 30,
-                            child: Center(child: Image.asset('assets/icons/google_logo.png',scale: 0.1,))
-                        ),
-                        const Center(child: Text('Google로 계속하기',style: TextStyle(fontWeight: FontWeight.bold),))
-                      ],
+                  // 구글 버튼
+                  Expanded(flex:3,child: GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamedAndRemoveUntil(context, '/login/after',ModalRoute.withName('/'));
+                    },
+                    child: CustomButtonLayout(
+                      margin: const EdgeInsets.fromLTRB(10, 25, 10, 25),
+                      width: double.infinity,
+                      child: Stack(
+                        children: [
+                          Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: 30,
+                              child: Center(child: Image.asset('assets/icons/google_logo.png',scale: 0.1,))
+                          ),
+                          const Center(child: Text('Google로 계속하기',style: TextStyle(fontWeight: FontWeight.bold),))
+                        ],
+                      ),
                     ),
                   )),
+                  // 로그인 하기(하드)
                   const Expanded(flex:2,child: Text('로그인 하기',style: TextStyle(fontWeight: FontWeight.bold),))
                 ],
               )
