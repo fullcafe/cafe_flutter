@@ -18,6 +18,8 @@ class _AfterLoginState extends State<AfterLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final totalHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,33 +31,38 @@ class _AfterLoginState extends State<AfterLogin> {
         ),
       ),
       body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(flex: 6,
-                  child: PageView.builder(
-                      controller: pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: pages.length,
-                      itemBuilder: (context, i){
-                        return pages[i];
-                      }
+          child: SingleChildScrollView(
+            child: SizedBox(
+              height: totalHeight / 1.2,
+              child: Column(
+                children: [
+                  Expanded(flex: 6,
+                      child: PageView.builder(
+                          controller: pageController,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: pages.length,
+                          itemBuilder: (context, i){
+                            return pages[i];
+                          }
+                      )
+                  ),
+                  // 다음 버튼
+                  Expanded(
+                      child: GestureDetector(
+                        onTap: (){
+                          pageController.animateToPage(currentPage + 1, duration: const Duration(milliseconds: 500), curve: Curves.ease);//fdf
+                        },
+                        child: const CustomButtonLayout(
+                          margin: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                          width: double.infinity,
+                          borderColor: CustomColors.deepGrey,
+                          child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
+                        ),
+                      )
                   )
+                ],
               ),
-              // 다음 버튼
-              Expanded(
-                  child: GestureDetector(
-                    onTap: (){
-                      pageController.animateToPage(currentPage + 1, duration: const Duration(milliseconds: 500), curve: Curves.ease);//fdf
-                    },
-                    child: const CustomButtonLayout(
-                      margin: EdgeInsets.fromLTRB(10, 25, 10, 25),
-                      width: double.infinity,
-                      borderColor: CustomColors.deepGrey,
-                      child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
-                    ),
-                  )
-              )
-            ],
+            ),
           )
       ),
     );
