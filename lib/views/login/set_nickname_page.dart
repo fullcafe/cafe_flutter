@@ -39,9 +39,24 @@ class SetNicknamePage extends StatelessWidget {
                 height: 60,
                 child: Align(alignment: Alignment.centerLeft,child: Text('닉네임',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: CustomColors.deepGrey),)),
               ),
-              Container(
-                height: 60,
-                child: TextFormField(),
+              Form(
+                key: store.key,
+                child: SizedBox(
+                  height: 60,
+                  child: TextFormField(
+                    // 기호 및 공백 validator는 나중에 추가
+                    validator: (value){
+                      if(value!.length > 10){
+                        return '10글자 내로 입력해주세요!';
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      hintText: '10글자 내로 입력해주세요.',
+                      hintStyle: TextStyle(color: CustomColors.deepGrey)
+                    ),
+                  ),
+                ),
               )
             ],
           ))

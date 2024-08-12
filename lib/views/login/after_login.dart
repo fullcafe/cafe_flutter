@@ -1,8 +1,10 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/login/after_login_store.dart';
 import 'package:cafe_front/views/login/set_age_page.dart';
 import 'package:cafe_front/views/login/set_nickname_page.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AfterLogin extends StatefulWidget {
   const AfterLogin({Key? key}) : super(key: key);
@@ -14,17 +16,22 @@ class AfterLogin extends StatefulWidget {
 class _AfterLoginState extends State<AfterLogin> {
   final pages = const [SetNicknamePage(), SetAgePage()];
   final pageController = PageController();
-  var currentPage = 1;
 
   @override
   Widget build(BuildContext context) {
     final totalHeight = MediaQuery.of(context).size.height;
+    final store = context.watch<AfterLoginStore>();
+
+    toUpdatePage(int value){
+      store.updateCurrentPage(value);
+      pageController.animateToPage(store.currentPage, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    }
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: (){
-              pageController.animateToPage(currentPage - 1, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+              toUpdatePage(-1);
             },
             highlightColor: Colors.transparent,
             icon: const Icon(Icons.arrow_back_ios)
@@ -50,7 +57,9 @@ class _AfterLoginState extends State<AfterLogin> {
                   Expanded(
                       child: GestureDetector(
                         onTap: (){
-                          pageController.animateToPage(currentPage + 1, duration: const Duration(milliseconds: 500), curve: Curves.ease);//fdf
+                          if(store.key.currentState!.validate()){
+                            toUpdatePage(1);
+                          }
                         },
                         child: const CustomButtonLayout(
                           margin: EdgeInsets.fromLTRB(10, 25, 10, 25),
@@ -67,4 +76,5 @@ class _AfterLoginState extends State<AfterLogin> {
       ),
     );
   }
+
 }
