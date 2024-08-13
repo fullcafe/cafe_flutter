@@ -1,4 +1,7 @@
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
 class LoginMain extends StatelessWidget {
@@ -49,9 +52,14 @@ class LoginMain extends StatelessWidget {
                     ),
                     // 구글 버튼
                     Expanded(flex:3,child: GestureDetector(
-                      onTap: (){
-                        // 로그인 후 유저가 등록 되었느냐에 따라 이동하는 페이지가 다름
-                        Navigator.pushNamedAndRemoveUntil(context, '/login/after',ModalRoute.withName('/'));
+                      onTap: () async{
+                        try{
+                          await signInWithGoogle();
+                          // 로그인 후 유저가 등록 되었느냐에 따라 이동하는 페이지가 다름
+                          Navigator.pushNamedAndRemoveUntil(context, '/login/after',ModalRoute.withName('/'));
+                        } catch(e){
+                          Fluttertoast.showToast(msg: '로그인 실패');
+                        }
                       },
                       child: CustomButtonLayout(
                         margin: const EdgeInsets.fromLTRB(10, 25, 10, 25),
@@ -78,4 +86,22 @@ class LoginMain extends StatelessWidget {
       ),
     );
   }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // 인증
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // auth 디테일 겟
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // credential 생성
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // UserCredential 리턴
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
 }
