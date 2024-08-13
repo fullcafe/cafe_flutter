@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1085822556187",
+    "project_id": "cafe-fullstack",
+    "storage_bucket": "cafe-fullstack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085822556187:android:316e0f796e99e691a540be",
+        "android_client_info": {
+          "package_name": "com.example.cafe_front"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085822556187-7t08fvnc5v7ag6v6sh58s8f30usohplv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cafe_front",
+            "certificate_hash": "7734c5b9c7d43d0af320244e87dd7aa948de0fb7"
+          }
+        },
+        {
+          "client_id": "1085822556187-km5stnb7iiu909ujlr67jgsdagrjob0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDixe8i_qrUOFS3tJ5PYk48nBXAOcIMsBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085822556187-km5stnb7iiu909ujlr67jgsdagrjob0n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1085822556187-heemu0dmrlrh2pa0b7n3khre0t7ketuv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cafeFront"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
