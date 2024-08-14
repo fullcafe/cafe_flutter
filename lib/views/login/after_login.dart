@@ -3,6 +3,8 @@ import 'package:cafe_front/provider/login/after_login_store.dart';
 import 'package:cafe_front/views/login/set_age_page.dart';
 import 'package:cafe_front/views/login/set_nickname_page.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +32,14 @@ class _AfterLoginState extends State<AfterLogin> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: (){
+            onPressed: () async{
+              // 토큰 테스트 api 호출
+              var dio = Dio();
+              var idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
+              idToken = 'Bearer ${idToken}';
+              var response = await dio.get('http://172.30.1.73:8080/hello',options: Options(headers: {'Authorization' : idToken}));
+              print(response.data);
+              //print(await FirebaseAuth.instance.currentUser?.getIdToken());
               toUpdatePage(-1);
             },
             highlightColor: Colors.transparent,
@@ -62,7 +71,7 @@ class _AfterLoginState extends State<AfterLogin> {
                           }
                         },
                         child: const CustomButtonLayout(
-                          margin: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                          margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
                           width: double.infinity,
                           borderColor: CustomColors.deepGrey,
                           child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),

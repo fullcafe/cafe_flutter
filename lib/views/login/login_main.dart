@@ -51,7 +51,7 @@ class LoginMain extends StatelessWidget {
                       ),
                     ),
                     // 구글 버튼
-                    Expanded(flex:3,child: GestureDetector(
+                    Expanded(flex:2,child: GestureDetector(
                       onTap: () async{
                         try{
                           await signInWithGoogle();
@@ -62,7 +62,7 @@ class LoginMain extends StatelessWidget {
                         }
                       },
                       child: CustomButtonLayout(
-                        margin: const EdgeInsets.fromLTRB(10, 25, 10, 25),
+                        margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
                         width: double.infinity,
                         child: Stack(
                           children: [
@@ -77,7 +77,7 @@ class LoginMain extends StatelessWidget {
                       ),
                     )),
                     // 로그인 하기(하드)
-                    const Expanded(flex:2,child: Text('로그인 하기',style: TextStyle(fontWeight: FontWeight.bold),))
+                    const Expanded(child: Text('로그인 하기',style: TextStyle(fontWeight: FontWeight.bold),))
                   ],
                 )
             )
