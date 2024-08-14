@@ -54,8 +54,7 @@ class LoginMain extends StatelessWidget {
                     Expanded(flex:2,child: GestureDetector(
                       onTap: () async{
                         try{
-                          UserCredential response = await signInWithGoogle();
-                          print(await response.user?.getIdToken());
+                          await signInWithGoogle();
                           // 로그인 후 유저가 등록 되었느냐에 따라 이동하는 페이지가 다름
                           Navigator.pushNamedAndRemoveUntil(context, '/login/after',ModalRoute.withName('/'));
                         } catch(e){
