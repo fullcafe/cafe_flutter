@@ -62,7 +62,7 @@ class _AfterLoginState extends State<AfterLogin> {
                           }
                         },
                         child: const CustomButtonLayout(
-                          margin: EdgeInsets.fromLTRB(10, 25, 10, 25),
+                          margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
                           width: double.infinity,
                           borderColor: CustomColors.deepGrey,
                           child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
