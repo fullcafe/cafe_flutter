@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../widgets/indicator/five_dots_indicator.dart';
+import '../../../widgets/indicator/five_dots_indicator.dart';
 
 class SetAgePage extends StatelessWidget {
   const SetAgePage({Key? key}) : super(key: key);
@@ -52,7 +52,7 @@ class SetAgePage extends StatelessWidget {
                     });
                   },
                   child: Text(store.birth == null? '생년월일을 입력해주세요.' : '${store.birth!.year}.${store.birth!.month}.${store.birth!.day}',
-                    style: TextStyle(fontWeight: FontWeight.bold,color: store.toNext ? CustomColors.deepGrey : Colors.red),)
+                    style: TextStyle(fontWeight: FontWeight.bold,color: store.toNext ? CustomColors.deepGrey : const Color(0xffc70000)),)
               ),
             ],
           ))
