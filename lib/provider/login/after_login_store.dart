@@ -13,6 +13,7 @@ class AfterLoginStore with ChangeNotifier {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _controller = TextEditingController();
   String _name = '';
+  DateTime? _birth;
   bool _toNext = true; // 다음으로 갈 수 있는지 여부
 
   GlobalKey<FormState> get key => _key;
@@ -21,6 +22,7 @@ class AfterLoginStore with ChangeNotifier {
   int get currentIdx => _currentPage * 2;
   String get name => _name;
   bool get toNext => _toNext;
+  DateTime? get birth => _birth;
   TextEditingController get controller => _controller;
 
   updateCurrentPage(PageState state){
@@ -36,6 +38,7 @@ class AfterLoginStore with ChangeNotifier {
       case > 4:
         _currentPage =4;
     }
+    notifyListeners();
   }
 
   addUserName(){
@@ -45,6 +48,21 @@ class AfterLoginStore with ChangeNotifier {
     } else {
       _toNext = false;
     }
+    notifyListeners();
+  }
+
+  addBirthDate(DateTime birth){
+    _birth = birth;
+    notifyListeners();
+  }
+
+  checkBirthDate(){
+    if(_birth == null){
+      _toNext = false;
+    } else {
+      _toNext = true;
+    }
+    notifyListeners();
   }
 
   // 현재 페이지에 따라 다음버튼 로직이 달라짐
@@ -52,7 +70,9 @@ class AfterLoginStore with ChangeNotifier {
     switch (_currentPage) {
       case 0:
         addUserName();
-      case != 0:
+      case 1:
+        checkBirthDate();
+      case > 1:
         print('No Todo');
     }
   }

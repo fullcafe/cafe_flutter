@@ -1,5 +1,6 @@
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/login/after_login_store.dart';
+import 'package:cafe_front/views/login/set_address_page.dart';
 import 'package:cafe_front/views/login/set_age_page.dart';
 import 'package:cafe_front/views/login/set_nickname_page.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
@@ -14,7 +15,7 @@ class AfterLogin extends StatefulWidget {
 }
 
 class _AfterLoginState extends State<AfterLogin> {
-  final pages = const [SetNicknamePage(), SetAgePage()];
+  final pages = const [SetNicknamePage(), SetAgePage(),SetAddressPage()];
   final pageController = PageController();
 
   @override

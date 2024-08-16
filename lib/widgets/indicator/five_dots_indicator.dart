@@ -12,7 +12,7 @@ class FiveDotsIndicator extends StatelessWidget {
       children: List.generate(10, (idx) {
         if (idx % 2 != 0) {
           return const SizedBox(
-            width: 20,
+            width: 15,
           );
         }
         return idx == currentIdx
