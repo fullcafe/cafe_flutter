@@ -56,7 +56,6 @@ class SetNicknamePage extends StatelessWidget {
                     },
                     decoration: const InputDecoration(
                       hintText: '10글자 내로 입력해주세요.',
-                      hintStyle: TextStyle(color: CustomColors.deepGrey)
                     ),
                   ),
                 ),

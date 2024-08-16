@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'constants/colors.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -29,6 +30,7 @@ void main() async {
   await Future.delayed(const Duration(milliseconds: 500));
 
   runApp(MaterialApp(
+      theme: getMyAppTheme(),
       initialRoute: hasUser? '/after' : '/login',
       routes: routes,
   ));
@@ -48,3 +50,15 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+ThemeData getMyAppTheme(){
+  return ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.orange),
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(color: Colors.white,surfaceTintColor: Colors.white),
+      inputDecorationTheme: const InputDecorationTheme(
+          hintStyle: TextStyle(color: CustomColors.deepGrey)
+      )
+  );
+}
+
