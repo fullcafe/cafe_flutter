@@ -44,6 +44,7 @@ class SetNicknamePage extends StatelessWidget {
                 child: SizedBox(
                   height: 60,
                   child: TextFormField(
+                    controller: store.controller,
                     // 기호 및 공백 validator는 나중에 추가
                     validator: (value){
                       if(value!.length > 10){

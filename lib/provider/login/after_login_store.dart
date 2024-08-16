@@ -5,19 +5,31 @@ import 'package:flutter/material.dart';
   5개의 상태 표시 점 때문에 현재 페이지 정보도 알고 있음
 */
 
+enum PageState {Next, Prev}
+
 class AfterLoginStore with ChangeNotifier {
 
   int _currentPage = 0;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  TextEditingController _controller = TextEditingController();
+  String _name = '';
+  bool _toNext = true; // 다음으로 갈 수 있는지 여부
 
   GlobalKey<FormState> get key => _key;
 
   int get currentPage => _currentPage;
-
   int get currentIdx => _currentPage * 2;
+  String get name => _name;
+  bool get toNext => _toNext;
+  TextEditingController get controller => _controller;
 
-  updateCurrentPage(int value){
-    _currentPage += value;
+  updateCurrentPage(PageState state){
+    if(state == PageState.Next){
+      _currentPage += 1;
+    } else {
+      _currentPage += -1;
+    }
+
     switch (_currentPage) {
       case < 0:
         _currentPage = 0;
@@ -25,5 +37,25 @@ class AfterLoginStore with ChangeNotifier {
         _currentPage =4;
     }
   }
+
+  addUserName(){
+    if(_key.currentState!.validate()){
+      _name = _controller.text;
+      _toNext = true;
+    } else {
+      _toNext = false;
+    }
+  }
+
+  // 현재 페이지에 따라 다음버튼 로직이 달라짐
+  nextHandle(){
+    switch (_currentPage) {
+      case 0:
+        addUserName();
+      case != 0:
+        print('No Todo');
+    }
+  }
+
 
 }

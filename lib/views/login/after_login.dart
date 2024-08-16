@@ -22,8 +22,8 @@ class _AfterLoginState extends State<AfterLogin> {
     final totalHeight = MediaQuery.of(context).size.height;
     final store = context.watch<AfterLoginStore>();
 
-    toUpdatePage(int value){
-      store.updateCurrentPage(value);
+    toUpdatePage(PageState state){
+      store.updateCurrentPage(state);
       pageController.animateToPage(store.currentPage, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     }
 
@@ -31,7 +31,7 @@ class _AfterLoginState extends State<AfterLogin> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () async{
-              toUpdatePage(-1);
+              toUpdatePage(PageState.Prev);
             },
             highlightColor: Colors.transparent,
             icon: const Icon(Icons.arrow_back_ios)
@@ -57,8 +57,9 @@ class _AfterLoginState extends State<AfterLogin> {
                   Expanded(
                       child: GestureDetector(
                         onTap: (){
-                          if(store.key.currentState!.validate()){
-                            toUpdatePage(1);
+                          store.nextHandle();
+                          if(store.toNext){
+                            toUpdatePage(PageState.Next);
                           }
                         },
                         child: const CustomButtonLayout(
