@@ -1,10 +1,9 @@
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/login/after_login_store.dart';
+import 'package:cafe_front/views/login/set_address_page.dart';
 import 'package:cafe_front/views/login/set_age_page.dart';
 import 'package:cafe_front/views/login/set_nickname_page.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +15,7 @@ class AfterLogin extends StatefulWidget {
 }
 
 class _AfterLoginState extends State<AfterLogin> {
-  final pages = const [SetNicknamePage(), SetAgePage()];
+  final pages = const [SetNicknamePage(), SetAgePage(),SetAddressPage()];
   final pageController = PageController();
 
   @override
@@ -24,8 +23,8 @@ class _AfterLoginState extends State<AfterLogin> {
     final totalHeight = MediaQuery.of(context).size.height;
     final store = context.watch<AfterLoginStore>();
 
-    toUpdatePage(int value){
-      store.updateCurrentPage(value);
+    toUpdatePage(PageState state){
+      store.updateCurrentPage(state);
       pageController.animateToPage(store.currentPage, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     }
 
@@ -33,14 +32,7 @@ class _AfterLoginState extends State<AfterLogin> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () async{
-              // 토큰 테스트 api 호출
-              var dio = Dio();
-              var idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
-              idToken = 'Bearer ${idToken}';
-              var response = await dio.get('http://172.30.1.73:8080/hello',options: Options(headers: {'Authorization' : idToken}));
-              print(response.data);
-              //print(await FirebaseAuth.instance.currentUser?.getIdToken());
-              toUpdatePage(-1);
+              toUpdatePage(PageState.Prev);
             },
             highlightColor: Colors.transparent,
             icon: const Icon(Icons.arrow_back_ios)
@@ -66,8 +58,9 @@ class _AfterLoginState extends State<AfterLogin> {
                   Expanded(
                       child: GestureDetector(
                         onTap: (){
-                          if(store.key.currentState!.validate()){
-                            toUpdatePage(1);
+                          store.nextHandle();
+                          if(store.toNext){
+                            toUpdatePage(PageState.Next);
                           }
                         },
                         child: const CustomButtonLayout(
