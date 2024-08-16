@@ -3,8 +3,6 @@ import 'package:cafe_front/provider/login/after_login_store.dart';
 import 'package:cafe_front/views/login/set_age_page.dart';
 import 'package:cafe_front/views/login/set_nickname_page.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,13 +31,6 @@ class _AfterLoginState extends State<AfterLogin> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () async{
-              // 토큰 테스트 api 호출
-              var dio = Dio();
-              var idToken = await FirebaseAuth.instance.currentUser?.getIdToken();
-              idToken = 'Bearer ${idToken}';
-              var response = await dio.get('http://172.30.1.73:8080/hello',options: Options(headers: {'Authorization' : idToken}));
-              print(response.data);
-              //print(await FirebaseAuth.instance.currentUser?.getIdToken());
               toUpdatePage(-1);
             },
             highlightColor: Colors.transparent,

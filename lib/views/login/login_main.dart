@@ -56,7 +56,7 @@ class LoginMain extends StatelessWidget {
                         try{
                           await signInWithGoogle();
                           // 로그인 후 유저가 등록 되었느냐에 따라 이동하는 페이지가 다름
-                          Navigator.pushNamedAndRemoveUntil(context, '/login/after',ModalRoute.withName('/'));
+                          Navigator.pushNamedAndRemoveUntil(context, '/after',ModalRoute.withName('/'));
                         } catch(e){
                           Fluttertoast.showToast(msg: '로그인 실패');
                         }

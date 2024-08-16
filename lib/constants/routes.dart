@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 final routes = <String, WidgetBuilder>{
   '/login': (BuildContext context) => const LoginMain(),
-  '/login/after': (BuildContext context) => ChangeNotifierProvider(
+  '/after': (BuildContext context) => ChangeNotifierProvider(
       create: (context) => AfterLoginStore(),
       child: const AfterLogin(),
   ),

@@ -49,6 +49,9 @@ class SetNicknamePage extends StatelessWidget {
                       if(value!.length > 10){
                         return '10글자 내로 입력해주세요!';
                       }
+                      if(value!.isEmpty){
+                        return '닉네임을 입력해주세요!';
+                      }
                       return null;
                     },
                     decoration: const InputDecoration(
