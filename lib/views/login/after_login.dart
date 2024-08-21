@@ -30,53 +30,59 @@ class _AfterLoginState extends State<AfterLogin> {
       pageController.animateToPage(store.currentPage, duration: const Duration(milliseconds: 500), curve: Curves.ease);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () async{
-              toUpdatePage(PageState.Prev);
-            },
-            highlightColor: Colors.transparent,
-            icon: const Icon(Icons.arrow_back_ios)
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop ,result) async {
+        toUpdatePage(PageState.Prev);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () async{
+                toUpdatePage(PageState.Prev);
+              },
+              highlightColor: Colors.transparent,
+              icon: const Icon(Icons.arrow_back_ios)
+          ),
         ),
-      ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              height: totalHeight / 1.2,
-              child: Column(
-                children: [
-                  Expanded(flex: 6,
-                      child: PageView.builder(
-                          controller: pageController,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: pages.length,
-                          itemBuilder: (context, i){
-                            return pages[i];
-                          }
-                      )
-                  ),
-                  // 다음 버튼
-                  Expanded(
-                      child: GestureDetector(
-                        onTap: (){
-                          store.nextHandle();
-                          if(store.toNext){
-                            toUpdatePage(PageState.Next);
-                          }
-                        },
-                        child: const CustomButtonLayout(
-                          margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
-                          width: double.infinity,
-                          borderColor: CustomColors.deepGrey,
-                          child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
-                        ),
-                      )
-                  )
-                ],
+        body: SafeArea(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: totalHeight / 1.2,
+                child: Column(
+                  children: [
+                    Expanded(flex: 6,
+                        child: PageView.builder(
+                            controller: pageController,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: pages.length,
+                            itemBuilder: (context, i){
+                              return pages[i];
+                            }
+                        )
+                    ),
+                    // 다음 버튼
+                    Expanded(
+                        child: GestureDetector(
+                          onTap: (){
+                            store.nextHandle();
+                            if(store.toNext){
+                              toUpdatePage(PageState.Next);
+                            }
+                          },
+                          child: const CustomButtonLayout(
+                            margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                            width: double.infinity,
+                            borderColor: CustomColors.deepGrey,
+                            child: Center(child: Text('다음',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
+                          ),
+                        )
+                    )
+                  ],
+                ),
               ),
-            ),
-          )
+            )
+        ),
       ),
     );
   }
