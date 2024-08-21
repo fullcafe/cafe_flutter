@@ -64,10 +64,16 @@ class _AfterLoginState extends State<AfterLogin> {
                     // 다음 버튼
                     Expanded(
                         child: GestureDetector(
-                          onTap: (){
-                            store.nextHandle();
+                          onTap: () async {
+                            // To do 처리
+                            await store.nextHandle();
+                            // 조건을 만족하면 다음
                             if(store.toNext){
                               toUpdatePage(PageState.Next);
+                            }
+                            // 조건을 만족하면 페이지 넘김
+                            if(store.isComplete){
+                              Navigator.pushNamedAndRemoveUntil(context, '/main',ModalRoute.withName('/'));
                             }
                           },
                           child: const CustomButtonLayout(

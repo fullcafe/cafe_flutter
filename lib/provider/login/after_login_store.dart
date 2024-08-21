@@ -16,6 +16,7 @@ class AfterLoginStore with ChangeNotifier {
   DateTime? _birth;
   int? _characterIdx;
   bool _toNext = true; // 다음으로 갈 수 있는지 여부
+  bool _isComplete = false;
 
   // 키워드 선택 정보
   final List<List<bool>> _isSelected = [
@@ -35,6 +36,7 @@ class AfterLoginStore with ChangeNotifier {
   int get currentIdx => _currentPage * 2;
   String get name => _name;
   bool get toNext => _toNext;
+  bool get isComplete => _isComplete;
   DateTime? get birth => _birth;
   int? get characterIdx => _characterIdx;
   TextEditingController get controller => _controller;
@@ -96,8 +98,14 @@ class AfterLoginStore with ChangeNotifier {
     notifyListeners();
   }
 
+  postUserData() async {
+    await Future.delayed(Duration(seconds: 2));
+    _isComplete = true;
+    notifyListeners();
+  }
+
   // 현재 페이지에 따라 다음버튼 로직이 달라짐
-  nextHandle(){
+  nextHandle() async {
     switch (_currentPage) {
       case 0:
         addUserName();
@@ -105,6 +113,8 @@ class AfterLoginStore with ChangeNotifier {
         checkBirthDate();
       case 3:
         setCharacter();
+      case 4:
+        await postUserData();
     }
   }
 
