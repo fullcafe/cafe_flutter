@@ -14,7 +14,20 @@ class AfterLoginStore with ChangeNotifier {
   TextEditingController _controller = TextEditingController();
   String _name = '';
   DateTime? _birth;
+  int? _characterIdx;
   bool _toNext = true; // 다음으로 갈 수 있는지 여부
+
+  // 키워드 선택 정보
+  final List<List<bool>> _isSelected = [
+    List.generate(4, (i) =>false),
+    List.generate(3, (i) =>false),
+    List.generate(3, (i) =>false),
+    List.generate(3, (i) =>false),
+    List.generate(4, (i) =>false),
+    List.generate(3, (i) =>false)
+  ];
+
+  final List<int> _scores = [0,0,0,0]; // 카공 감성 실용 미식
 
   GlobalKey<FormState> get key => _key;
 
@@ -23,7 +36,12 @@ class AfterLoginStore with ChangeNotifier {
   String get name => _name;
   bool get toNext => _toNext;
   DateTime? get birth => _birth;
+  int? get characterIdx => _characterIdx;
   TextEditingController get controller => _controller;
+
+
+  List<List<bool>> get isSelected => _isSelected;
+  List<int> get scores => _scores;
 
   updateCurrentPage(PageState state){
     if(state == PageState.Next){
@@ -65,6 +83,19 @@ class AfterLoginStore with ChangeNotifier {
     notifyListeners();
   }
 
+  setCharacter(){
+    int maxValue = 0;
+    int maxIdx = 0;
+    for(int i = 0; i < _scores.length; i++){
+      if(_scores[i] > maxValue){
+        maxValue = _scores[i];
+        maxIdx = i;
+      }
+    }
+    _characterIdx = maxIdx;
+    notifyListeners();
+  }
+
   // 현재 페이지에 따라 다음버튼 로직이 달라짐
   nextHandle(){
     switch (_currentPage) {
@@ -72,8 +103,8 @@ class AfterLoginStore with ChangeNotifier {
         addUserName();
       case 1:
         checkBirthDate();
-      case > 1:
-        print('No Todo');
+      case 3:
+        setCharacter();
     }
   }
 

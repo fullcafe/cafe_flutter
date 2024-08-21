@@ -24,13 +24,13 @@ class _SetCafeStylePageState extends State<SetCafeStylePage> {
     ['단체석이 있는','의자가 편한','경치가 좋은']
   ];
 
-  final List<List<bool>> _isSelected = [
-    List.generate(4, (i) =>false),
-    List.generate(3, (i) =>false),
-    List.generate(3, (i) =>false),
-    List.generate(3, (i) =>false),
-    List.generate(4, (i) =>false),
-    List.generate(3, (i) =>false)
+  final List<List<int>> _scoreMapping = [
+    [3, 2, 1, 1],
+    [0, 2, 0],
+    [1, 2, 3],
+    [1, 1, 1],
+    [3, 3, 3, 3],
+    [2, 2, 1]
   ];
 
   @override
@@ -65,18 +65,24 @@ class _SetCafeStylePageState extends State<SetCafeStylePage> {
                     children: List.generate(_keywords[i].length, (kIdx){
                       return GestureDetector(
                         onTap: (){
+                          var scoreIdx = _scoreMapping[i][kIdx];
                           setState(() {
-                            _isSelected[i][kIdx] = !_isSelected[i][kIdx];
+                            store.isSelected[i][kIdx] = !store.isSelected[i][kIdx];
+                            if(store.isSelected[i][kIdx]){
+                              store.scores[scoreIdx]++;
+                            } else {
+                              store.scores[scoreIdx]--;
+                            }
                           });
                         },
                         child: CustomButtonLayout(
                           height: double.infinity,
-                          borderColor: _isSelected[i][kIdx]? Colors.black : Colors.grey,
+                          borderColor: store.isSelected[i][kIdx]? Colors.black : Colors.grey,
                           child: Container(
                               margin: const EdgeInsets.all(10),
                               child: Center(child: Text(_keywords[i][kIdx],
                                 style: TextStyle(fontWeight: FontWeight.bold,
-                                  color: _isSelected[i][kIdx]? Colors.black : Colors.grey,),))),
+                                  color: store.isSelected[i][kIdx]? Colors.black : Colors.grey,),))),
                         ),
                       );
                     }),
