@@ -1,4 +1,7 @@
+import 'package:cafe_front/services/user_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 /*
   로그인 하고 난 후 나오는 5개 페이지의 공유 스토어
@@ -8,6 +11,8 @@ import 'package:flutter/material.dart';
 enum PageState {Next, Prev}
 
 class AfterLoginStore with ChangeNotifier {
+
+  UserService userService = UserService();
 
   int _currentPage = 0;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -99,9 +104,19 @@ class AfterLoginStore with ChangeNotifier {
   }
 
   postUserData() async {
-    await Future.delayed(Duration(seconds: 2));
-    _isComplete = true;
-    notifyListeners();
+    try{
+      await userService.createUser(_name, _birth!, _characterIdx!);
+      _isComplete = true;
+      notifyListeners();
+    } on DioException catch(e){
+      if(e.response?.statusCode == 403){
+        Fluttertoast.showToast(msg: '인증이 유효하지 않습니다.');
+      } else if(e.response?.statusCode == 400){
+        Fluttertoast.showToast(msg: '입력 형식이 잘못 되었습니다.');
+      }
+    } catch(e){
+      Fluttertoast.showToast(msg: '요청에 실패하였습니다.');
+    }
   }
 
   // 현재 페이지에 따라 다음버튼 로직이 달라짐
