@@ -27,7 +27,7 @@ class SetCharacterPage extends StatelessWidget {
               ),
             ],
           )),
-          Expanded(flex:3,child: Container(color: Colors.red,)),
+          Expanded(flex:3,child: Container(color: Colors.red,child: Text('${store.characterIdx}'),)),
         ],
       ),
     );
