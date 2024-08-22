@@ -8,11 +8,13 @@ class OnBoardingLayout extends StatelessWidget {
     Key? key,
     this.title = '',
     this.description = '',
+    this.currentIdx = 0,
     this.buttonName = '다음',
     this.onTap
   }) : super(key: key);
   final String title;
   final String description;
+  final int currentIdx;
   final String buttonName;
   final void Function()? onTap;
 
@@ -42,7 +44,7 @@ class OnBoardingLayout extends StatelessWidget {
             ),
         ),
         Expanded(
-            child: FourDotsIndicator()
+            child: FourDotsIndicator(currentIdx: currentIdx,)
         ),
         Flexible(child: Align(alignment: Alignment.bottomCenter,
             child: GestureDetector(

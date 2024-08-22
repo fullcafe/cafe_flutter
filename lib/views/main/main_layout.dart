@@ -1,7 +1,5 @@
-import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
-import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -36,7 +34,9 @@ class _MainLayoutState extends State<MainLayout> {
   onBoarding() async {
     _getUser();
     // 프레임 바인딩 후 실행
-    SchedulerBinding.instance.addPostFrameCallback((_){
+    SchedulerBinding.instance.addPostFrameCallback((_) async{
+      // 유저 정보 가져오는 딜레이
+      await Future.delayed(const Duration(milliseconds: 300));
       if(!isChecked) {
         showCupertinoModalPopup(
             barrierDismissible: false,
@@ -63,6 +63,7 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var controller = PageController();
+    var user = UserStore.user;
     return Container(
       height: size.height * 0.7,
       width: double.infinity,
@@ -91,12 +92,37 @@ class OnBoarding extends StatelessWidget {
                 children: [
                   OnBoardingLayout(
                     onTap: (){
-                      controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
                     },
                     title: '홈',
-                    description: '   ##님의 카페 취향 분석과\n분위기에 맞는 카페를 추천드려요',
+                    description: '  ${user?.name}님의 카페 취향 분석과\n분위기에 맞는 카페를 추천드려요',
                   ),
-                  OnBoardingLayout(),
+                  OnBoardingLayout(
+                    onTap: (){
+                      controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+                    },
+                    title: '검색',
+                    description: '키워드 추천 기능과 검색 필터 기능으로\n${user?.name}님이 원하시는 카페를 찾아드려요',
+                    currentIdx: 2,
+                  ),
+                  OnBoardingLayout(
+                    onTap: (){
+                      controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
+                    },
+                    title: '커뮤니티',
+                    description: '친구들과 취향이 비슷한 사람들이\n   방문한 카페를 확인해보세요',
+                    currentIdx: 4,
+                  ),
+                  OnBoardingLayout(
+                    onTap: (){
+                      // 체크 여부를 true로 변경 해야 함
+                      Navigator.pop(context);
+                    },
+                    title: '마이페이지',
+                    description: '친구들과 취향이 비슷한 사람들이\n   방문한 카페를 확인해보세요',
+                    currentIdx: 6,
+                    buttonName: '완료',
+                  ),
                 ],
               ),
             ),
