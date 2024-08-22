@@ -12,8 +12,6 @@ enum PageState {Next, Prev}
 
 class AfterLoginStore with ChangeNotifier {
 
-  UserService userService = UserService();
-
   int _currentPage = 0;
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   TextEditingController _controller = TextEditingController();
@@ -104,6 +102,7 @@ class AfterLoginStore with ChangeNotifier {
   }
 
   postUserData() async {
+    UserService userService = await UserService.getService();
     try{
       await userService.createUser(_name, _birth!, _characterIdx!);
       _isComplete = true;
