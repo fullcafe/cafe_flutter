@@ -1,9 +1,11 @@
 import 'package:cafe_front/constants/routes.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'constants/colors.dart';
 import 'firebase_options.dart';
 
@@ -59,8 +61,17 @@ Future<String> _checkUserCredential() async {
   try{
     var response = await userService.getUser();
     return '/main';
+  } on DioException catch(e){
+    // 없어서 못 가져옴
+    if(e.response?.statusCode == 404) {
+      return '/after';
+    }
+    Fluttertoast.showToast(msg: e.response?.statusMessage ?? '정보를 가져오는데 실패하였습니다.');
+    return '/login';
   } catch(e){
-    return '/after';
+    // 그외 예외
+    Fluttertoast.showToast(msg: '정보를 가져오는데 실패하였습니다.');
+    return '/login';
   }
 }
 

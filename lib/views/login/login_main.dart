@@ -1,5 +1,6 @@
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -112,8 +113,17 @@ class LoginMain extends StatelessWidget {
     try{
       var response = await userService.getUser();
       return '/main';
+    } on DioException catch(e){
+      // 없어서 못 가져옴
+      if(e.response?.statusCode == 404) {
+        return '/after';
+      }
+      Fluttertoast.showToast(msg: e.response?.statusMessage ?? '정보를 가져오는데 실패하였습니다.');
+      return '/login';
     } catch(e){
-      return '/after';
+      // 그외 예외
+      Fluttertoast.showToast(msg: '정보를 가져오는데 실패하였습니다.');
+      return '/login';
     }
   }
 
