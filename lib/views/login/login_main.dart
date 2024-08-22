@@ -1,3 +1,4 @@
+import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -55,8 +56,10 @@ class LoginMain extends StatelessWidget {
                       onTap: () async{
                         try{
                           await signInWithGoogle();
+
+                          var nextPage= await _checkUserCredential();
                           // 로그인 후 유저가 등록 되었느냐에 따라 이동하는 페이지가 다름
-                          Navigator.pushNamedAndRemoveUntil(context, '/after',ModalRoute.withName('/'));
+                          Navigator.pushNamedAndRemoveUntil(context, nextPage,ModalRoute.withName('/'));
                         } catch(e){
                           Fluttertoast.showToast(msg: '로그인 실패');
                         }
@@ -102,6 +105,16 @@ class LoginMain extends StatelessWidget {
 
     // UserCredential 리턴
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<String> _checkUserCredential() async {
+    UserService userService = await UserService.getService();
+    try{
+      var response = await userService.getUser();
+      return '/main';
+    } catch(e){
+      return '/after';
+    }
   }
 
 }

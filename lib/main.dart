@@ -1,4 +1,5 @@
 import 'package:cafe_front/constants/routes.dart';
+import 'package:cafe_front/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +14,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // 유저 여부
-  bool hasUser = false;
   // 리스너 설정
   FirebaseAuth.instance
       .authStateChanges()
@@ -23,15 +22,15 @@ void main() async {
       print('User is currently signed out!');
     } else {
       print('User is signed in!');
-      hasUser = true;
     }
   });
-  // 리스너가 한 번 실행 될 때까지 딜레이
-  await Future.delayed(const Duration(milliseconds: 500));
+
+  // 유저 정보 확인
+  var initRoute = await _checkUserCredential();
 
   runApp(MaterialApp(
       theme: getMyAppTheme(),
-      initialRoute: hasUser? '/after' : '/login',
+      initialRoute: initRoute,
       routes: routes,
   ));
   // 스플래시 종료
@@ -48,6 +47,20 @@ class MyApp extends StatelessWidget {
     return Scaffold(
       body: Text('data'),
     );
+  }
+}
+
+Future<String> _checkUserCredential() async {
+  var user = FirebaseAuth.instance.currentUser;
+  if(user == null) {
+    return '/login';
+  }
+  UserService userService = await UserService.getService();
+  try{
+    var response = await userService.getUser();
+    return '/main';
+  } catch(e){
+    return '/after';
   }
 }
 
