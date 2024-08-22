@@ -1,9 +1,11 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({Key? key}) : super(key: key);
@@ -22,7 +24,17 @@ class _MainLayoutState extends State<MainLayout> {
     onBoarding();
   }
 
+  _getUser() async {
+    var userService = await UserService.getService();
+    try{
+      await userService.initializeUser();
+    } catch(e){
+      Fluttertoast.showToast(msg: '유저 정보를 불러오는데 실패하였습니다.');
+    }
+  }
+
   onBoarding() async {
+    _getUser();
     // 프레임 바인딩 후 실행
     SchedulerBinding.instance.addPostFrameCallback((_){
       if(!isChecked) {
