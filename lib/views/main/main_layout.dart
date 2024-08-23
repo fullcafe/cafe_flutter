@@ -1,5 +1,11 @@
+import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/views/main/community_page.dart';
+import 'package:cafe_front/views/main/home_page.dart';
+import 'package:cafe_front/views/main/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
+import 'package:cafe_front/views/main/search_page.dart';
+import 'package:cafe_front/widgets/bottom/custom_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,6 +22,9 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
 
   bool isChecked = false;
+  Index index = Index();
+
+  List pages = [HomePage(), SearchPage(), CommunityPage(), MyPage()];
 
   @override
   void initState() {
@@ -59,7 +68,14 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Text('메인')),
+      body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(child: Container(child: pages[index.idx],)),
+              CustomBottomNavigationBar(index: index,parent: this,),
+            ],
+          ),
+      ),
     );
   }
 }
@@ -140,5 +156,10 @@ class OnBoarding extends StatelessWidget {
       ),
     );
   }
+}
+
+// 인덱스 참조용 클래스
+class Index {
+  int idx = 0;
 }
 
