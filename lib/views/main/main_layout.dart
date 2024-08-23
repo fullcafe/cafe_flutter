@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
     super.initState();
+    _getUser();
+    _getInitData();
     onBoarding();
   }
 
@@ -31,8 +34,13 @@ class _MainLayoutState extends State<MainLayout> {
     }
   }
 
+  _getInitData() async {
+    var pref = await SharedPreferences.getInstance();
+    bool? checked = pref.getBool('checked');
+    isChecked = checked ?? false;
+  }
+
   onBoarding() async {
-    _getUser();
     // 프레임 바인딩 후 실행
     SchedulerBinding.instance.addPostFrameCallback((_) async{
       // 유저 정보 가져오는 딜레이
@@ -114,8 +122,9 @@ class OnBoarding extends StatelessWidget {
                     currentIdx: 4,
                   ),
                   OnBoardingLayout(
-                    onTap: (){
-                      // 체크 여부를 true로 변경 해야 함
+                    onTap: () async {
+                      var pref = await SharedPreferences.getInstance();
+                      await pref.setBool('checked', true); // 체크 여부를 true로 변경
                       Navigator.pop(context);
                     },
                     title: '마이페이지',
