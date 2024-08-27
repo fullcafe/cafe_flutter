@@ -1,3 +1,4 @@
+import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
 class MyPage extends StatelessWidget {
@@ -5,6 +6,10 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('마이페이지');
+    return Column(
+      children: [
+        LogoAppBar(),
+      ],
+    );
   }
 }

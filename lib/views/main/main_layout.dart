@@ -1,8 +1,7 @@
-import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/community_page.dart';
 import 'package:cafe_front/views/main/home_page.dart';
-import 'package:cafe_front/views/main/my_page.dart';
+import 'package:cafe_front/views/main/my/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
 import 'package:cafe_front/views/main/search_page.dart';
 import 'package:cafe_front/widgets/bottom/custom_bottom_navigation_bar.dart';
