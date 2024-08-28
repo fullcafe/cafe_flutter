@@ -327,7 +327,7 @@ class CharacterKeyWordBox extends StatelessWidget {
       height: 40,
       child: Center(child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(text,style: const TextStyle(fontSize: 13),),
+        child: Text(text,style: const TextStyle(fontSize: 13,fontWeight: FontWeight.w600),),
       )),
     );
   }
