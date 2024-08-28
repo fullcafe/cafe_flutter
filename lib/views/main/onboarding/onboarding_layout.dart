@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 class OnBoardingLayout extends StatelessWidget {
   const OnBoardingLayout({
     Key? key,
+    required this.imageLink,
     this.title = '',
     this.description = '',
     this.currentIdx = 0,
     this.buttonName = '다음',
     this.onTap
   }) : super(key: key);
+  final String imageLink;
   final String title;
   final String description;
   final int currentIdx;
@@ -23,7 +25,7 @@ class OnBoardingLayout extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(flex: 2,child: Container(height: 30,color: Colors.red,)),
+        Flexible(flex: 2,child: Container(width: 250,child: Image.asset(imageLink),)),
         Expanded(flex: 2,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -117,6 +117,7 @@ class OnBoarding extends StatelessWidget {
                     onTap: (){
                       controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
                     },
+                    imageLink: 'assets/onboarding/home.png',
                     title: '홈',
                     description: '  ${user?.name}님의 카페 취향 분석과\n분위기에 맞는 카페를 추천드려요',
                   ),
@@ -124,6 +125,7 @@ class OnBoarding extends StatelessWidget {
                     onTap: (){
                       controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
                     },
+                    imageLink: 'assets/onboarding/search.png',
                     title: '검색',
                     description: '키워드 추천 기능과 검색 필터 기능으로\n${user?.name}님이 원하시는 카페를 찾아드려요',
                     currentIdx: 2,
@@ -132,6 +134,7 @@ class OnBoarding extends StatelessWidget {
                     onTap: (){
                       controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
                     },
+                    imageLink: 'assets/onboarding/community.png',
                     title: '커뮤니티',
                     description: '친구들과 취향이 비슷한 사람들이\n   방문한 카페를 확인해보세요',
                     currentIdx: 4,
@@ -142,8 +145,9 @@ class OnBoarding extends StatelessWidget {
                       await pref.setBool('checked', true); // 체크 여부를 true로 변경
                       Navigator.pop(context);
                     },
+                    imageLink: 'assets/onboarding/my.png',
                     title: '마이페이지',
-                    description: '친구들과 취향이 비슷한 사람들이\n   방문한 카페를 확인해보세요',
+                    description: '나의 카페 취향 분석과 저장한 카페 목록,\n   카페 쿠폰들을 모아 확인하세요.',
                     currentIdx: 6,
                     buttonName: '완료',
                   ),
