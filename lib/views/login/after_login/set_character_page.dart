@@ -1,3 +1,4 @@
+import 'package:cafe_front/constants/characters.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +28,14 @@ class SetCharacterPage extends StatelessWidget {
               ),
             ],
           )),
-          Expanded(flex:3,child: Container(color: Colors.red,child: Text('${store.characterIdx}'),)),
+          Expanded(flex:3,child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: CustomColors.orange,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.asset(characterList[store.characterIdx ?? 0]),
+          )),
         ],
       ),
     );

@@ -11,3 +11,10 @@ final characterCards = [
   'assets/characters/sil_card.png',
   'assets/characters/mi_card.png',
 ];
+
+final characterList = [
+  'assets/characters/cagong.png',
+  'assets/characters/gamsung.png',
+  'assets/characters/silyong.png',
+  'assets/characters/misik.png',
+];
