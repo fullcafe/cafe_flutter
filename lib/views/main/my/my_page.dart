@@ -1,7 +1,10 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/views/main/my/my_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -63,15 +66,23 @@ class MyPage extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Container(
-                              width: 70,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 30,child: Image.asset('assets/icons/pencil.png')),
-                                  SizedBox(height: 10,),
-                                  Text('내 리뷰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                                ],
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangeNotifierProvider(
+                                  create: (context) => MyReviewStore(),
+                                  child: const MyReviewPage(),
+                                )));
+                              },
+                              child: SizedBox(
+                                width: 70,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 30,child: Image.asset('assets/icons/pencil.png')),
+                                    const SizedBox(height: 10,),
+                                    Text('내 리뷰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
