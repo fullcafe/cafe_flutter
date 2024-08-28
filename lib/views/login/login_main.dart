@@ -19,7 +19,15 @@ class LoginMain extends StatelessWidget {
             Expanded(flex: 7,child: Container(
               child: Column(
                 children: [
-                  Expanded(child: Container()),
+                  Expanded(
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          width: 60,
+                          child: Image.asset('assets/logos/main_logo.png')
+                    )),
+                  ),
                   const Expanded(child:
                   Text('당신의 입맛과 취향을\n     저격할 카페를\n   추천해드릴게요.',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),)
                   )
