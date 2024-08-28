@@ -2,6 +2,7 @@ import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
@@ -282,7 +283,7 @@ class MyPage extends StatelessWidget {
                             const Divider(color: Colors.black,thickness: 1.5,),
                             Expanded(child: GestureDetector(
                               onTap: (){
-                                print('자세한 내취향 어쩌구');
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyFavorPage()));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
