@@ -1,8 +1,10 @@
+import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
+import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +14,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalSize = MediaQuery.of(context).size;
+
     return Column(
       children: [
         const LogoAppBar(),
@@ -29,7 +32,7 @@ class MyPage extends StatelessWidget {
                       children: [
                         Expanded(child: Row(
                           children: [
-                            CircleAvatar(radius: 40,),
+                            SizedBox(width: 60,child: Image.asset(characterIcons[UserStore.user?.characterIdx ?? 0])),
                             const SizedBox(width: 10,),
                             Expanded(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,9 +261,24 @@ class MyPage extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Expanded(flex: 4,child: Container()),
-                            Expanded(flex: 2,child: Text('아기자기한 카페를 좋아하고\n카페 공부를 좋아하는 대학생(임시)',
+                            Expanded(flex: 4,child: Container(
+                              margin: const EdgeInsets.all(10),
+                              child: Image.asset(characterCards[UserStore.user?.characterIdx ?? 0]),
+                            )),
+                            // 캐릭터 따라 문구 변경
+                            Expanded(child: Text('아기자기한 카페를 좋아하고\n카페 공부를 좋아하는 대학생',
                               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
+                            Expanded(child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  CharacterKeyWordBox(text: '#카공'),
+                                  CharacterKeyWordBox(text: '#테라스'),
+                                  CharacterKeyWordBox(text: '#넓은 공간'),
+                                  CharacterKeyWordBox(text: '#맛있는디저트'),
+                                ],
+                              ),
+                            )),
                             const Divider(color: Colors.black,thickness: 1.5,),
                             Expanded(child: GestureDetector(
                               onTap: (){
@@ -292,6 +310,25 @@ class MyPage extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class CharacterKeyWordBox extends StatelessWidget {
+  const CharacterKeyWordBox({
+    Key? key,
+    required this.text
+  }) : super(key: key);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomButtonLayout(
+      height: 40,
+      child: Center(child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(text,style: const TextStyle(fontSize: 13),),
+      )),
     );
   }
 }
