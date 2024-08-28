@@ -2,8 +2,10 @@ import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/views/main/my/review_filter.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,19 +29,28 @@ class MyReviewPage extends StatelessWidget {
             leading: SizedBox(width: 50,child: Image.asset(characterIcons[UserStore.user?.characterIdx ?? 0])),
             title: Text('${UserStore.user?.name}',style: const TextStyle(fontWeight: FontWeight.bold),),
             subtitle: Text('블라블라',style: TextStyle(color: CustomColors.deepGrey),), // 여기도 캐릭터 따라 변경
-            trailing: Container(
-              width: 90,
-              height: 30,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.swap_vert,color: Colors.white,),
-                  Text('전체·최신순',style: TextStyle(color: Colors.white,fontSize: 12),)
-                ],
+            trailing: GestureDetector(
+              onTap: (){
+                showCupertinoModalPopup(
+                    context: context,
+                    builder: (context){
+                      return ReviewSearchFilter();
+                });
+              },
+              child: Container(
+                width: 90,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.swap_vert,color: Colors.white,),
+                    Text('전체·최신순',style: TextStyle(color: Colors.white,fontSize: 12),)
+                  ],
+                ),
               ),
             ),
           ),
@@ -180,3 +191,4 @@ class ReviewListLayout extends StatelessWidget {
     );
   }
 }
+
