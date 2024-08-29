@@ -16,7 +16,7 @@ class MyReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var store = context.watch<MyReviewStore>();
     // 값 가져올 때 까지 로딩
-    if(store.testValue == null){
+    if(store.myReviews.isEmpty){
       return const Scaffold(
         body: SafeArea(child: Center(child: CircularProgressIndicator())),
       );
@@ -56,11 +56,9 @@ class MyReviewPage extends StatelessWidget {
             ),
           ),
           Expanded(child: ListView(
-            children: [
-              ReviewListLayout(),
-              ReviewListLayout(),
-              ReviewListLayout(),
-            ],
+            children: List.generate(store.myReviews.length,
+                (idx) => ReviewListLayout(idx: idx,)
+            ),
           )),
         ],
       )),
@@ -69,7 +67,11 @@ class MyReviewPage extends StatelessWidget {
 }
 
 class ReviewListLayout extends StatelessWidget {
-  const ReviewListLayout({Key? key}) : super(key: key);
+  const ReviewListLayout({
+    Key? key,
+    required this.idx,
+  }) : super(key: key);
+  final int idx;
 
   @override
   Widget build(BuildContext context) {
