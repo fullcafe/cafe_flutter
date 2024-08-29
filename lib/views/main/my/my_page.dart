@@ -4,6 +4,7 @@ import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
+import 'package:cafe_front/views/main/my/write_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
@@ -119,129 +120,9 @@ class MyPage extends StatelessWidget {
                             height: 10,
                             child: PageView(
                               controller: PageController(viewportFraction: 0.9),
-                              children: [
-                                // 알갱이들 하드하게 코딩
-                                Stack(
-                                  children: [
-                                    Row(
-                                    children: [
-                                      Container(width: 90,color: Colors.black,),
-                                      const SizedBox(width: 10,),
-                                      const Expanded(child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                                          SizedBox(height: 5,),
-                                          Text('서울 노원구 동일로186길 64 상가',style: TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
-                                          SizedBox(height: 5,),
-                                          Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
-                                        ],
-                                      ))
-                                    ],
-                                  ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          print('리뷰쓰기');
-                                        },
-                                        child: Container(
-                                          margin: const EdgeInsets.all(5),
-                                          width: 50,
-                                          height: 70,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(width: 40,child: Image.asset('assets/icons/review_button.png')),
-                                              const SizedBox(height: 5,),
-                                              const Text('리뷰 쓰기',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),)
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(width: 90,color: Colors.black,),
-                                        const SizedBox(width: 10,),
-                                        const Expanded(child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                                            SizedBox(height: 5,),
-                                            Text('서울 노원구 동일로186길 64 상가',style: TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
-                                            SizedBox(height: 5,),
-                                            Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          print('리뷰쓰기');
-                                        },
-                                        child: Container(
-                                          margin: const EdgeInsets.all(5),
-                                          width: 50,
-                                          height: 70,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(width: 40,child: Image.asset('assets/icons/review_button.png')),
-                                              const SizedBox(height: 5,),
-                                              const Text('리뷰 쓰기',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),)
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(width: 90,color: Colors.black,),
-                                        const SizedBox(width: 10,),
-                                        const Expanded(child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                                            SizedBox(height: 5,),
-                                            Text('서울 노원구 동일로186길 64 상가',style: TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
-                                            SizedBox(height: 5,),
-                                            Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
-                                          ],
-                                        ))
-                                      ],
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: (){
-                                          print('리뷰쓰기');
-                                        },
-                                        child: Container(
-                                          margin: const EdgeInsets.all(5),
-                                          width: 50,
-                                          height: 70,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(width: 40,child: Image.asset('assets/icons/review_button.png')),
-                                              const SizedBox(height: 5,),
-                                              const Text('리뷰 쓰기',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),)
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              children: List.generate(3,
+                                      (idx)=> RecentVisitCafeLayout(idx: idx,)
+                              ),
                             ),
                           ),
                         )
@@ -333,3 +214,57 @@ class CharacterKeyWordBox extends StatelessWidget {
     );
   }
 }
+
+class RecentVisitCafeLayout extends StatelessWidget {
+  const RecentVisitCafeLayout({
+    Key? key,
+    required this.idx,
+  }) : super(key: key);
+  final int idx;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Row(
+          children: [
+            Container(width: 90,color: Colors.black,),
+            const SizedBox(width: 10,),
+            const Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                SizedBox(height: 5,),
+                Text('서울 노원구 동일로186길 64 상가',style: TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
+                SizedBox(height: 5,),
+                Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
+              ],
+            ))
+          ],
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: GestureDetector(
+            onTap: (){
+              print(idx);
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const WriteReviewPage()));
+            },
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              width: 50,
+              height: 70,
+              child: Column(
+                children: [
+                  SizedBox(width: 40,child: Image.asset('assets/icons/review_button.png')),
+                  const SizedBox(height: 5,),
+                  const Text('리뷰 쓰기',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),)
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
