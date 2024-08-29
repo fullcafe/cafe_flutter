@@ -1,5 +1,6 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/my/my_favor_store.dart';
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
@@ -169,7 +170,12 @@ class MyPage extends StatelessWidget {
                             const Divider(color: Colors.black,thickness: 1.5,),
                             Expanded(child: GestureDetector(
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyFavorPage()));
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context)=> ChangeNotifierProvider(
+                                        create: (context) => MyFavorStore(),
+                                        child: const MyFavorPage()
+                                    )
+                                ));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
