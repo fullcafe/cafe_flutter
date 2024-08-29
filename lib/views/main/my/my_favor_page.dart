@@ -12,6 +12,21 @@ class MyFavorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     const commonStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+
+    const characterFavors = [
+      'assets/characters/ca_favor.png',
+      'assets/characters/gam_favor.png',
+      'assets/characters/sil_favor.png',
+      'assets/characters/mi_favor.png',
+    ];
+
+    const characterDescriptions = [
+      'assets/characters/descriptions/ca.png',
+      'assets/characters/descriptions/gam.png',
+      'assets/characters/descriptions/sil.png',
+      'assets/characters/descriptions/mi.png',
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -19,7 +34,7 @@ class MyFavorPage extends StatelessWidget {
             const BackButtonAppBar(text: '카페 취향 분석',),
             Expanded(child: SingleChildScrollView(
               child: Container(
-                height: size.height * 2.4,
+                height: size.height * 2.2,
                 width: double.infinity,
                 margin: const EdgeInsets.all(10),
                 child: Column(
@@ -39,13 +54,13 @@ class MyFavorPage extends StatelessWidget {
                       // fit: BoxFit.fill,)),
                     ),
                     Center(
-                      child: Text('아기자기한 카페를 좋아하고\n카페 공부를 좋아하는 대학생',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                      child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                     ),
                     const SizedBox(height: 60,),
                     // 문구
-                    Text('공부는 카페에서 해야하는 당신',
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                    Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       height: 320,
@@ -78,43 +93,21 @@ class MyFavorPage extends StatelessWidget {
                           Container(
                               margin: const EdgeInsets.symmetric(horizontal: 10),
                               width: 100,
-                              child: Image.asset(characterFavors[UserStore.user?.characterIdx ?? 0])),
+                              child: Image.asset(characterFavors[
+                              (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
+                              ])),
                           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                            Text('감성이',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                              SizedBox(height: 10,),
-                            Text('카페에서 도란도란 대화 메이트',style: commonStyle,),
-                              SizedBox(height: 5,),
-                            Text('분좋카에서 커피 한잔의 여유',style: commonStyle,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
+                              style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                              const SizedBox(height: 10,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
+                              const SizedBox(height: 5,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
                           ],))
                         ],
                       ),
                     ),
-                    const SizedBox(height: 60,),
-                    // 취향
-                    const Text('취향을 맞춰 나가자',
-                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                    Container(
-                      height: 120,
-                      //color: Colors.blue,
-                      child: Row(
-                        children: [
-                          Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              width: 100,
-                              child: Image.asset(characterFavors[UserStore.user?.characterIdx ?? 0])),
-                          Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('실용이',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                              SizedBox(height: 10,),
-                              Text('카페에서 도란도란 대화 메이트',style: commonStyle,),
-                              SizedBox(height: 5,),
-                              Text('분좋카에서 커피 한잔의 여유',style: commonStyle,),
-                            ],))
-                        ],
-                      ),
-                    ),
-                    
                   ],
                 ),
               ),
