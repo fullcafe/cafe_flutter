@@ -267,8 +267,8 @@ class MyPage extends StatelessWidget {
                               child: Image.asset(characterCards[UserStore.user?.characterIdx ?? 0]),
                             )),
                             // 캐릭터 따라 문구 변경
-                            Expanded(child: Text('아기자기한 카페를 좋아하고\n카페 공부를 좋아하는 대학생',
-                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
+                            Expanded(child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                              style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),)),
                             Expanded(child: Container(
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

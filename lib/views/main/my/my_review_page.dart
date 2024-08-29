@@ -28,13 +28,14 @@ class MyReviewPage extends StatelessWidget {
           ListTile(
             leading: SizedBox(width: 50,child: Image.asset(characterIcons[UserStore.user?.characterIdx ?? 0])),
             title: Text('${UserStore.user?.name}',style: const TextStyle(fontWeight: FontWeight.bold),),
-            subtitle: Text('블라블라',style: TextStyle(color: CustomColors.deepGrey),), // 여기도 캐릭터 따라 변경
+            subtitle: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['subtitle'].toString(),
+              style: const TextStyle(color: CustomColors.deepGrey),), // 여기도 캐릭터 따라 변경
             trailing: GestureDetector(
               onTap: (){
                 showCupertinoModalPopup(
                     context: context,
                     builder: (context){
-                      return ReviewSearchFilter();
+                      return const ReviewSearchFilter();
                 });
               },
               child: Container(
