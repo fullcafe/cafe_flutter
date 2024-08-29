@@ -1,3 +1,4 @@
+import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/community_page.dart';
 import 'package:cafe_front/views/main/home_page.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainLayout extends StatefulWidget {
@@ -23,7 +25,15 @@ class _MainLayoutState extends State<MainLayout> {
   bool isChecked = false;
   Index index = Index();
 
-  List pages = [HomePage(), SearchPage(), CommunityPage(), MyPage()];
+  List pages = [
+    HomePage(),
+    SearchPage(),
+    CommunityPage(),
+    ChangeNotifierProvider(
+        create: (BuildContext context) => MyPageStore(),
+        child: const MyPage()
+    )
+  ];
 
   @override
   void initState() {

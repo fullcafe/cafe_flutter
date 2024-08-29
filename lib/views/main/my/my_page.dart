@@ -1,5 +1,7 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/my/my_favor_store.dart';
+import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
@@ -16,6 +18,7 @@ class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalSize = MediaQuery.of(context).size;
+    final store = context.watch<MyPageStore>();
 
     return Column(
       children: [
@@ -110,6 +113,7 @@ class MyPage extends StatelessWidget {
                   // 중단
                   SizedBox(
                     height: 150,
+                    width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -118,9 +122,11 @@ class MyPage extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             height: 10,
-                            child: PageView(
+                            child: store.recentlyVisitCafeList.isEmpty?
+                            const Text('최근 방문한 카페가 없습니다',style: TextStyle(fontSize: 15),) :
+                            PageView(
                               controller: PageController(viewportFraction: 0.9),
-                              children: List.generate(3,
+                              children: List.generate(store.recentlyVisitCafeList.length,
                                       (idx)=> RecentVisitCafeLayout(idx: idx,)
                               ),
                             ),
@@ -164,7 +170,12 @@ class MyPage extends StatelessWidget {
                             const Divider(color: Colors.black,thickness: 1.5,),
                             Expanded(child: GestureDetector(
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyFavorPage()));
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context)=> ChangeNotifierProvider(
+                                        create: (context) => MyFavorStore(),
+                                        child: const MyFavorPage()
+                                    )
+                                ));
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
