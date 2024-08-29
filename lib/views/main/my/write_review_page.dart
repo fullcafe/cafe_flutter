@@ -12,6 +12,7 @@ class WriteReviewPage extends StatefulWidget {
 
 class _WriteReviewPageState extends State<WriteReviewPage> {
 
+  String? testValue;
   var numOfStar = 0;
   var whoList = [
     {
@@ -109,9 +110,28 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    getCafeInfo();
+  }
+
+  getCafeInfo() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {
+      testValue = '';
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     const titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 20);
+
+    if(testValue == null){
+      return const Scaffold(
+        body: SafeArea(child: Center(child: CircularProgressIndicator())),
+      );
+    }
 
     return Scaffold(
       body: SafeArea(
