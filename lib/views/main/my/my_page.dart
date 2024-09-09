@@ -4,6 +4,7 @@ import 'package:cafe_front/provider/main/my/my_favor_store.dart';
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
 import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
 import 'package:cafe_front/views/main/my/write_review_page.dart';
@@ -11,6 +12,9 @@ import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+
+import 'Visit_Page.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -52,26 +56,44 @@ class MyPage extends StatelessWidget {
                         Expanded(child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 60,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 30,child: Image.asset('assets/icons/coupon.png')),
-                                  SizedBox(height: 10,),
-                                  Text('쿠폰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                                ],
+
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => const CouponPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                                ),
+                                );
+                              },
+                              child: SizedBox(
+                                width: 60,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 30,child: Image.asset('assets/icons/coupon.png')),
+                                    SizedBox(height: 10,),
+                                    Text('쿠폰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                             ),
-                            Container(
-                              width: 120,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(width: 30,child: Image.asset('assets/icons/clock.png')),
-                                  SizedBox(height: 10,),
-                                  Text('방문한 카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                                ],
+
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context, MaterialPageRoute(builder: (context) => const VisitPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                width: 120,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(width: 30,child: Image.asset('assets/icons/clock.png')),
+                                    SizedBox(height: 10,),
+                                    Text('방문한 카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  ],
+                                ),
                               ),
                             ),
                             GestureDetector(
