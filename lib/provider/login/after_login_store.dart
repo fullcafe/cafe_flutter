@@ -88,47 +88,121 @@ class AfterLoginStore with ChangeNotifier {
     notifyListeners();
   }
 
-  setCharacter(){
+  // setCharacter(){
+  //   int maxValue = 0;
+  //   int maxIdx = 0;
+  //   for(int i = 0; i < _scores.length; i++){
+  //     if(_scores[i] > maxValue){
+  //       maxValue = _scores[i];
+  //       maxIdx = i;
+  //     }
+  //   }
+  //   _characterIdx = maxIdx;
+  //   notifyListeners();
+  // }
+  setCharacter() {
+    print('setCharacter 호출됨');
+
     int maxValue = 0;
     int maxIdx = 0;
-    for(int i = 0; i < _scores.length; i++){
-      if(_scores[i] > maxValue){
+
+    for (int i = 0; i < _scores.length; i++) {
+      if (_scores[i] > maxValue) {
         maxValue = _scores[i];
         maxIdx = i;
       }
     }
+
     _characterIdx = maxIdx;
+    print('캐릭터 인덱스 설정됨: $_characterIdx');
     notifyListeners();
   }
 
+  // postUserData() async {
+  //   UserService userService = await UserService.getService();
+  //   try{
+  //     await userService.createUser(_name, _birth!, _characterIdx!);
+  //     _isComplete = true;
+  //     notifyListeners();
+  //   } on DioException catch(e){
+  //     if(e.response?.statusCode == 403){
+  //       Fluttertoast.showToast(msg: '인증이 유효하지 않습니다.');
+  //     } else if(e.response?.statusCode == 400){
+  //       Fluttertoast.showToast(msg: '입력 형식이 잘못 되었습니다.');
+  //     }
+  //   } catch(e){
+  //     Fluttertoast.showToast(msg: '요청에 실패하였습니다.');
+  //   }
+  // }
   postUserData() async {
+    print('postUserData 호출됨');
+
     UserService userService = await UserService.getService();
-    try{
+    try {
+      print('사용자 데이터 전송 중: 이름: $_name, 생일: $_birth, 캐릭터 인덱스: $_characterIdx');
+
+      // 이 부분에서 사용되는 URL 또는 엔드포인트가 올바른지 확인해야 합니다.
       await userService.createUser(_name, _birth!, _characterIdx!);
+
       _isComplete = true;
+      print('사용자 데이터 전송 성공');
       notifyListeners();
-    } on DioException catch(e){
-      if(e.response?.statusCode == 403){
+    } on DioException catch (e) {
+      print('DioException 발생: ${e.toString()}');
+      print(e.response?.data);
+      if (e.response?.statusCode == 404) {
+        Fluttertoast.showToast(msg: '요청한 리소스를 찾을 수 없습니다. URL을 확인하세요.');
+      } else if (e.response?.statusCode == 403) {
         Fluttertoast.showToast(msg: '인증이 유효하지 않습니다.');
-      } else if(e.response?.statusCode == 400){
+      } else if (e.response?.statusCode == 400) {
         Fluttertoast.showToast(msg: '입력 형식이 잘못 되었습니다.');
       }
-    } catch(e){
+
+      _isComplete = false;
+    } catch (e) {
+      print('알 수 없는 오류 발생: ${e.toString()}');
       Fluttertoast.showToast(msg: '요청에 실패하였습니다.');
+      _isComplete = false;
     }
   }
 
+
   // 현재 페이지에 따라 다음버튼 로직이 달라짐
+  // nextHandle() async {
+  //   switch (_currentPage) {
+  //     case 0:
+  //       addUserName();
+  //     case 1:
+  //       checkBirthDate();
+  //     case 3:
+  //       setCharacter();
+  //     case 4:
+  //       await postUserData();
+  //
+  //   }
+  // }
   nextHandle() async {
+    print('nextHandle 호출됨: 현재 페이지 번호 $_currentPage');  // 현재 페이지 번호를 출력
+
     switch (_currentPage) {
       case 0:
+        print('addUserName 호출됨');
         addUserName();
+        break;
       case 1:
+        print('checkBirthDate 호출됨');
         checkBirthDate();
+        break;
       case 3:
+        print('setCharacter 호출됨');
         setCharacter();
+        break;
       case 4:
+        print('postUserData 호출됨');
         await postUserData();
+        break;
+      default:
+        print('nextHandle: 알 수 없는 페이지 $_currentPage');
     }
   }
 
