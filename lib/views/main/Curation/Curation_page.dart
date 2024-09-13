@@ -1,3 +1,4 @@
+import 'package:cafe_front/views/main/Curation/More_Curation_Page.dart';
 import 'package:cafe_front/views/main/Curation/Photo_With_Keyword_Card.dart';
 import 'package:cafe_front/views/main/Curation/recommend_cafe_card.dart';
 import 'package:cafe_front/views/main/Curation/section_title.dart';
@@ -46,6 +47,28 @@ class CurationPage extends StatelessWidget {
                   ),
                 ),
               ),
+              Positioned(
+                bottom: 28,
+                left: 360,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => const MoreCurationPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                    ),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/image_511371.png', // 이미지 경로
+                    width: 48, // 이미지 너비
+                    height: 48, // 이미지 높이
+                  ),
+                ),
+
+              ),
+
+
             ],
           ),
           Padding(
@@ -97,7 +120,7 @@ class CurationPage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 30),
-                const SectionTitle(title: '서진님의 취향저격 카페'),
+                const SectionTitle(title: '이 카페 한 번 더?'),
                 const SizedBox(height: 10),
                 buildHorizontalListView(
                   [

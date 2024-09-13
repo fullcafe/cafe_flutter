@@ -21,9 +21,8 @@ class LogoAppBar extends StatelessWidget {
     );
   }
 }
-
-class BackButtonAppBar extends StatelessWidget {
-  const BackButtonAppBar({
+class OnlyBackButtonAppBar extends StatelessWidget {
+  const OnlyBackButtonAppBar({
     Key? key,
     this.text = '',
     this.isWhite = false,
@@ -36,27 +35,35 @@ class BackButtonAppBar extends StatelessWidget {
     return isWhite?
     SizedBox(
       height: 60,
+
       child: Stack(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0), // 아이콘을 오른쪽으로 더 당김
+                child: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   highlightColor: Colors.transparent,
-                  icon: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
-              const AppBarIconSet(isWhite: true,),
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                ),
+              ),
+              const AppBarIconSet(isWhite: true),
             ],
           ),
           Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),)),
         ],
       ),
     )
+
         :
+
     SizedBox(
       height: 60,
+
       child: Stack(
         children: [
           Row(
@@ -78,6 +85,70 @@ class BackButtonAppBar extends StatelessWidget {
   }
 }
 
+
+class BackButtonAppBar extends StatelessWidget {
+  const BackButtonAppBar({
+    Key? key,
+    this.text = '',
+    this.isWhite = false,
+  }) : super(key: key);
+  final String text;
+  final bool isWhite;
+
+  @override
+  Widget build(BuildContext context) {
+    return isWhite?
+    SizedBox(
+      height: 60,
+
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0), // 아이콘을 오른쪽으로 더 당김
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  highlightColor: Colors.transparent,
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                ),
+              ),
+              const AppBarIconSet(isWhite: true),
+            ],
+          ),
+          Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),)),
+        ],
+      ),
+    )
+
+        :
+
+    SizedBox(
+      height: 60,
+
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  highlightColor: Colors.transparent,
+                  icon: const Icon(Icons.arrow_back_ios)),
+              const AppBarIconSet(),
+            ],
+          ),
+          Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
+        ],
+      ),
+    );
+  }
+}
 class AppBarIconSet extends StatelessWidget {
   const AppBarIconSet({
     Key? key,

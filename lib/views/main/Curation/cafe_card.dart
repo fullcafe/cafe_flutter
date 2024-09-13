@@ -14,8 +14,8 @@ class CafeCard extends StatelessWidget {
     required this.name,
     required this.percentage,
     required this.rating,
-    required this.keyword1, // 첫 번째 키워드 초기화
-    required this.keyword2, // 두 번째 키워드 초기화
+    required this.keyword1,
+    required this.keyword2,
   }) : super(key: key);
 
   @override
@@ -24,8 +24,8 @@ class CafeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 160, // 원하는 너비로 설정
-          height: 190, // 원하는 높이로 설정
+          width: 160,
+          height: 190,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(imagePath),
@@ -39,8 +39,8 @@ class CafeCard extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: Image.asset(
-                  'assets/icons/bookmark_white.png', // 북마크 아이콘 경로 확인
-                  width: 20, // 아이콘 크기 설정
+                  'assets/icons/bookmark_white.png',
+                  width: 20,
                   height: 20,
                 ),
               ),
@@ -68,9 +68,9 @@ class CafeCard extends StatelessWidget {
         Text(
           name,
           style: const TextStyle(
-            fontSize: 16, // 중제목 크기로 조정
-            fontWeight: FontWeight.w600, // 중간 두께 설정 (반볼드)
-            fontFamily: 'Pretendard-SemiBold', // Pretendard 서체에서 SemiBold 사용
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Pretendard-SemiBold',
             color: Color(0xff261b08),
           ),
         ),
