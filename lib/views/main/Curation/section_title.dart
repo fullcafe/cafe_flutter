@@ -1,3 +1,5 @@
+import 'package:cafe_front/views/main/Curation/Cafe_with_Review.dart';
+import 'package:cafe_front/views/main/Curation/More_Curation_Page.dart';
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
@@ -21,9 +23,14 @@ class SectionTitle extends StatelessWidget {
               color: Color(0xff261b08),
             ),
           ),
-
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              // '더보기' 버튼을 눌렀을 때 수행할 동작
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const MoreCurationPage()), // MorePage로 이동
+              // );
+            },
             child: const Text(
               '더보기',
               style: TextStyle(
@@ -37,3 +44,6 @@ class SectionTitle extends StatelessWidget {
     );
   }
 }
+
+
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
-import 'curation_page.dart';
+import 'Curation_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -31,13 +31,11 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
       body: SafeArea(
         child: Column(
           children: [
-            // LogoAppBar를 화면 상단에 배치
             const LogoAppBar(),
-
             // TabBar를 포함한 탭 영역
             Container(
               color: const Color(0xfffafafa),
-              width: double.infinity, // Row가 아니라 전체 너비를 지정합니다.
+              width: double.infinity, // 전체 너비를 지정.
               child: TabBar(
                 controller: _tabController,
                 indicatorColor: Colors.brown,
@@ -57,7 +55,6 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 children: [
                   // "큐레이션" 페이지
                   const CurationPage(),
-
                   // "모임" 페이지
                   Center(
                     child: Text('모임 콘텐츠', style: TextStyle(fontSize: 24)),
