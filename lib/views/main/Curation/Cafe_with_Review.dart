@@ -18,13 +18,13 @@ class CafeWithReviewPage extends StatelessWidget {
           itemCount: 3, // 이미지 개수에 맞게 설정
           separatorBuilder: (context, index) => const SizedBox(width: 8.0), // 이미지 사이 간격 설정
           itemBuilder: (context, index) {
-            return Image.asset('assets/images/Frame 394.png', width: 250, fit: BoxFit.cover);
+            return Image.asset('assets/images/Frame $index.png', width: 250, fit: BoxFit.cover);
           },
         ),
       ),
 
 
-          const SizedBox(height: 10), // 이미지와 텍스트 사이의 간격
+          const SizedBox(height: 5), // 이미지와 텍스트 사이의 간격
           // 카페 이름과 카테고리
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,49 +46,61 @@ class CafeWithReviewPage extends StatelessWidget {
                 ],
               ),
 
-              Image.asset(
-                'assets/images/책갈피 버튼.png', // 버튼에 사용할 이미지 경로
-                width: 48, // 이미지의 너비
-                height: 48, // 이미지의 높이
+              // Image.asset(
+              //   'assets/images/책갈피 버튼.png', // 버튼에 사용할 이미지 경로
+              //   width: 48, // 이미지의 너비
+              //   height: 48, // 이미지의 높이
+              // ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  margin: const EdgeInsets.all(0),
+                  width: 30,
+                  height: 50,
+                  child: Column(
+                    children: [
+                      SizedBox(width: 20,child: Image.asset('assets/icons/bookmark_grey.png')),
+                      Text('1.3k',style:TextStyle(),)
+                    ],
+                  ),
+                ),
               ),
-
             ],
           ),
-          // Row(
-          //   children: [
-          //     _buildCategoryChip('SNS 핫플'),
-          //     _buildCategoryChip('루프탑'),
-          //     _buildCategoryChip('디저트'),
-          //   ],
-          // ),
+
 
           // 카페 정보
           Row(
             crossAxisAlignment: CrossAxisAlignment.baseline, // 텍스트의 기준선으로 정렬
             textBaseline: TextBaseline.alphabetic, // 알파벳 기준선으로 정렬
             children: [
-              Text('영업중', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w700,),),
+              Text('영업중', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w700,),),
               SizedBox(width: 14),
-              Text('서울 종로구 보문로7길 3', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
+              Text('서울 종로구 보문로7길 3', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
             ],
           ),
           const SizedBox(height: 4),
           Row(
             children: [
-              Text('예상평점', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
+              Text('예상평점', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
               SizedBox(width: 8),
-              Icon(Icons.star, color: Colors.black45, size: 16),
+              Icon(Icons.star, color: Colors.black54, size: 16),
               SizedBox(width: 8),
-              Text('4.7', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
+              Text('4.7', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
               SizedBox(width: 24),
-              Text('대중교통 30분', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
+              Text('대중교통 30분', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
               SizedBox(width: 24),
-              Text('리뷰 999+', style: TextStyle(color: Colors.grey, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
+              Text('리뷰 999+', style: TextStyle(color: Colors.black54, fontFamily: 'Pretendard-SemiBold', fontSize: 14, fontWeight: FontWeight.w600,),),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 18),
           // 리뷰 리스트
           _buildReviewSection(),
+          Container(
+            width: 400, // 선의 너비
+            height: 1, // 선의 높이
+            color: Colors.grey, // 선의 색상
+          ),
         ],
       ),
     );
@@ -134,13 +146,13 @@ class CafeWithReviewPage extends StatelessWidget {
 
   Widget _buildReviewSection() {
     return SizedBox(
-      height: 250, // 수평 스크롤 뷰 전체 높이 설정
+      height: 240, // 수평 스크롤 뷰 전체 높이 설정
       child: ListView.builder(
         scrollDirection: Axis.horizontal, // 수평 스크롤 설정
         itemCount: 3, // 아이템 개수 설정
         itemBuilder: (context, index) {
           return Container(
-            width: 400, // 각 아이템의 너비 설정
+            width: 390, // 각 아이템의 너비 설정
             // margin: const EdgeInsets.symmetric(horizontal: 0), // 아이템 간의 수평 간격
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +166,7 @@ class CafeWithReviewPage extends StatelessWidget {
                     itemCount: 3, // 이미지 개수에 맞게 설정
                     separatorBuilder: (context, index) => const SizedBox(width: 8.0), // 이미지 사이 간격 설정
                     itemBuilder: (context, index) {
-                      return Image.asset('assets/images/Frame 394.png', width: 120, fit: BoxFit.cover);
+                      return Image.asset('assets/images/Frame 1.png', width: 120, fit: BoxFit.cover);
                     },
 
                   ),
@@ -171,22 +183,22 @@ class CafeWithReviewPage extends StatelessWidget {
                       maxLines: 1, // 텍스트가 한 줄을 넘지 않도록 설정
                       overflow: TextOverflow.ellipsis, // 텍스트가 넘칠 경우 생략표시(...)
                     ),
-                    const SizedBox(width: 80),
-                    Icon(Icons.star, color: Colors.grey, size: 20),
+                    const SizedBox(width: 65),
+                    Icon(Icons.star, color: Colors.grey, size: 25),
                     const SizedBox(width:4),
-                    Text('4.7', style: TextStyle(color: Colors.grey)),
+                    Text('4.7', style: TextStyle(color: Colors.grey,fontWeight:FontWeight.w800)),
                   ],
                 ),
 
                 const SizedBox(height: 4), // 텍스트 간의 간격
                 Text(
-                  '분위기 쥑이는 곳.. 전 친구와 갔는데 혼자 오시는 분들이 많았어요...',
-                  style: TextStyle(fontSize: 12),
+                  '작은 한옥을 구석구석 잘 꾸며놓았네요. 처마 밑에 소반들이\n귀여워요. 날씨 좋으면 음료 마시기 좋겠어요.',
+                  style: TextStyle(fontSize: 13,color:Colors.grey,fontWeight:FontWeight.w600),
                   maxLines: 2, // 텍스트가 두 줄을 넘지 않도록 설정
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4), // 텍스트와 별점 사이의 간격
-                // 별점 섹션
+
 
               ],
             ),

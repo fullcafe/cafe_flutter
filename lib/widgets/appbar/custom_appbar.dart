@@ -1,4 +1,7 @@
+import 'package:cafe_front/views/main/my/BookMark_Page.dart';
 import 'package:flutter/material.dart';
+
+import '../../views/main/AppBar/AlertPage.dart';
 
 class LogoAppBar extends StatelessWidget {
   const LogoAppBar({
@@ -32,7 +35,7 @@ class OnlyBackButtonAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isWhite?
+    return isWhite ?
     SizedBox(
       height: 60,
 
@@ -42,7 +45,7 @@ class OnlyBackButtonAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0), // 아이콘을 오른쪽으로 더 당김
+                padding: const EdgeInsets.only(left: 20.0), // 아이콘을 오른쪽으로 더 당김
                 child: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -51,10 +54,13 @@ class OnlyBackButtonAppBar extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                 ),
               ),
-              const AppBarIconSet(isWhite: true),
+
             ],
           ),
-          Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),)),
+          Center(child: Text(text, style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.white),)),
         ],
       ),
     )
@@ -63,27 +69,32 @@ class OnlyBackButtonAppBar extends StatelessWidget {
 
     SizedBox(
       height: 60,
-
       child: Stack(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  highlightColor: Colors.transparent,
-                  icon: const Icon(Icons.arrow_back_ios)),
-              const AppBarIconSet(),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                highlightColor: Colors.transparent,
+                icon: const Icon(Icons.arrow_back_ios),
+              ),
+              const Spacer(), // 아이콘을 오른쪽으로 밀기 위해 Spacer 추가
             ],
           ),
-          Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
+          Center(
+            child: Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
         ],
       ),
     );
   }
-}
+
+  }
 
 
 class BackButtonAppBar extends StatelessWidget {
@@ -167,13 +178,19 @@ class AppBarIconSet extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: (){
-                  print('알림 탭');
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => AlertPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                  ),
+                  );
                 },
                 child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification_white.png'))
             ),
             GestureDetector(
                 onTap: (){
-                  print('북마크 탭');
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => BookmarkPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                  ),
+                  );
                 },
                 child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark_white.png'))
             ),
@@ -188,13 +205,19 @@ class AppBarIconSet extends StatelessWidget {
         children: [
           GestureDetector(
               onTap: (){
-                print('알림 탭');
+                Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => AlertPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                ),
+                );
               },
               child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification.png'))
           ),
           GestureDetector(
               onTap: (){
-                print('북마크 탭');
+                Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => BookmarkPage(), // 상태 관리 없이 단순히 VisitPage로 이동
+                ),
+                );
               },
               child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark.png'))
           ),

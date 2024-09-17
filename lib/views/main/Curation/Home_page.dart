@@ -1,3 +1,4 @@
+import 'package:cafe_front/views/main/Curation/MeetPage.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 import 'Curation_page.dart';
@@ -41,6 +42,10 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 indicatorColor: Colors.brown,
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.grey,
+                // isScrollable: true, // 탭바가 스크롤 가능하도록 설정
+                labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), // 선택된 탭 텍스트 스타일
+                unselectedLabelStyle: const TextStyle(fontSize: 14), // 선택되지 않은 탭 텍스트 스타일
+                padding: EdgeInsets.zero,
                 tabs: const [
                   Tab(text: '큐레이션'),
                   Tab(text: '모임'),
@@ -56,9 +61,7 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   // "큐레이션" 페이지
                   const CurationPage(),
                   // "모임" 페이지
-                  Center(
-                    child: Text('모임 콘텐츠', style: TextStyle(fontSize: 24)),
-                  ),
+                  MeetPage(),
                 ],
               ),
             ),

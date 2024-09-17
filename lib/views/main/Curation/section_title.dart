@@ -17,7 +17,7 @@ class SectionTitle extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontSize: 24, // 중제목 크기로 조정
+              fontSize: 21, // 중제목 크기로 조정
               fontWeight: FontWeight.w600, // 중간 두께 설정 (반볼드)
               fontFamily: 'Pretendard-SemiBold', // Pretendard 서체에서 SemiBold 사용
               color: Color(0xff261b08),
@@ -34,7 +34,7 @@ class SectionTitle extends StatelessWidget {
             child: const Text(
               '더보기',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 12,
                 color: Colors.brown,
               ),
             ),

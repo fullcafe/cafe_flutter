@@ -96,9 +96,10 @@ class CafeCard extends StatelessWidget {
   // 키워드 박스를 생성하는 메서드
   Widget _buildKeywordBox(String keyword) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5), // 박스 색상을 투명하게 설정
+        color: Colors.white.withOpacity(0.1), // 박스 색상을 투명하게 설정
+        border: Border.all(color: Colors.white, width: 1), // 하얀색 테두리 설정
         borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
@@ -106,7 +107,7 @@ class CafeCard extends StatelessWidget {
         style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          color: Color(0xff261b08),
+          color: Colors.white, // 텍스트 색상도 하얗게 설정
         ),
       ),
     );
