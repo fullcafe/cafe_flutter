@@ -171,7 +171,7 @@ class MeetPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
-                buildGridViewWithCustomCards(),
+                buildHorizontalScrollWithCustomCards(),
                 const SizedBox(height: 25),
                 const SectionTitle(title: '모두가 저장해둔 카페에 방문해볼까요?'),
                 buildHorizontalListView(
@@ -237,42 +237,29 @@ class MeetPage extends StatelessWidget {
     );
   }
 
-  Widget buildGridViewWithCustomCards() {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        // 화면의 가로 길이를 가져와서 각 카드의 너비를 계산
-        double width = constraints.maxWidth;
-        // 각 카드의 너비에 따라 열의 개수를 유동적으로 조정
-        int crossAxisCount = width ~/ 180; // 각 카드의 최소 너비를 기준으로 열의 개수 계산
-        double aspectRatio = (width / crossAxisCount) / 320; // 카드의 비율을 유동적으로 조정하여 높이를 늘림
-
-        return SizedBox(
-          height: 300, // GridView의 높이를 설정하여 자체 높이를 늘림
-          child: GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 24,
-              childAspectRatio: aspectRatio,
+  Widget buildHorizontalScrollWithCustomCards() {
+    return SizedBox(
+      height: 320, // 카드의 높이에 맞춰 ListView 높이를 설정
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal, // 가로 스크롤 설정
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6), // 카드 간격 설정
+            child: CustomPhotoCard(
+              imagePath: 'assets/images/Frame 434_1.png',
+              storeName: '브라이트 사이드',
+              rating: 4.7,
+              keyword1: '디저트',
+              keyword2: '커피',
+              comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
+              revisitCount: 8,
             ),
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              return CustomPhotoCard(
-                imagePath: 'assets/images/Frame 434_1.png',
-                storeName: '브라이트 사이드',
-                rating: 4.7,
-                keyword1: '디저트',
-                keyword2: '커피',
-                comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
-                revisitCount: 8,
-              );
-            },
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
+
 
 
 }
