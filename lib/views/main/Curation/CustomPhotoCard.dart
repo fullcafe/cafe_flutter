@@ -106,7 +106,7 @@ class CustomPhotoCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height:1), // 이미지와 가게 이름 사이의 간격
+          // const SizedBox(height:1), // 이미지와 가게 이름 사이의 간격
           Text(
             storeName, // 가게 이름
             style: const TextStyle(
