@@ -134,7 +134,7 @@ class CafeWithReviewPage extends StatelessWidget {
 
   Widget _buildReviewSection() {
     return SizedBox(
-      height: 210, // 수평 스크롤 뷰 전체 높이 설정
+      height: 250, // 수평 스크롤 뷰 전체 높이 설정
       child: ListView.builder(
         scrollDirection: Axis.horizontal, // 수평 스크롤 설정
         itemCount: 3, // 아이템 개수 설정

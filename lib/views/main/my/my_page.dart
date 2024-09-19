@@ -26,7 +26,13 @@ class MyPage extends StatelessWidget {
 
     return Column(
       children: [
-        const LogoAppBar(),
+        LogoAppBar(
+          logo: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              width: 60,
+              child: Image.asset('assets/logos/cafe_logo.png')
+          ),
+        ),
         Expanded(
           child: SingleChildScrollView(
             child: Container(

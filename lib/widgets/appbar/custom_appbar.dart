@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../views/main/AppBar/AlertPage.dart';
-
 class LogoAppBar extends StatelessWidget {
   const LogoAppBar({
     Key? key,
@@ -44,7 +42,7 @@ class OnlyBackButtonAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 15.0), // 아이콘을 오른쪽으로 더 당김
+                padding: const EdgeInsets.only(left: 10.0), // 아이콘을 오른쪽으로 더 당김
                 child: IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -53,6 +51,7 @@ class OnlyBackButtonAppBar extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
                 ),
               ),
+              const AppBarIconSet(isWhite: true),
             ],
           ),
           Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),)),
@@ -76,6 +75,7 @@ class OnlyBackButtonAppBar extends StatelessWidget {
                   },
                   highlightColor: Colors.transparent,
                   icon: const Icon(Icons.arrow_back_ios)),
+              const AppBarIconSet(),
             ],
           ),
           Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
@@ -167,10 +167,7 @@ class AppBarIconSet extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: (){
-                  Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => AlertPage(), // 상태 관리 없이 단순히 VisitPage로 이동
-                  ),
-                  );
+                  print('알림 탭');
                 },
                 child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification_white.png'))
             ),
@@ -191,10 +188,7 @@ class AppBarIconSet extends StatelessWidget {
         children: [
           GestureDetector(
               onTap: (){
-                Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => AlertPage(), // 상태 관리 없이 단순히 VisitPage로 이동
-                ),
-                );
+                print('알림 탭');
               },
               child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification.png'))
           ),
