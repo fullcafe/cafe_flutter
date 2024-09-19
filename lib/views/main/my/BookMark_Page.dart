@@ -96,7 +96,7 @@ class VisitCafe extends StatelessWidget {
                       children: [
                         // 제목
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
 
                           child: Row(
                             children: [
@@ -126,7 +126,7 @@ class VisitCafe extends StatelessWidget {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0), // 상하 간격 최소화
+                              padding: const EdgeInsets.symmetric(vertical: 2.0), // 상하 간격 최소화
                               child: Row(
                                 children: [
                                   Text('영업중', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 14,),),

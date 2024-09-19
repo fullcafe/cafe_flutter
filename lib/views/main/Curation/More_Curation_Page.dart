@@ -143,7 +143,7 @@ class MoreCurationPage extends StatelessWidget {
         // 특정 위젯 (PhotoTextCard)일 경우 높이 조절
         if (child is CafeWithReviewPage) {
           return SizedBox(
-            height: 700, // PhotoTextCard만의 높이 설정
+            height: 690, // PhotoTextCard만의 높이 설정
             child: child,
           );
         } else {
