@@ -3,7 +3,11 @@ import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 
 class ReviewFormat extends StatelessWidget {
-  const ReviewFormat({Key? key}) : super(key: key);
+  const ReviewFormat({
+    Key? key,
+    this.summary = true,
+  }) : super(key: key);
+  final bool summary;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +66,7 @@ class ReviewFormat extends StatelessWidget {
         Text('ㅓㅣ히나러니아런아러ㅣㄴ알ㄴㅇㄹ니알닝란이ㅏㄹ'
             'ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴ어론이라니아러니아ㅓ린아ㅓ리나어리나'
             'ㄴㅇ러ㅣㄴ아러ㅣㄴ아러ㅣ낭러ㅣㅏㅇ너리ㅏㄴㅇ',
-          style: textStyle,maxLines: 2,overflow: TextOverflow.ellipsis),
+          style: textStyle,maxLines: summary? 2 : null,overflow: summary? TextOverflow.ellipsis : null),
         const SizedBox(height: 5,),
         // 메뉴
         SizedBox(
@@ -81,7 +85,7 @@ class ReviewFormat extends StatelessWidget {
               SizedBox(width: 20,child: Image.asset('assets/icons/good.png'))
             ],
           ),
-        )
+        ),
       ],
     );
   }

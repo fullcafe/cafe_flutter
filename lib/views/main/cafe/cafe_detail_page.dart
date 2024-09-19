@@ -1,4 +1,5 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/views/main/cafe/cafe_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/review_format.dart';
@@ -380,15 +381,20 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ReviewFormat(),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     ReviewFormat(),
-                    SizedBox(height: 10,),
-                    CustomButtonLayout(
-                      width: double.infinity,
-                      height: 60,
-                      borderColor: Colors.grey,
-                      child: Center(
-                        child: Text('리뷰 더보기',style: unselectedStyle,),
+                    const SizedBox(height: 10,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const CafeReviewPage()));
+                      },
+                      child: const CustomButtonLayout(
+                        width: double.infinity,
+                        height: 60,
+                        borderColor: Colors.grey,
+                        child: Center(
+                          child: Text('리뷰 더보기',style: unselectedStyle,),
+                        ),
                       ),
                     ),
 
