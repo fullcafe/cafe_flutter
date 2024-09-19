@@ -395,55 +395,64 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                   ],
                 ),
                 // 가볼곳
-                ListView(
-                  scrollDirection: Axis.horizontal,
+                Column(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 250,
-                            child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
+                    Expanded(
+                      flex: 4,
+                      child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('미라쥬양과점',style: selectedStyle,),
+                              const Text('이 장소에서 186m',style: descriptionStyle,)
+                            ],
                           ),
-                          const Text('미라쥬양과점',style: selectedStyle,),
-                          const Text('이 장소에서 186m',style: descriptionStyle,)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 250,
-                            child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('웨일스',style: selectedStyle,),
+                              const Text('이 장소에서 387m',style: descriptionStyle,)
+                            ],
                           ),
-                          const Text('웨일스',style: selectedStyle,),
-                          const Text('이 장소에서 387m',style: descriptionStyle,)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 250,
-                            child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('싱싱제과 소품샵',style: selectedStyle,),
+                              const Text('이 장소에서 530m',style: descriptionStyle,)
+                            ],
                           ),
-                          const Text('싱싱제과 소품샵',style: selectedStyle,),
-                          const Text('이 장소에서 530m',style: descriptionStyle,)
-                        ],
-                      ),
-                    ),
+                        ),
 
+                      ],
+                                        ),
+                    ),
+                    // 스크롤 쉽게 하려고 넣음
+                    const Expanded(flex: 3,child: SizedBox()),
                   ],
                 ),
               ],
