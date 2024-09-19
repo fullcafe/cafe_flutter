@@ -73,6 +73,8 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/near/
+    - assets/images/details/
     - assets/logos/
     - assets/onboarding/
     - assets/characters/

@@ -24,12 +24,12 @@ class CafeDetailPage extends StatelessWidget {
                   height: 250,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: 3,
                       itemBuilder: (context, i){
                         return Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
                           width: 180,
-                          color: Colors.green,
+                          child: Image.asset('assets/images/details/image${i}.jpg',fit: BoxFit.fill,),
                         );
                       }
                   ),
@@ -386,9 +386,9 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: 250,
-                            color: Colors.red,
+                            child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
                           ),
                           const Text('미라쥬양과점',style: selectedStyle,),
                           const Text('이 장소에서 186m',style: descriptionStyle,)
@@ -401,9 +401,9 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: 250,
-                            color: Colors.red,
+                            child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
                           ),
                           const Text('웨일스',style: selectedStyle,),
                           const Text('이 장소에서 387m',style: descriptionStyle,)
@@ -416,9 +416,9 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
+                          SizedBox(
                             height: 250,
-                            color: Colors.red,
+                            child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
                           ),
                           const Text('싱싱제과 소품샵',style: selectedStyle,),
                           const Text('이 장소에서 530m',style: descriptionStyle,)
