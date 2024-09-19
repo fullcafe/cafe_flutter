@@ -1,6 +1,7 @@
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:cafe_front/widgets/review_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -329,7 +330,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
     const descriptionStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.grey);
     return Container(
       margin: const EdgeInsets.all(10),
-      height: currentIdx == 0? 650 : 500,
+      height: 700,
       child: Column(
         children: [
           // 선택
@@ -366,7 +367,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
           Expanded(
             child: PageView(
               controller: controller,
-              onPageChanged: (idx){
+              onPageChanged: (idx) async{
                 setState(() {
                   currentIdx = idx;
                 });
@@ -375,7 +376,24 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                 // 메뉴
                 Image.asset('assets/data/menu_info.png',fit: BoxFit.fill,),
                 // 리뷰
-                Container(color: Colors.blue,),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ReviewFormat(),
+                    SizedBox(height: 10,),
+                    ReviewFormat(),
+                    SizedBox(height: 10,),
+                    CustomButtonLayout(
+                      width: double.infinity,
+                      height: 60,
+                      borderColor: Colors.grey,
+                      child: Center(
+                        child: Text('리뷰 더보기',style: unselectedStyle,),
+                      ),
+                    ),
+
+                  ],
+                ),
                 // 가볼곳
                 ListView(
                   scrollDirection: Axis.horizontal,
