@@ -27,9 +27,11 @@ class BackButtonAppBar extends StatelessWidget {
     Key? key,
     this.text = '',
     this.isWhite = false,
+    this.icons,
   }) : super(key: key);
   final String text;
   final bool isWhite;
+  final Widget? icons;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class BackButtonAppBar extends StatelessWidget {
                   },
                   highlightColor: Colors.transparent,
                   icon: const Icon(Icons.arrow_back_ios,color: Colors.white,)),
-              const AppBarIconSet(isWhite: true,),
+              icons == null? const AppBarIconSet(isWhite: true,) : icons!,
             ],
           ),
           Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.white),)),
@@ -68,7 +70,7 @@ class BackButtonAppBar extends StatelessWidget {
                   },
                   highlightColor: Colors.transparent,
                   icon: const Icon(Icons.arrow_back_ios)),
-              const AppBarIconSet(),
+              icons == null? const AppBarIconSet() : icons!,
             ],
           ),
           Center(child: Text(text,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),

@@ -1,6 +1,8 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/views/main/cafe/cafe_review_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
+import 'package:cafe_front/widgets/review_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -24,12 +26,12 @@ class CafeDetailPage extends StatelessWidget {
                   height: 250,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: 3,
                       itemBuilder: (context, i){
                         return Container(
                           margin: const EdgeInsets.symmetric(horizontal: 5),
                           width: 180,
-                          color: Colors.green,
+                          child: Image.asset('assets/images/details/image${i}.jpg',fit: BoxFit.fill,),
                         );
                       }
                   ),
@@ -329,7 +331,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
     const descriptionStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.grey);
     return Container(
       margin: const EdgeInsets.all(10),
-      height: currentIdx == 0? 650 : 500,
+      height: 700,
       child: Column(
         children: [
           // 선택
@@ -366,7 +368,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
           Expanded(
             child: PageView(
               controller: controller,
-              onPageChanged: (idx){
+              onPageChanged: (idx) async{
                 setState(() {
                   currentIdx = idx;
                 });
@@ -375,57 +377,88 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                 // 메뉴
                 Image.asset('assets/data/menu_info.png',fit: BoxFit.fill,),
                 // 리뷰
-                Container(color: Colors.blue,),
-                // 가볼곳
-                ListView(
-                  scrollDirection: Axis.horizontal,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 250,
-                            color: Colors.red,
-                          ),
-                          const Text('미라쥬양과점',style: selectedStyle,),
-                          const Text('이 장소에서 186m',style: descriptionStyle,)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 250,
-                            color: Colors.red,
-                          ),
-                          const Text('웨일스',style: selectedStyle,),
-                          const Text('이 장소에서 387m',style: descriptionStyle,)
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.all(5),
-                      width: 180,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 250,
-                            color: Colors.red,
-                          ),
-                          const Text('싱싱제과 소품샵',style: selectedStyle,),
-                          const Text('이 장소에서 530m',style: descriptionStyle,)
-                        ],
+                    ReviewFormat(),
+                    const SizedBox(height: 10,),
+                    ReviewFormat(),
+                    const SizedBox(height: 10,),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const CafeReviewPage()));
+                      },
+                      child: const CustomButtonLayout(
+                        width: double.infinity,
+                        height: 60,
+                        borderColor: Colors.grey,
+                        child: Center(
+                          child: Text('리뷰 더보기',style: unselectedStyle,),
+                        ),
                       ),
                     ),
 
+                  ],
+                ),
+                // 가볼곳
+                Column(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('미라쥬양과점',style: selectedStyle,),
+                              const Text('이 장소에서 186m',style: descriptionStyle,)
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('웨일스',style: selectedStyle,),
+                              const Text('이 장소에서 387m',style: descriptionStyle,)
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 180,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 250,
+                                child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
+                              ),
+                              const Text('싱싱제과 소품샵',style: selectedStyle,),
+                              const Text('이 장소에서 530m',style: descriptionStyle,)
+                            ],
+                          ),
+                        ),
+
+                      ],
+                                        ),
+                    ),
+                    // 스크롤 쉽게 하려고 넣음
+                    const Expanded(flex: 3,child: SizedBox()),
                   ],
                 ),
               ],
