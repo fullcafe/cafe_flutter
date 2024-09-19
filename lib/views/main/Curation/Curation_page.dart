@@ -178,7 +178,7 @@ class CurationPage extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 24,
-        childAspectRatio: 0.7, // 카드의 비율을 조정하여 더 높은 카드를 수용
+        childAspectRatio: 0.63, // 카드의 비율을 조정하여 더 높은 카드를 수용
       ),
       itemCount: 4,
       itemBuilder: (context, index) {

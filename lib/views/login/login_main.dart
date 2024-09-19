@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/colors.dart';
+
 class LoginMain extends StatelessWidget {
   const LoginMain({Key? key}) : super(key: key);
 
@@ -23,10 +25,10 @@ class LoginMain extends StatelessWidget {
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: const EdgeInsets.all(10),
-                          width: 60,
-                          child: Image.asset('assets/logos/main_logo.png')
-                    )),
+                            margin: const EdgeInsets.all(10),
+                            width: 60,
+                            child: Image.asset('assets/logos/main_logo.png')
+                        )),
                   ),
                   const Expanded(child:
                   Text('당신의 입맛과 취향을\n     저격할 카페를\n   추천해드릴게요.',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),)
@@ -92,7 +94,29 @@ class LoginMain extends StatelessWidget {
                     const Expanded(child: Text('로그인 하기',style: TextStyle(fontWeight: FontWeight.bold),))
                   ],
                 )
-            )
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  // 메인 화면으로 바로 이동
+                  Navigator.pushNamedAndRemoveUntil(context, '/main', ModalRoute.withName('/'));
+                },
+                child: const CustomButtonLayout(
+                  margin: EdgeInsets.fromLTRB(10, 5, 10, 20),
+                  width: double.infinity,
+                  borderColor: CustomColors.deepGrey,
+                  child: Center(
+                    child: Text(
+                      '메인으로 이동',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: CustomColors.deepGrey,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

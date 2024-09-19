@@ -213,7 +213,7 @@ class MeetPage extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 12,
         mainAxisSpacing: 24,
-        childAspectRatio: 0.7,
+        childAspectRatio: 0.63,
       ),
       itemCount: 4,
       itemBuilder: (context, index) {
@@ -289,11 +289,11 @@ class MeetPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             '또 다른 내 친구들의 취향이 궁금하다면?',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
