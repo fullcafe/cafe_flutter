@@ -1,10 +1,10 @@
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/views/main/cafe/cafe_review_page.dart';
+import 'package:cafe_front/views/main/cafe/order_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/review_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class CafeDetailPage extends StatelessWidget {
   const CafeDetailPage({Key? key}) : super(key: key);
@@ -91,29 +91,34 @@ class CafeDetailPage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   height: 50,
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: CustomButtonLayout(
                           height: double.infinity,
                           borderColor: CustomColors.deepGrey,
                           child: Center(child: Text('길찾기',style: TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
                         ),
                       ),
-                      SizedBox(width: 10,),
-                      Expanded(
+                      const SizedBox(width: 10,),
+                      const Expanded(
                         child: CustomButtonLayout(
                           height: double.infinity,
                           borderColor: CustomColors.deepGrey,
                           child: Center(child: Text('리뷰 작성하기',style: TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       Expanded(
-                        child: CustomButtonLayout(
-                          height: double.infinity,
-                          borderColor: CustomColors.deepGrey,
-                          child: Center(child: Text('주문하기',style: TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OrderPage()));
+                          },
+                          child: const CustomButtonLayout(
+                            height: double.infinity,
+                            borderColor: CustomColors.deepGrey,
+                            child: Center(child: Text('주문하기',style: TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
+                          ),
                         ),
                       ),
                     ],
