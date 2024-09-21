@@ -1,3 +1,4 @@
+import 'package:cafe_front/views/main/cafe/order_success.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/count_button.dart';
@@ -155,7 +156,9 @@ class ShoppingCart extends StatelessWidget {
           ),
           // 주문하기
           GestureDetector(
-            onTap: (){},
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>const OrderSuccess())); // 좀 더 개선해야함
+            },
             child: const CustomButtonLayout(
               margin: margin,
               width: double.infinity,
