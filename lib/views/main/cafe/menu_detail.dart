@@ -205,16 +205,21 @@ class MenuDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: 10,),
                 // 버튼
-                const SizedBox(
+                SizedBox(
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CustomButtonLayout(
-                        width: 150,
-                        height: double.infinity,
-                        borderColor: CustomColors.deepGrey,
-                        child: Center(child: Text('장바구니',style: TextStyle(color: CustomColors.deepGrey))),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: const CustomButtonLayout(
+                          width: 150,
+                          height: double.infinity,
+                          borderColor: CustomColors.deepGrey,
+                          child: Center(child: Text('장바구니',style: TextStyle(color: CustomColors.deepGrey))),
+                        ),
                       ),
                       CustomButtonLayout(
                         width: 150,
