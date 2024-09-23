@@ -1,7 +1,8 @@
+import 'package:cafe_front/views/main/Community/Near_Cafe.dart';
 import 'package:cafe_front/views/main/Curation/MeetPage.dart';
 import 'package:flutter/material.dart';
-import '../../../widgets/appbar/custom_appbar.dart';
-import 'Curation/Curation_page.dart';
+import '../../../../widgets/appbar/custom_appbar.dart';
+import '../Curation/Curation_page.dart';
 
 
 
@@ -36,7 +37,7 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
             const LogoAppBar(),
             // TabBar를 포함한 탭 영역
             Container(
-              color: const Color(0xfffafafa),
+              color: const Color(0xffffffff),
               width: double.infinity, // 전체 너비를 지정.
               child: TabBar(
                 controller: _tabController,
@@ -48,7 +49,7 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
                 unselectedLabelStyle: const TextStyle(fontSize: 14), // 선택되지 않은 탭 텍스트 스타일
                 padding: EdgeInsets.zero,
                 tabs: const [
-                  Tab(text: '큐레이션'),
+                  Tab(text: '내주변 카페'),
                   Tab(text: '모임'),
                   Tab(text: '추가'),
                 ],
@@ -61,8 +62,9 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
                 controller: _tabController,
                 children: [
                   // "큐레이션" 페이지
-                  const CurationPage(),
+                  const NearCafePage(),
                   // "모임" 페이지
+                  MeetPage(),
                   MeetPage(),
                 ],
               ),

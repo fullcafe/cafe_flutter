@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants/colors.dart';
+import '../../../widgets/button/custom_button_layout.dart';
+
 class CafeWithReviewPage extends StatelessWidget {
   const CafeWithReviewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    const textStyle = TextStyle(color: CustomColors.deepGrey,);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Column(
@@ -46,11 +50,6 @@ class CafeWithReviewPage extends StatelessWidget {
                 ],
               ),
 
-              // Image.asset(
-              //   'assets/images/책갈피 버튼.png', // 버튼에 사용할 이미지 경로
-              //   width: 48, // 이미지의 너비
-              //   height: 48, // 이미지의 높이
-              // ),
               Align(
                 alignment: Alignment.centerRight,
                 child: Container(
@@ -94,6 +93,7 @@ class CafeWithReviewPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
+
           // 리뷰 리스트
           _buildReviewSection(),
           Container(
@@ -146,7 +146,8 @@ class CafeWithReviewPage extends StatelessWidget {
 
   Widget _buildReviewSection() {
     return SizedBox(
-      height: 240, // 수평 스크롤 뷰 전체 높이 설정
+      height: 240,
+      // 수평 스크롤 뷰 전체 높이 설정
       child: ListView.builder(
         scrollDirection: Axis.horizontal, // 수평 스크롤 설정
         itemCount: 3, // 아이템 개수 설정
@@ -157,6 +158,7 @@ class CafeWithReviewPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+
                 // 사진 섹션
                 Container(
                   width:380,

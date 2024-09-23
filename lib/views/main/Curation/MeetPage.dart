@@ -145,7 +145,7 @@ class MeetPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
-                buildGridViewWithCustomCards(),
+                buildListViewWithCustomCards(),
                 const SizedBox(height: 25),
                 const SectionTitle(title: '모두가 저장해둔 카페에 방문해볼까요?'),
                 buildHorizontalListView(
@@ -204,31 +204,32 @@ class MeetPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget buildGridViewWithCustomCards() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 24,
-        childAspectRatio: 0.63,
+  Widget buildListViewWithCustomCards() {
+    return SizedBox(
+      height: 300, // 리스트뷰의 전체 높이 설정
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal, // 수평 스크롤 설정
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0), // 아이템 간 간격 설정
+            child: CustomPhotoCard(
+              imagePath: 'assets/images/Frame 434_1.png',
+              storeName: '브라이트 사이드',
+              rating: 4.7,
+              keyword1: '디저트',
+              keyword2: '커피',
+              comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
+              revisitCount: 8,
+            ),
+          );
+        },
       ),
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return CustomPhotoCard(
-          imagePath: 'assets/images/Frame 434_1.png',
-          storeName: '브라이트 사이드',
-          rating: 4.7,
-          keyword1: '디저트',
-          keyword2: '커피',
-          comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
-          revisitCount: 8,
-        );
-      },
     );
   }
+
+
+
 
   Widget buildKeywordCloud() {
     return Container(

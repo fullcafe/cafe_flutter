@@ -138,7 +138,7 @@ class CurationPage extends StatelessWidget {
                 const SizedBox(height: 30),
                 // 새로운 섹션 추가
                 const SectionTitle(title: '이 카페 한 번 더?'),
-                buildGridViewWithCustomCards(),
+                buildListViewWithCustomCards(),
               ],
             ),
           ),
@@ -170,28 +170,27 @@ class CurationPage extends StatelessWidget {
   }
 
   // 새로운 그리드 뷰 섹션 추가
-  Widget buildGridViewWithCustomCards() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 24,
-        childAspectRatio: 0.63, // 카드의 비율을 조정하여 더 높은 카드를 수용
+  Widget buildListViewWithCustomCards() {
+    return SizedBox(
+      height: 300, // 리스트뷰의 전체 높이 설정
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal, // 수평 스크롤 설정
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0), // 아이템 간 간격 설정
+            child: CustomPhotoCard(
+              imagePath: 'assets/images/Frame 434_1.png',
+              storeName: '브라이트 사이드',
+              rating: 4.7,
+              keyword1: '디저트',
+              keyword2: '커피',
+              comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
+              revisitCount: 8,
+            ),
+          );
+        },
       ),
-      itemCount: 4,
-      itemBuilder: (context, index) {
-        return CustomPhotoCard(
-          imagePath: 'assets/images/Frame 6.png',
-          storeName: '무이로',
-          rating: 4.7,
-          keyword1: '디저트',
-          keyword2: '커피',
-          comment: '"커피가 진짜 다시 오고싶은 맛,,,"',
-          revisitCount: 8,
-        );
-      },
     );
   }
 
