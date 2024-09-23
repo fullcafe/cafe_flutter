@@ -1,4 +1,6 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/views/main/cafe/menu_detail.dart';
+import 'package:cafe_front/views/main/cafe/shopping_cart.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,15 @@ class OrderPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BackButtonAppBar(text: '주문하기',
-              icons: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  width: 30,
-                  child: Image.asset('assets/icons/shopping.png')),
+              icons: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ShoppingCart()));
+                },
+                child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    width: 30,
+                    child: Image.asset('assets/icons/shopping.png')),
+              ),
             ),
             Expanded(child: ListView(
               children: [
@@ -133,9 +140,14 @@ class OrderPage extends StatelessWidget {
                     child: const Text('커피',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),)
                 ),
                 // 이미지
-                Container(
-                    margin: const EdgeInsets.all(10),
-                    child: Image.asset('assets/data/menu_detail.png')
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const MenuDetail()));
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.all(10),
+                      child: Image.asset('assets/data/menu_detail.png')
+                  ),
                 ),
               ],
             )),
