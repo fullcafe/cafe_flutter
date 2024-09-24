@@ -118,6 +118,7 @@ class MoreCurationPage extends StatelessWidget {
             buildVerticalListView(
               [
                 CafeWithReviewPage(),
+                const SizedBox(height:20),
                 CafeWithReviewPage(),
               ],
             ),

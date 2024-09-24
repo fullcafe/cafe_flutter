@@ -1,24 +1,24 @@
 import 'package:cafe_front/views/main/Curation/MeetPage.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
-import 'Curation/Curation_page.dart';
+import '../Curation/Curation_page.dart';
 
 
 
-class CommunityPage extends StatefulWidget {
-  const CommunityPage({Key? key}) : super(key: key);
+class PersonalPage extends StatefulWidget {
+  const PersonalPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CommunityPageState();
+  State<StatefulWidget> createState() => _personalPageState();
 }
 
-class _CommunityPageState extends State<CommunityPage> with SingleTickerProviderStateMixin {
+class _personalPageState extends State<PersonalPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -33,7 +33,7 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
       body: SafeArea(
         child: Column(
           children: [
-            const LogoAppBar(),
+            const BackButtonAppBar(),
             // TabBar를 포함한 탭 영역
             Container(
               color: const Color(0xfffafafa),
@@ -43,14 +43,13 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
                 indicatorColor: Colors.brown,
                 labelColor: Colors.black,
                 unselectedLabelColor: Colors.grey,
-                // isScrollable: true, // 탭바가 스크롤 가능하도록 설정
+                //isScrollable: true, // 탭바가 스크롤 가능하도록 설정
                 labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), // 선택된 탭 텍스트 스타일
                 unselectedLabelStyle: const TextStyle(fontSize: 14), // 선택되지 않은 탭 텍스트 스타일
                 padding: EdgeInsets.zero,
                 tabs: const [
-                  Tab(text: '큐레이션'),
-                  Tab(text: '모임'),
-                  Tab(text: '추가'),
+                  Tab(text: '리뷰'),
+                  Tab(text: '찜리스트'),
                 ],
               ),
             ),

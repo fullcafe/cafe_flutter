@@ -22,20 +22,12 @@ class VisitPage extends StatelessWidget {
       body: SafeArea(
           child: Column(
             children: [
+              const SizedBox(height: 20),
               const BackButtonAppBar(text: '방문한 카페',),
               const SizedBox(height: 20),
-              // Text(
-              //   '방문한 카페',
-              //   style: TextStyle(
-              //     color: Color(0xFF261B08),
-              //     fontSize: 20,
-              //     fontFamily: 'Pretendard',
-              //     fontWeight: FontWeight.w600,
-              //   ),
-              // ),
 
               Expanded(child: ListView(
-                children: List.generate(1000,
+                children: List.generate(100,
                         (idx) => VisitCafe(idx: idx,)
                 ),
               )),
@@ -57,29 +49,27 @@ class VisitPage extends StatelessWidget {
     var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
       // margin: const EdgeInsets.all(10),
-      height: 300,
+      height: 280,
       child: Column(
         children: [
           // 상반
           Expanded(
             flex: 1,
-            child: PageView.builder(
-              pageSnapping: false,
-              controller: PageController(viewportFraction: 0.4), // 뷰포트 비율 변경
-              itemCount: 7, // 표시할 이미지 수
-              itemBuilder: (context, idx) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/Rectangle 38.png'), // 각 이미지를 구분하여 경로 설정
-                      fit: BoxFit.cover, // 이미지를 꽉 채우기
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal, // 수평 스크롤 설정
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0), // 아이템 간 간격 설정
+                    child: Image.asset(
+                      'assets/images/Frame 1.png', // 이미지 경로 설정
+                      width: 150, // 각 이미지의 너비 설정
+                      height: 250, // 각 이미지의 높이 설정
+                      fit: BoxFit.cover, // 이미지를 꽉 채우도록 설정
                     ),
 
-                  ),
                 );
               },
             ),
@@ -139,7 +129,7 @@ class VisitPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 5.0), // 상하 간격 최소화
                             child: Row(
                               children: [
-                                
+
                                 Text('예상평점', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 12,),),
                                 const SizedBox(width: 25),
                                 Text('도보 15분', style: commonTextStyle),
@@ -158,8 +148,8 @@ class VisitPage extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  width: 30,
-                  height: 50,
+                  width: 40,
+                  height: 100,
                   child: Column(
                     children: [
                       SizedBox(width: 20,child: Image.asset('assets/icons/bookmark_grey.png')),

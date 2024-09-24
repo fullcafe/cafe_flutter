@@ -58,28 +58,26 @@ class MeetPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 360, right: 16, bottom:16,top:410), // 좌우와 아래쪽 패딩 설정
-                child: Align(
-                  alignment: Alignment.bottomRight, // 오른쪽 하단에 정렬
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MoreCurationPage(),
-                        ),
-                      );
-                    },
-                    child: Image.asset(
-                      'assets/images/image_511371.png', // 이미지 경로
-                      width: 72,
-                      height: 72,
-                    ),
+              Positioned(
+                bottom: 28,
+                left: 360,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MoreCurationPage(),
+                      ),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/image_511371.png', // 이미지 경로
+                    width: 48,
+                    height: 48,
                   ),
                 ),
               ),
-
             ],
           ),
           Padding(
@@ -143,35 +141,11 @@ class MeetPage extends StatelessWidget {
                       keyword1: "디저트",
                       keyword2: "드립커피",
                     ),
-                    CafeCard(
-                      imagePath: 'assets/images/Frame 1.png',
-                      name: '호이폴로이커피로스터스',
-                      percentage: '91%',
-                      rating: 12,
-                      keyword1: "디저트",
-                      keyword2: "드립커피",
-                    ),
-                    CafeCard(
-                      imagePath: 'assets/images/Frame 2.png',
-                      name: '죠니월드',
-                      percentage: '96%',
-                      rating: 16,
-                      keyword1: "디저트",
-                      keyword2: "드립커피",
-                    ),
-                    CafeCard(
-                      imagePath: 'assets/images/Frame 3.png',
-                      name: 'haengbokmango',
-                      percentage: '93%',
-                      rating: 8,
-                      keyword1: "디저트",
-                      keyword2: "드립커피",
-                    ),
                   ],
                 ),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
-                buildHorizontalScrollWithCustomCards(),
+                buildListViewWithCustomCards(),
                 const SizedBox(height: 25),
                 const SectionTitle(title: '모두가 저장해둔 카페에 방문해볼까요?'),
                 buildHorizontalListView(
@@ -183,19 +157,13 @@ class MeetPage extends StatelessWidget {
                       text: '오누이',
                     ),
                     PhotoKeyCard(
-                      imagePath: 'assets/images/Frame 6.png',
+                      imagePath: 'assets/images/Rectangle 34.png',
                       keyword1: "디저트",
                       keyword2: "드립커피",
                       text: '오누이',
                     ),
                     PhotoKeyCard(
-                      imagePath: 'assets/images/Frame 8.png',
-                      keyword1: "디저트",
-                      keyword2: "드립커피",
-                      text: '오누이',
-                    ),
-                    PhotoKeyCard(
-                      imagePath: 'assets/images/Frame 9.png',
+                      imagePath: 'assets/images/Rectangle 34.png',
                       keyword1: "디저트",
                       keyword2: "드립커피",
                       text: '오누이',
@@ -236,16 +204,15 @@ class MeetPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget buildHorizontalScrollWithCustomCards() {
+  Widget buildListViewWithCustomCards() {
     return SizedBox(
-      height: 320, // 카드의 높이에 맞춰 ListView 높이를 설정
+      height: 300, // 리스트뷰의 전체 높이 설정
       child: ListView.builder(
-        scrollDirection: Axis.horizontal, // 가로 스크롤 설정
+        scrollDirection: Axis.horizontal, // 수평 스크롤 설정
         itemCount: 4,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6), // 카드 간격 설정
+            padding: const EdgeInsets.symmetric(horizontal: 8.0), // 아이템 간 간격 설정
             child: CustomPhotoCard(
               imagePath: 'assets/images/Frame 434_1.png',
               storeName: '브라이트 사이드',
@@ -259,10 +226,10 @@ class MeetPage extends StatelessWidget {
         },
       ),
     );
+  }
 
 
 
-}
 
   Widget buildKeywordCloud() {
     return Container(

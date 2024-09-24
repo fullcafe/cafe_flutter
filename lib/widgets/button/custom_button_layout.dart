@@ -24,7 +24,7 @@ class CustomButtonLayout extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(5),
         color: backgroundColor
       ),
       child: child,

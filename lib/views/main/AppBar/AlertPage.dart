@@ -104,7 +104,7 @@ class _AlertPageState extends State<AlertPage> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const OnlyBackButtonAppBar(text: "알림"),
+            const BackButtonAppBar(text: "알림"),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
