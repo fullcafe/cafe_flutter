@@ -115,21 +115,21 @@ class AppBarIconSet extends StatelessWidget {
     SizedBox(
       width: 100,
       child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-                onTap: (){
-                  print('알림 탭');
-                },
-                child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification.png'))
-            ),
-            GestureDetector(
-                onTap: (){
-                  print('북마크 탭');
-                },
-                child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark.png'))
-            ),
-          ]
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+              onTap: (){
+                print('알림 탭');
+              },
+              child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification.png'))
+          ),
+          GestureDetector(
+              onTap: (){
+                print('북마크 탭');
+              },
+              child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark.png'))
+          ),
+        ]
       ),
     );
   }
@@ -147,4 +147,5 @@ class DefaultLogo extends StatelessWidget {
     );
   }
 }
+
 

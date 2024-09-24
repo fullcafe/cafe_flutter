@@ -23,7 +23,7 @@ class BookmarkPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const OnlyBackButtonAppBar(text: "저장한 카페"),
+            const BackButtonAppBar(text: "저장한 카페"),
             const SizedBox(height: 0),
 
 

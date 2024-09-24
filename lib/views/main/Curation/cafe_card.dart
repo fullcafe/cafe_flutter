@@ -4,9 +4,9 @@ class CafeCard extends StatelessWidget {
   final String imagePath;
   final String name;
   final String percentage;
-  final double rating;
-  final String keyword1; // 첫 번째 키워드
-  final String keyword2; // 두 번째 키워드
+  final double? rating;
+  final String? keyword1;
+  final String? keyword2;
 
   const CafeCard({
     Key? key,
@@ -53,9 +53,9 @@ class CafeCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min, // Row 크기를 키워드 텍스트에 맞춤
                       children: [
-                        _buildKeywordBox(keyword1),
+                        _buildKeywordBox(keyword1!),
                         const SizedBox(width: 6), // 두 키워드 사이의 간격
-                        _buildKeywordBox(keyword2),
+                        _buildKeywordBox(keyword2!),
                       ],
                     ),
                   ),
