@@ -11,32 +11,34 @@ class SearchBase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Column(
-        children: [
-          SearchBar(),
-          FilterBar(),
-          const SizedBox(height: 20,),
-          SearchKeyword(title: '최근 검색어'),
-          SearchKeyword(title: '내 주변 인기 검색어',),
-          Container(
-            margin: const EdgeInsets.all(10),
-            height: 120,
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('전에 갔던 이 카페는 어때요?',style: titleStyle,),
-                const SizedBox(height: 5,),
-                Expanded(child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(3, (idx)=>
-                      SearchBaseCafeList(),
-                  ),
-                ))
-              ],
+      body: SafeArea(child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SearchBar(),
+            FilterBar(),
+            const SizedBox(height: 20,),
+            SearchKeyword(title: '최근 검색어'),
+            SearchKeyword(title: '내 주변 인기 검색어',),
+            Container(
+              margin: const EdgeInsets.all(10),
+              height: 120,
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('전에 갔던 이 카페는 어때요?',style: titleStyle,),
+                  const SizedBox(height: 5,),
+                  Expanded(child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: List.generate(3, (idx)=>
+                        SearchBaseCafeList(),
+                    ),
+                  ))
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       )),
     );
   }
