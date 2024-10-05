@@ -1,4 +1,5 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/views/main/search/search_form.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class SearchBase extends StatelessWidget {
       body: SafeArea(child: SingleChildScrollView(
         child: Column(
           children: [
-            SearchBar(),
+            CustomSearchBar(),
             FilterBar(),
             const SizedBox(height: 20,),
             SearchKeyword(title: '최근 검색어'),
@@ -44,8 +45,8 @@ class SearchBase extends StatelessWidget {
   }
 }
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class CustomSearchBar extends StatelessWidget {
+  const CustomSearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +72,15 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              width: 20,
-              child: Image.asset('assets/icons/search_basic.png'))
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const SearchForm()));
+            },
+            child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                width: 20,
+                child: Image.asset('assets/icons/search_basic.png')),
+          )
         ],
       )
     );
