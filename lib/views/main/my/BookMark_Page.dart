@@ -22,20 +22,13 @@ class BookmarkPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const BackButtonAppBar(text: '저장한 카페',),
-            const SizedBox(height: 20),
-            // Text(
-            //   '방문한 카페',
-            //   style: TextStyle(
-            //     color: Color(0xFF261B08),
-            //     fontSize: 20,
-            //     fontFamily: 'Pretendard',
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            // ),
+            const SizedBox(height: 10),
+            const BackButtonAppBar(text: "저장한 카페"),
+            const SizedBox(height: 0),
+
 
             Expanded(child: ListView(
-              children: List.generate(1000,
+              children: List.generate(100,
                       (idx) => VisitCafe(idx: idx,)
               ),
             )),
@@ -57,33 +50,36 @@ class VisitCafe extends StatelessWidget {
     var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
 
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       // margin: const EdgeInsets.all(10),
-      height: 300,
+      height: 370,
       child: Column(
         children: [
           // 상반
           Expanded(
-            flex: 1,
+            flex: 2,
             child: PageView.builder(
               pageSnapping: false,
-              controller: PageController(viewportFraction: 0.4), // 뷰포트 비율 변경
+              controller: PageController(
+                initialPage: 0,
+                viewportFraction: 0.6, // 변경 가능
+              ),
               itemCount: 5, // 표시할 이미지 수
               itemBuilder: (context, idx) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 3),
+                  margin: EdgeInsets.only(left: idx == 0 ? 0 : 3, right: 3), // 첫 번째 페이지는 왼쪽 마진 제거
                   decoration: BoxDecoration(
                     color: Colors.black,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Rectangle 38.png'), // 각 이미지를 구분하여 경로 설정
-                      fit: BoxFit.cover, // 이미지를 꽉 채우기
+                      image: AssetImage('assets/images/Frame 1.png'), // 각 이미지를 구분하여 경로 설정
+                      fit: BoxFit.cover,
                     ),
-
                   ),
                 );
               },
             ),
           ),
+
 
           // 중반
           Expanded(child: Stack(
@@ -96,7 +92,7 @@ class VisitCafe extends StatelessWidget {
                       children: [
                         // 제목
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
 
                           child: Row(
                             children: [
@@ -126,7 +122,7 @@ class VisitCafe extends StatelessWidget {
                         Column(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0), // 상하 간격 최소화
+                              padding: const EdgeInsets.symmetric(vertical: 2.0), // 상하 간격 최소화
                               child: Row(
                                 children: [
                                   Text('영업중', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 14,),),
@@ -155,14 +151,14 @@ class VisitCafe extends StatelessWidget {
                     ),
 
                     Align(
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment(1.0,-1.0),
                       child: Container(
                         margin: const EdgeInsets.all(10),
                         width: 30,
                         height: 50,
                         child: Column(
                           children: [
-                            SizedBox(width: 20,child: Image.asset('assets/icons/bookmark_grey.png')),
+                            SizedBox(width: 20,height:33,child: Image.asset('assets/icons/bookmark_grey.png')),
                             Text('1.3k',style: commonTextStyle,)
                           ],
                         ),

@@ -4,9 +4,9 @@ class CafeCard extends StatelessWidget {
   final String imagePath;
   final String name;
   final String percentage;
-  final double rating;
-  final String keyword1; // 첫 번째 키워드
-  final String keyword2; // 두 번째 키워드
+  final double? rating;
+  final String? keyword1;
+  final String? keyword2;
 
   const CafeCard({
     Key? key,
@@ -14,8 +14,8 @@ class CafeCard extends StatelessWidget {
     required this.name,
     required this.percentage,
     required this.rating,
-    required this.keyword1, // 첫 번째 키워드 초기화
-    required this.keyword2, // 두 번째 키워드 초기화
+    required this.keyword1,
+    required this.keyword2,
   }) : super(key: key);
 
   @override
@@ -24,8 +24,8 @@ class CafeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 160, // 원하는 너비로 설정
-          height: 190, // 원하는 높이로 설정
+          width: 160,
+          height: 190,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(imagePath),
@@ -39,8 +39,8 @@ class CafeCard extends StatelessWidget {
                 top: 8,
                 right: 8,
                 child: Image.asset(
-                  'assets/icons/bookmark_white.png', // 북마크 아이콘 경로 확인
-                  width: 20, // 아이콘 크기 설정
+                  'assets/icons/bookmark_white.png',
+                  width: 20,
                   height: 20,
                 ),
               ),
@@ -53,9 +53,9 @@ class CafeCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min, // Row 크기를 키워드 텍스트에 맞춤
                       children: [
-                        _buildKeywordBox(keyword1),
+                        _buildKeywordBox(keyword1!),
                         const SizedBox(width: 6), // 두 키워드 사이의 간격
-                        _buildKeywordBox(keyword2),
+                        _buildKeywordBox(keyword2!),
                       ],
                     ),
                   ),
@@ -68,9 +68,9 @@ class CafeCard extends StatelessWidget {
         Text(
           name,
           style: const TextStyle(
-            fontSize: 16, // 중제목 크기로 조정
-            fontWeight: FontWeight.w600, // 중간 두께 설정 (반볼드)
-            fontFamily: 'Pretendard-SemiBold', // Pretendard 서체에서 SemiBold 사용
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Pretendard-SemiBold',
             color: Color(0xff261b08),
           ),
         ),
@@ -96,9 +96,10 @@ class CafeCard extends StatelessWidget {
   // 키워드 박스를 생성하는 메서드
   Widget _buildKeywordBox(String keyword) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5), // 박스 색상을 투명하게 설정
+        color: Colors.white.withOpacity(0.1), // 박스 색상을 투명하게 설정
+        border: Border.all(color: Colors.white, width: 1), // 하얀색 테두리 설정
         borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
@@ -106,7 +107,7 @@ class CafeCard extends StatelessWidget {
         style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          color: Color(0xff261b08),
+          color: Colors.white, // 텍스트 색상도 하얗게 설정
         ),
       ),
     );

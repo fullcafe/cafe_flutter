@@ -1,6 +1,6 @@
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/services/user_service.dart';
-import 'package:cafe_front/views/main/community_page.dart';
+import 'package:cafe_front/views/main/Community/community_page.dart';
 import 'package:cafe_front/views/main/my/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
 import 'package:cafe_front/views/main/search_page.dart';
@@ -12,7 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Curation/home_page.dart';
+import 'Curation/Home_page.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({Key? key}) : super(key: key);

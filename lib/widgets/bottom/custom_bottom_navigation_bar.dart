@@ -37,7 +37,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: 60,
+        height: 50,
         color: CustomColors.lightGrey,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -48,8 +48,8 @@ class PhotoKeyCard extends StatelessWidget {
               child: Text(
                 text,
                 style: const TextStyle(
-                  fontSize: 20, // 텍스트 크기 조정
-                  // fontWeight: FontWeight.bold,
+                  fontSize: 21, // 텍스트 크기 조정
+                  fontWeight: FontWeight.w500,
                   color: Colors.white, // 텍스트를 흰색으로 설정
                 ),
               ),
@@ -64,7 +64,8 @@ class PhotoKeyCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5), // 박스 색상을 투명하게 설정
+        color: Colors.white.withOpacity(0.1), // 박스 색상을 투명하게 설정
+        border: Border.all(color: Colors.white, width: 1), // 하얀색 테두리 설정
         borderRadius: BorderRadius.circular(5),
       ),
       child: Text(
@@ -72,9 +73,10 @@ class PhotoKeyCard extends StatelessWidget {
         style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          color: Color(0xff261b08),
+          color: Colors.white, // 텍스트 색상도 하얗게 설정
         ),
       ),
+
     );
   }
 }
