@@ -3,7 +3,7 @@ import 'package:cafe_front/services/user_service.dart';
 import 'package:cafe_front/views/main/Community/community_page.dart';
 import 'package:cafe_front/views/main/my/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
-import 'package:cafe_front/views/main/search_page.dart';
+import 'package:cafe_front/views/main/search/search_base.dart';
 import 'package:cafe_front/widgets/bottom/custom_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   List pages = [
     HomePage(),
-    SearchPage(),
+    SearchBase(),
     CommunityPage(),
     ChangeNotifierProvider(
         create: (BuildContext context) => MyPageStore(),
