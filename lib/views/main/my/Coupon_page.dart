@@ -11,14 +11,14 @@ class CouponPage extends StatelessWidget {
         child: Column(
           children: [
             // 상단 앱바
-            const SizedBox(height:20),
+            const SizedBox(height: 20),
             const BackButtonAppBar(text: '카페 쿠폰'),
-            const SizedBox(height:20),
+            const SizedBox(height: 20),
             // Frame511 위젯을 상단 앱바 바로 아래에 추가
             const Frame511(),
-            // 쿠폰 이미지와 등록 버튼을 위로 올리기 위해 Expanded 제거
             const SizedBox(height: 20), // 간격 조정
 
+            // 쿠폰 이미지
             Image.asset(
               'assets/images/Group 909.png',
               fit: BoxFit.contain,
@@ -44,8 +44,9 @@ class CouponPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: const Center(
-        child: Text(
+      child: FittedBox(
+        fit: BoxFit.scaleDown, // 텍스트 크기 조정
+        child: const Text(
           '새로운 카페 쿠폰 등록하기',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -69,7 +70,6 @@ class Frame511 extends StatelessWidget {
     return Column(
       children: [
         Container(
-          // width: 420,
           height: 45,
           padding: const EdgeInsets.only(top: 8, left: 16, bottom: 8),
           decoration: const BoxDecoration(color: Color(0xFFFAFAFA)),

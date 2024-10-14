@@ -294,7 +294,7 @@ class CommunityFormat extends StatelessWidget {
                     child: Icon(Icons.bookmark_border, color: CustomColors.deepGrey),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 200), // 세 번째 아이콘의 오른쪽에만 패딩 추가
+                    padding: const EdgeInsets.only(right: 30), // 세 번째 아이콘의 오른쪽에만 패딩 추가
                     child: Icon(Icons.share, color: CustomColors.deepGrey),
                   ),
                   Text('1시간 전', style: smallStyle),
