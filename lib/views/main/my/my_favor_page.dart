@@ -15,6 +15,7 @@ class MyFavorPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final store = context.watch<MyFavorStore>();
     const commonStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    const margin = EdgeInsets.symmetric(horizontal: 10);
 
     const characterFavors = [
       'assets/characters/ca_favor.png',
@@ -36,68 +37,66 @@ class MyFavorPage extends StatelessWidget {
           child: Column(
             children: [
               const BackButtonAppBar(text: '카페 취향 분석',),
-              Expanded(child: SingleChildScrollView(
-                child: Container(
-                  height: size.height * 1.6,
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 캐릭터
-                      Container(
-                        height: 350,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
-                                fit: BoxFit.fill
-                            )
-                        ),
-                      ),
-                      Center(
-                        child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                      ),
-                      const SizedBox(height: 60,),
-                      // 문구
-                      Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        height: 320,
-                        child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
-                      ),
-                      const SizedBox(height: 60,),
-                      // 찰떡 궁합
-                      const Text('나와 찰떡 궁합은?',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                      Container(
-                        height: 120,
-                        //color: Colors.blue,
-                        child: Row(
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                width: 100,
-                                child: Image.asset(characterFavors[
-                                (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
-                                ])),
-                            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
-                                  style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                                const SizedBox(height: 10,),
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
-                                const SizedBox(height: 5,),
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
-                              ],))
-                          ],
-                        ),
-                      ),
-                    ],
+              Expanded(child: ListView(
+                children: [
+                  // 캐릭터
+                  Container(
+                    height: 350,
+                    margin: margin,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
+                            fit: BoxFit.fill
+                        )
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
+                  const SizedBox(height: 60,),
+                  // 문구
+                  Container(
+                    margin: margin,
+                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  ),
+                  Container(
+                    margin: margin,
+                    height: 320,
+                    child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
+                  ),
+                  const SizedBox(height: 60,),
+                  // 찰떡 궁합
+                  Container(
+                    margin: margin,
+                    child: const Text('나와 찰떡 궁합은?',
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  ),
+                  Container(
+                    height: 120,
+                    margin: margin,
+                    child: Row(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            width: 100,
+                            child: Image.asset(characterFavors[
+                            (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
+                            ])),
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
+                              style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                            const SizedBox(height: 10,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
+                            const SizedBox(height: 5,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
+                          ],))
+                      ],
+                    ),
+                  ),
+                ],
               )),
             ],
           ),
@@ -109,82 +108,83 @@ class MyFavorPage extends StatelessWidget {
           child: Column(
             children: [
               const BackButtonAppBar(text: '카페 취향 분석',),
-              Expanded(child: SingleChildScrollView(
-                child: Container(
-                  height: size.height * 2.1,
-                  width: double.infinity,
-                  margin: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 캐릭터
-                      Container(
-                        height: 350,
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
-                                fit: BoxFit.fill
-                            )
-                        ),
-                      ),
-                      Center(
-                        child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                      ),
-                      const SizedBox(height: 60,),
-                      // 문구
-                      Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        height: 320,
-                        child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
-                      ),
-                      const SizedBox(height: 60,),
-                      // 많이 간 카페
-                      const Text('2024 상반기 가장 많이 간 카페',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                      Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
-                        height: 300,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: List.generate(store.mostRevisitCafeList.length,
-                                (idx) => RevisitCafe(idx: idx),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 60,),
-                      // 찰떡 궁합
-                      const Text('나와 찰떡 궁합은?',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                      Container(
-                        height: 120,
-                        //color: Colors.blue,
-                        child: Row(
-                          children: [
-                            Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                width: 100,
-                                child: Image.asset(characterFavors[
-                                (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
-                                ])),
-                            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
-                                  style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
-                                const SizedBox(height: 10,),
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
-                                const SizedBox(height: 5,),
-                                Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
-                              ],))
-                          ],
-                        ),
-                      ),
-                    ],
+              Expanded(child: ListView(
+                children: [
+                  // 캐릭터
+                  Container(
+                    height: 350,
+                    margin: margin,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
+                            fit: BoxFit.fill
+                        )
+                    ),
                   ),
-                ),
+                  Center(
+                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                  ),
+                  const SizedBox(height: 60,),
+                  // 문구
+                  Container(
+                    margin: margin,
+                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    height: 320,
+                    child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
+                  ),
+                  const SizedBox(height: 60,),
+                  // 많이 간 카페
+                  Container(
+                    margin: margin,
+                    child: const Text('2024 상반기 가장 많이 간 카페',
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  ),
+                  Container(
+                    margin: margin,
+                    height: 300,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(store.mostRevisitCafeList.length,
+                            (idx) => RevisitCafe(idx: idx),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 60,),
+                  // 찰떡 궁합
+                  Container(
+                    margin: margin,
+                    child: const Text('나와 찰떡 궁합은?',
+                      style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  ),
+                  Container(
+                    height: 120,
+                    margin: margin,
+                    child: Row(
+                      children: [
+                        Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            width: 100,
+                            child: Image.asset(characterFavors[
+                            (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
+                            ])),
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
+                              style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
+                            const SizedBox(height: 10,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
+                            const SizedBox(height: 5,),
+                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
+                          ],))
+                      ],
+                    ),
+                  ),
+                ],
               )),
             ],
           ),
