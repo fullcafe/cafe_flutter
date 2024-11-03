@@ -12,8 +12,6 @@ import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-
 import 'Visit_Page.dart';
 
 class MyPage extends StatelessWidget {
@@ -24,6 +22,12 @@ class MyPage extends StatelessWidget {
     final totalSize = MediaQuery.of(context).size;
     final store = context.watch<MyPageStore>();
     const margin = EdgeInsets.symmetric(horizontal: 10);
+    const keywords = [
+      ['#카공', '#편한의자', '#넓은공간','#맛있는디저트'],
+      ['#낭만','#테라스','#분좋카','#맛있는디저트'],
+      ['#빠른주문','#많은음료용량','#높은책상'],
+      ['#맛있는디저트','#케이크','#테이블간격이넓은']
+    ];
 
     return Column(
       children: [
@@ -202,17 +206,12 @@ class MyPage extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 20),
                         )),
                         Expanded(
-                            child: Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CharacterKeyWordBox(text: '#카공'),
-                              CharacterKeyWordBox(text: '#테라스'),
-                              CharacterKeyWordBox(text: '#넓은 공간'),
-                              CharacterKeyWordBox(text: '#맛있는디저트'),
-                            ],
-                          ),
-                        )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: List.generate(keywords[UserStore.user?.characterIdx ?? 0].length,
+                                      (idx)=> CharacterKeyWordBox(text: keywords[UserStore.user?.characterIdx ?? 0][idx])
+                              ),
+                            )),
                         const Divider(
                           color: Colors.black,
                           thickness: 1.5,
