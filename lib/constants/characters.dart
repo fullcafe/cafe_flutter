@@ -34,7 +34,7 @@ const characterFeat = [
   },
   {
     'title' : '감성있는 개인 카페에서\n  힐링을 즐기는 직장인',
-    'subtitle' : '아기자기 카공러버',
+    'subtitle' : '빈티지 낭만 카페 러버',
     'feat' : '언제나 감성을 챙겨야 하는 당신',
     'chal' : {
       'name' : '미식이',
@@ -45,7 +45,7 @@ const characterFeat = [
   },
   {
     'title' : '합리적인 가격대를 좋아하며\n 카페인이 생명수인 대학생',
-    'subtitle' : '아기자기 카공러버',
+    'subtitle' : '양많고 맛있는 카페 러버',
     'feat' : '커피를 손에서 놓치 않는 당신',
     'chal' : {
       'name' : '카공이',
@@ -56,7 +56,7 @@ const characterFeat = [
   },
   {
     'title' : '    달달한 디저트를 먹으며\n주로 지인들과 함께 보내시는 분',
-    'subtitle' : '아기자기 카공러버',
+    'subtitle' : '예쁜 달달한 디저트 러버',
     'feat' : '달달한 것들 앞에서 행복해지는 당신',
     'chal' : {
       'name' : '감성이',
