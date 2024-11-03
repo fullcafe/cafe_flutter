@@ -17,14 +17,13 @@ class CouponPage extends StatelessWidget {
             // Frame511 위젯을 상단 앱바 바로 아래에 추가
             const Frame511(),
             const SizedBox(height: 20), // 간격 조정
-
             // 쿠폰 이미지
             Image.asset(
               'assets/images/Group 909.png',
               fit: BoxFit.contain,
-              height: 500,
+              height: 450,
             ),
-            const SizedBox(height: 90), // 이미지와 등록 버튼 간의 간격
+            //const SizedBox(height: 90), // 이미지와 등록 버튼 간의 간격
             // 하단의 등록 버튼
             _buildCouponRegistrationButton(),
           ],
@@ -37,6 +36,7 @@ class CouponPage extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 65,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
@@ -125,3 +125,6 @@ class Frame511 extends StatelessWidget {
     );
   }
 }
+/*
+호랑 줄무늬 떠서 임의로 수정함
+*/
