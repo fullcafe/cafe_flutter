@@ -95,28 +95,6 @@ class LoginMain extends StatelessWidget {
                   ],
                 )
             ),
-            Expanded(
-              child: GestureDetector(
-                onTap: () {
-                  // 메인 화면으로 바로 이동
-                  Navigator.pushNamedAndRemoveUntil(context, '/main', ModalRoute.withName('/'));
-                },
-                child: const CustomButtonLayout(
-                  margin: EdgeInsets.fromLTRB(10, 5, 10, 20),
-                  width: double.infinity,
-                  borderColor: CustomColors.deepGrey,
-                  child: Center(
-                    child: Text(
-                      '메인으로 이동',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.deepGrey,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
