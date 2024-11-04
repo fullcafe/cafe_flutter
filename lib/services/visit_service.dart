@@ -19,4 +19,20 @@ class VisitService {
     _dio = await DioInit.instance;
   }
 
+  createVisit(){
+    // 생성
+  }
+
+  getAllVisit(){
+    // 전부 가져옴
+    return [];
+  }
+
+  getWriteReviewVisit(){
+    // 리뷰 쓰세요에 나오는 visit
+  }
+
+  getMostCountVisit(){
+    // 방문횟수
+  }
 }
