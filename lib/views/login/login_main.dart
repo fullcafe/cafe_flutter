@@ -119,7 +119,7 @@ class LoginMain extends StatelessWidget {
   }
 
   Future<String> _checkUserCredential() async {
-    UserService userService = UserService.service;
+    UserService userService = await UserService.service;
     try{
       await userService.getUser();
       return '/main';
