@@ -12,13 +12,11 @@ class DioInit{
         connectTimeout: const Duration(seconds: 10)));
   }
 
-  static Dio get instance {
+  static Future<Dio> get instance async {
     // 처음에 dio 초기화
     if(_dio == null){
-      _init();
+      await _init();
     }
-    // async-await 시 무조건 future를 반환하기에 busy waiting
-    while(_dio == null);
     return _dio!;
   }
 }

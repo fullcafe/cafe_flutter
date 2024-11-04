@@ -17,12 +17,21 @@ class UserStore {
 
 class UserService {
 
-  final _dio = DioInit.instance;
+  late final Dio _dio;
   // 싱글톤
   static UserService? _userService;
-  UserService._() {}
-  static UserService get service => _userService ??= UserService._();
+  UserService._();
+  static Future<UserService> get service async {
+    if(_userService == null){
+      _userService = UserService._();
+      await _userService!._init();
+    }
+    return _userService!;
+  }
 
+  _init() async {
+    _dio = await DioInit.instance;
+  }
 
   Future<Response> initializeUser() async {
     var response = await getUser();
