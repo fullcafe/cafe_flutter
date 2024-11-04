@@ -17,7 +17,7 @@ class UserStore {
 
 class UserService {
 
-  late Dio _dio;
+  Dio _dio;
   static UserService? _userService;
 
   UserService._() {}
@@ -28,14 +28,6 @@ class UserService {
       await _userService!._init();
     }
     return _userService!;
-  }
-
-  _init() async {
-    var token = await FirebaseAuth.instance.currentUser?.getIdToken();
-    var idToken = 'Bearer $token';
-    _dio = Dio(BaseOptions(baseUrl: 'http://192.168.0.24:8080',
-                          headers: {'Authorization' : idToken},
-                          connectTimeout: const Duration(seconds: 10)));
   }
 
   Future<Response> initializeUser() async {
