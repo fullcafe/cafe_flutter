@@ -102,7 +102,7 @@ class AfterLoginStore with ChangeNotifier {
   }
 
   postUserData() async {
-    UserService userService = await UserService.getService();
+    UserService userService = UserService.service;
     try{
       await userService.createUser(_name, _birth!, _characterIdx!);
       _isComplete = true;

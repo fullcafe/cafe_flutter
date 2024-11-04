@@ -119,9 +119,9 @@ class LoginMain extends StatelessWidget {
   }
 
   Future<String> _checkUserCredential() async {
-    UserService userService = await UserService.getService();
+    UserService userService = UserService.service;
     try{
-      var response = await userService.getUser();
+      await userService.getUser();
       return '/main';
     } on DioException catch(e){
       // 없어서 못 가져옴
