@@ -57,9 +57,9 @@ Future<String> _checkUserCredential() async {
   if(user == null) {
     return '/login';
   }
-  UserService userService = await UserService.getService();
+  UserService userService = await UserService.instance;
   try{
-    var response = await userService.getUser();
+    await userService.getUser();
     return '/main';
   } on DioException catch(e){
     // 없어서 못 가져옴

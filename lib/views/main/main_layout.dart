@@ -45,7 +45,7 @@ class _MainLayoutState extends State<MainLayout> {
   }
 
   _getUser() async {
-    var userService = await UserService.getService();
+    var userService = await UserService.instance;
     try{
       await userService.initializeUser();
     } catch(e){

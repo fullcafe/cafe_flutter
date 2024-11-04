@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:cafe_front/models/custom_user.dart';
+import 'package:cafe_front/services/dio_init.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class UserStore {
   static CustomUser? _user;
@@ -17,13 +17,12 @@ class UserStore {
 
 class UserService {
 
-  late Dio _dio;
+  late final Dio _dio;
+  // 싱글톤
   static UserService? _userService;
-
-  UserService._() {}
-
-  static Future<UserService> getService() async {
-    if(_userService == null) {
+  UserService._();
+  static Future<UserService> get instance async {
+    if(_userService == null){
       _userService = UserService._();
       await _userService!._init();
     }
@@ -31,11 +30,7 @@ class UserService {
   }
 
   _init() async {
-    var token = await FirebaseAuth.instance.currentUser?.getIdToken();
-    var idToken = 'Bearer $token';
-    _dio = Dio(BaseOptions(baseUrl: 'http://192.168.0.24:8080',
-                          headers: {'Authorization' : idToken},
-                          connectTimeout: const Duration(seconds: 10)));
+    _dio = await DioInit.instance;
   }
 
   Future<Response> initializeUser() async {

@@ -19,7 +19,6 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalSize = MediaQuery.of(context).size;
     final store = context.watch<MyPageStore>();
     const margin = EdgeInsets.symmetric(horizontal: 10);
     const keywords = [
