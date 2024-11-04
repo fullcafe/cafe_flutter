@@ -57,7 +57,7 @@ Future<String> _checkUserCredential() async {
   if(user == null) {
     return '/login';
   }
-  UserService userService = await UserService.service;
+  UserService userService = await UserService.instance;
   try{
     await userService.getUser();
     return '/main';

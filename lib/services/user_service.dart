@@ -21,7 +21,7 @@ class UserService {
   // 싱글톤
   static UserService? _userService;
   UserService._();
-  static Future<UserService> get service async {
+  static Future<UserService> get instance async {
     if(_userService == null){
       _userService = UserService._();
       await _userService!._init();
