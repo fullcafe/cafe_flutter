@@ -64,8 +64,10 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
                   // "큐레이션" 페이지
                   const NearCafePage(),
                   // "모임" 페이지
-                  MeetPage(),
-                  MeetPage(),
+                  CurationPage(),
+                  CurationPage(),
+                  // MeetPage(),
+                  // MeetPage(),
                 ],
               ),
             ),
