@@ -6,6 +6,8 @@ class CustomUser {
   late int _characterIdx;
   late List<String> _preferredKeywords;
 
+  CustomUser(this._uid, this._email, this._name, this._birth, this._characterIdx);
+
   CustomUser.fromMap(Map<String, dynamic> map) {
     _uid = map['uid'];
     _email = map['email'];

@@ -1,6 +1,6 @@
 import '../models/repository/visit_repo.dart';
 import '../models/visit.dart';
-
+/*
 class VisitService {
   late final VisitRepository _visitRepository;
 
@@ -61,3 +61,4 @@ class VisitService {
     }
   }
 }
+*/
