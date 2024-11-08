@@ -24,7 +24,6 @@ class CustomUser {
   String get uid => _uid;
   List<String> get preferredKeywords => _preferredKeywords;
 
-  // JSON 형태로 변환하는 메서드
   Map<String, dynamic> toJson() {
     return {
       'uid': _uid,
