@@ -59,9 +59,10 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 controller: _tabController,
                 children: [
                   // "큐레이션" 페이지
-                  const CurationPage(),
+                  CurationPage(),
                   // "모임" 페이지
-                  MeetPage(),
+                  CurationPage(),
+                  // MeetPage(),
                 ],
               ),
             ),
