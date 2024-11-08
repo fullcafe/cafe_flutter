@@ -15,6 +15,7 @@ class MyReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var store = context.watch<MyReviewStore>();
+    var user = UserStore.getInstance().user;
     // 값 가져올 때 까지 로딩
     if(store.myReviews.isEmpty){
       return const Scaffold(
@@ -26,9 +27,9 @@ class MyReviewPage extends StatelessWidget {
         children: [
           const BackButtonAppBar(text: '내 리뷰',),
           ListTile(
-            leading: SizedBox(width: 50,child: Image.asset(characterIcons[UserStore.user?.characterIdx ?? 0])),
-            title: Text('${UserStore.user?.name}',style: const TextStyle(fontWeight: FontWeight.bold),),
-            subtitle: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['subtitle'].toString(),
+            leading: SizedBox(width: 50,child: Image.asset(characterIcons[user?.characterIdx ?? 0])),
+            title: Text('${user?.name}',style: const TextStyle(fontWeight: FontWeight.bold),),
+            subtitle: Text(characterFeat[user?.characterIdx ?? 0]['subtitle'].toString(),
               style: const TextStyle(color: CustomColors.deepGrey),), // 여기도 캐릭터 따라 변경
             trailing: GestureDetector(
               onTap: (){

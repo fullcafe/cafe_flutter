@@ -40,4 +40,8 @@ class UserStore {
     }
   }
 
+  createUser(CustomUser user) async {
+    await repository.createUser(user);
+  }
+
 }

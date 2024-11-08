@@ -16,6 +16,7 @@ class MyFavorPage extends StatelessWidget {
     final store = context.watch<MyFavorStore>();
     const commonStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 12);
     const margin = EdgeInsets.symmetric(horizontal: 10);
+    var user = UserStore.getInstance().user;
 
     const characterFavors = [
       'assets/characters/ca_favor.png',
@@ -45,26 +46,26 @@ class MyFavorPage extends StatelessWidget {
                     margin: margin,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
+                            image: AssetImage(characterFavors[user?.characterIdx ?? 0],),
                             fit: BoxFit.fill
                         )
                     ),
                   ),
                   Center(
-                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                    child: Text(characterFeat[user?.characterIdx ?? 0]['title'].toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                   ),
                   const SizedBox(height: 60,),
                   // 문구
                   Container(
                     margin: margin,
-                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
+                    child: Text(characterFeat[user?.characterIdx ?? 0]['feat'].toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   ),
                   Container(
                     margin: margin,
                     height: 320,
-                    child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
+                    child: Center(child: Image.asset(characterDescriptions[user?.characterIdx ?? 0])),
                   ),
                   const SizedBox(height: 60,),
                   // 찰떡 궁합
@@ -82,16 +83,16 @@ class MyFavorPage extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             width: 100,
                             child: Image.asset(characterFavors[
-                            (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
+                            (characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
                             ])),
                         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['name'],
                               style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
                             const SizedBox(height: 10,),
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
                             const SizedBox(height: 5,),
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
                           ],))
                       ],
                     ),
@@ -116,26 +117,26 @@ class MyFavorPage extends StatelessWidget {
                     margin: margin,
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage(characterFavors[UserStore.user?.characterIdx ?? 0],),
+                            image: AssetImage(characterFavors[user?.characterIdx ?? 0],),
                             fit: BoxFit.fill
                         )
                     ),
                   ),
                   Center(
-                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['title'].toString(),
+                    child: Text(characterFeat[user?.characterIdx ?? 0]['title'].toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                   ),
                   const SizedBox(height: 60,),
                   // 문구
                   Container(
                     margin: margin,
-                    child: Text(characterFeat[UserStore.user?.characterIdx ?? 0]['feat'].toString(),
+                    child: Text(characterFeat[user?.characterIdx ?? 0]['feat'].toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     height: 320,
-                    child: Center(child: Image.asset(characterDescriptions[UserStore.user?.characterIdx ?? 0])),
+                    child: Center(child: Image.asset(characterDescriptions[user?.characterIdx ?? 0])),
                   ),
                   const SizedBox(height: 60,),
                   // 많이 간 카페
@@ -170,16 +171,16 @@ class MyFavorPage extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             width: 100,
                             child: Image.asset(characterFavors[
-                            (characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
+                            (characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['chrIdx']
                             ])),
                         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['name'],
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['name'],
                               style: const TextStyle(fontWeight: FontWeight.w500,fontSize: 20),),
                             const SizedBox(height: 10,),
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['feat1'],style: commonStyle,),
                             const SizedBox(height: 5,),
-                            Text((characterFeat[UserStore.user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
+                            Text((characterFeat[user?.characterIdx ?? 0]['chal'] as Map)['feat2'],style: commonStyle,),
                           ],))
                       ],
                     ),
