@@ -14,9 +14,6 @@ class CustomUser {
     _name = map['name'];
     _birth = map['birthday'];
     _characterIdx = map['characterIdx'];
-
-    // 선호 키워드가 없는 경우 기본 키워드 목록 설정
-    _preferredKeywords = List<String>.from(map['preferredKeywords'] ?? ['아메리카노', '디저트', '커피', '라떼']);
   }
 
   int get characterIdx => _characterIdx;
@@ -33,7 +30,6 @@ class CustomUser {
       'name': _name,
       'birthday': _birth,
       'characterIdx': _characterIdx,
-      // 'preferredKeywords': _preferredKeywords, 이거 아직 디비에 추가 안됨
     };
   }
 
@@ -43,3 +39,4 @@ class CustomUser {
         'characterIdx: $_characterIdx, preferredKeywords: $_preferredKeywords)';
   }
 }
+//  ['아메리카노', '디저트', '커피', '라떼']
