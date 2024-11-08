@@ -1,23 +1,55 @@
-import 'package:cafe_front/services/dio_init.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ApiService {
-  late final Dio _dio;
-
-  ApiService() { init(); }
-
-  init() async {
-    _dio = await DioInit.instance;
+  late Dio _dio;
+  String? idToken;
+  
+  ApiService(){
+    _init(); // 최초 dio 초기화
   }
 
-  Future<Response?> getRequest(String path) async {
-    return _dio.get(path);
+  Future<String?> _getToken() async {
+    try{
+      var token = await FirebaseAuth.instance.currentUser?.getIdToken();
+      idToken = 'Bearer $token';
+    } catch(e){
+      Fluttertoast.showToast(msg: '토큰 로드 실패');
+    }
+    return idToken;
   }
 
-  Future<Response> postRequest(String path, String data){
-    return _dio.post(path, data: data);
+  _initDio(){
+    _dio = Dio(BaseOptions(baseUrl: 'http://172.30.1.73:8080',
+        headers: {'Authorization' : idToken},
+        connectTimeout: const Duration(seconds: 10)));
   }
 
+  _init() async {
+    await _getToken();
+    _initDio();
+  }
+  // 403 오류시 토큰 재 초기화 템플릿
+  Future<Response> requestTemplate(Future<Response> Function() func) async{
+    try{
+      return await func();
+    } on DioException catch(e){
+      if(e.response?.statusCode != 403){
+        rethrow;
+      }
+      await _init();
+      return await func();
+    }
+  }
+
+  Future<Response> getRequest(String path) async {
+    return await requestTemplate(() async => await _dio.get(path));
+  }
+
+  Future<Response> postRequest(String path, String data) async {
+    return await requestTemplate(() async => await _dio.post(path, data: data));
+  }
 }
 /*
  예외 처리는 exception 종류에 따라 달라지는 경우가 있기에

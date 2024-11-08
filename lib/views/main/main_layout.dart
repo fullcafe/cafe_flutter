@@ -1,5 +1,5 @@
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/Community/community_page.dart';
 import 'package:cafe_front/views/main/my/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';

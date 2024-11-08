@@ -1,5 +1,5 @@
 import 'package:cafe_front/constants/routes.dart';
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

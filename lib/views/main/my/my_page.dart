@@ -3,7 +3,7 @@ import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/main/my/my_favor_store.dart';
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';

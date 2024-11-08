@@ -31,7 +31,7 @@ class CustomUser {
       'name': _name,
       'birthday': _birth,
       'characterIdx': _characterIdx,
-      'preferredKeywords': _preferredKeywords,
+      // 'preferredKeywords': _preferredKeywords, 이거 아직 디비에 추가 안됨
     };
   }
 

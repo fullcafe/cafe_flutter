@@ -1,4 +1,4 @@
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';

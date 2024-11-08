@@ -1,5 +1,4 @@
 import '../models/repository/visit_repo.dart';
-import 'dio_init.dart';
 import '../models/visit.dart';
 
 class VisitService {
