@@ -25,7 +25,7 @@ class ApiService {
   }
 
   _initDio(){
-    _dio = Dio(BaseOptions(baseUrl: 'http://172.30.1.73:8080',
+    _dio = Dio(BaseOptions(baseUrl: 'http://13.125.72.139:8080',
         headers: {'Authorization' : idToken},
         connectTimeout: const Duration(seconds: 10)));
   }
