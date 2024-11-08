@@ -31,9 +31,11 @@ class UserStore {
       if(e.response?.statusCode == 404){
         _status = UserStatus.LOGIN;
       } else {
+        Fluttertoast.showToast(msg: '정보를 가져오는데 실패하였습니다.');
         _status = UserStatus.ERROR;
       }
     } catch(e){
+      Fluttertoast.showToast(msg: '정보를 가져오는데 실패하였습니다.');
       _status = UserStatus.ERROR;
     }
   }
