@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cafe_front/models/custom_user.dart';
 import 'package:cafe_front/services/api_service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class UserRepository {
   final ApiService _apiService = ApiService();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -5,8 +7,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ApiService {
   late Dio _dio;
   String? idToken;
-  
-  ApiService(){
+  bool _first = true;
+
+
+  ApiService() {
     _init(); // 최초 dio 초기화
   }
 
@@ -29,9 +33,17 @@ class ApiService {
   _init() async {
     await _getToken();
     _initDio();
+    _first = false;
   }
   // 403 오류시 토큰 재 초기화 템플릿
   Future<Response> requestTemplate(Future<Response> Function() func) async{
+    if(_first){
+      // 초기화 될 때까지 busy waiting
+      while(_first){
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
+    }
+
     try{
       return await func();
     } on DioException catch(e){
