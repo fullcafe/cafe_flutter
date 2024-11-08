@@ -1,4 +1,4 @@
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -119,21 +119,15 @@ class LoginMain extends StatelessWidget {
   }
 
   Future<String> _checkUserCredential() async {
-    UserService userService = await UserService.instance;
-    try{
-      await userService.getUser();
-      return '/main';
-    } on DioException catch(e){
-      // 없어서 못 가져옴
-      if(e.response?.statusCode == 404) {
+    UserStore userStore = UserStore.getInstance();
+    await userStore.getUser();
+    switch(userStore.status) {
+      case UserStatus.EXIST:
+        return '/main';
+      case UserStatus.LOGIN:
         return '/after';
-      }
-      Fluttertoast.showToast(msg: e.response?.statusMessage ?? '정보를 가져오는데 실패하였습니다.');
-      return '/login';
-    } catch(e){
-      // 그외 예외
-      Fluttertoast.showToast(msg: '정보를 가져오는데 실패하였습니다.');
-      return '/login';
+      case UserStatus.ERROR:
+        return '/login';
     }
   }
 

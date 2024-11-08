@@ -3,7 +3,7 @@ import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/provider/main/my/my_favor_store.dart';
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
 import 'package:cafe_front/provider/main/my/my_review_store.dart';
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
@@ -21,6 +21,7 @@ class MyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final store = context.watch<MyPageStore>();
     const margin = EdgeInsets.symmetric(horizontal: 10);
+    var user = UserStore.getInstance().user;
     const keywords = [
       ['#카공', '#편한의자', '#넓은공간','#맛있는디저트'],
       ['#낭만','#테라스','#분좋카','#맛있는디저트'],
@@ -50,13 +51,13 @@ class MyPage extends StatelessWidget {
                   children: [
                     Expanded(child: Row(
                       children: [
-                        SizedBox(width: 60,child: Image.asset(characterIcons[UserStore.user?.characterIdx ?? 0])),
+                        SizedBox(width: 60,child: Image.asset(characterIcons[user?.characterIdx ?? 0])),
                         const SizedBox(width: 10,),
                         Expanded(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('${UserStore.user?.name}님',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                            Text('${user?.name}님',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                             const Text('리뷰 포인트 509p')
                           ],
                         ))
@@ -176,7 +177,7 @@ class MyPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${UserStore.user?.name}님의 커피 취향 분석',
+                    '${user?.name}님의 커피 취향 분석',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
                   ),
@@ -192,13 +193,12 @@ class MyPage extends StatelessWidget {
                             flex: 4,
                             child: Container(
                               margin: const EdgeInsets.all(10),
-                              child: Image.asset(characterCards[
-                                  UserStore.user?.characterIdx ?? 0]),
+                              child: Image.asset(characterCards[user?.characterIdx ?? 0]),
                             )),
                         // 캐릭터 따라 문구 변경
                         Expanded(
                             child: Text(
-                          characterFeat[UserStore.user?.characterIdx ?? 0]
+                          characterFeat[user?.characterIdx ?? 0]
                                   ['title']
                               .toString(),
                           style: const TextStyle(
@@ -207,8 +207,8 @@ class MyPage extends StatelessWidget {
                         Expanded(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(keywords[UserStore.user?.characterIdx ?? 0].length,
-                                      (idx)=> CharacterKeyWordBox(text: keywords[UserStore.user?.characterIdx ?? 0][idx])
+                              children: List.generate(keywords[user?.characterIdx ?? 0].length,
+                                      (idx)=> CharacterKeyWordBox(text: keywords[user?.characterIdx ?? 0][idx])
                               ),
                             )),
                         const Divider(

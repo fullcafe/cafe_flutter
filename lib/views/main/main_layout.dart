@@ -1,5 +1,5 @@
 import 'package:cafe_front/provider/main/my/my_page_store.dart';
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/Community/community_page.dart';
 import 'package:cafe_front/views/main/my/my_page.dart';
 import 'package:cafe_front/views/main/onboarding/onboarding_layout.dart';
@@ -45,12 +45,8 @@ class _MainLayoutState extends State<MainLayout> {
   }
 
   _getUser() async {
-    var userService = await UserService.instance;
-    try{
-      await userService.initializeUser();
-    } catch(e){
-      Fluttertoast.showToast(msg: '유저 정보를 불러오는데 실패하였습니다.');
-    }
+    var userStore = UserStore.getInstance();
+    await userStore.getUser();
   }
 
   _getInitData() async {
@@ -97,7 +93,7 @@ class OnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var controller = PageController();
-    var user = UserStore.user;
+    var user = UserStore.getInstance().user;
     return Container(
       height: size.height * 0.7,
       width: double.infinity,

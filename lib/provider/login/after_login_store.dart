@@ -1,4 +1,5 @@
-import 'package:cafe_front/services/user_service.dart';
+import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/custom_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -102,19 +103,14 @@ class AfterLoginStore with ChangeNotifier {
   }
 
   postUserData() async {
-    UserService userService = await UserService.instance;
+    UserStore userStore = UserStore.getInstance();
+    CustomUser user = CustomUser('', '', _name, _birth!.toIso8601String(), _characterIdx!);
     try{
-      await userService.createUser(_name, _birth!, _characterIdx!);
+      await userStore.createUser(user);
       _isComplete = true;
       notifyListeners();
-    } on DioException catch(e){
-      if(e.response?.statusCode == 403){
-        Fluttertoast.showToast(msg: '인증이 유효하지 않습니다.');
-      } else if(e.response?.statusCode == 400){
-        Fluttertoast.showToast(msg: '입력 형식이 잘못 되었습니다.');
-      }
     } catch(e){
-      Fluttertoast.showToast(msg: '요청에 실패하였습니다.');
+      Fluttertoast.showToast(msg: '유저 생성에 실패했습니다.');
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:cafe_front/views/main/Curation/Photo_With_Keyword_Card.dart';
 import 'package:cafe_front/views/main/Curation/section_title.dart';
 import 'package:flutter/material.dart';
 import '../../../models/cafe.dart';
+import '../../../models/cafe_keyword.dart';
 import '../../../models/repository/cafe_repo.dart';
 import 'CustomPhotoCard.dart';
 

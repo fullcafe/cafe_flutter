@@ -6,6 +6,8 @@ class CustomUser {
   late int _characterIdx;
   late List<String> _preferredKeywords;
 
+  CustomUser(this._uid, this._email, this._name, this._birth, this._characterIdx);
+
   CustomUser.fromMap(Map<String, dynamic> map) {
     _uid = map['uid'];
     _email = map['email'];
@@ -24,7 +26,6 @@ class CustomUser {
   String get uid => _uid;
   List<String> get preferredKeywords => _preferredKeywords;
 
-  // JSON 형태로 변환하는 메서드
   Map<String, dynamic> toJson() {
     return {
       'uid': _uid,
@@ -32,7 +33,7 @@ class CustomUser {
       'name': _name,
       'birthday': _birth,
       'characterIdx': _characterIdx,
-      'preferredKeywords': _preferredKeywords,
+      // 'preferredKeywords': _preferredKeywords, 이거 아직 디비에 추가 안됨
     };
   }
 
