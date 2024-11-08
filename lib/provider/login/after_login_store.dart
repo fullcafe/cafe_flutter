@@ -105,7 +105,13 @@ class AfterLoginStore with ChangeNotifier {
   postUserData() async {
     UserStore userStore = UserStore.getInstance();
     CustomUser user = CustomUser('', '', _name, _birth!.toIso8601String(), _characterIdx!);
-    await userStore.createUser(user);
+    try{
+      await userStore.createUser(user);
+      _isComplete = true;
+      notifyListeners();
+    } catch(e){
+      Fluttertoast.showToast(msg: '유저 생성에 실패했습니다.');
+    }
   }
 
   // 현재 페이지에 따라 다음버튼 로직이 달라짐

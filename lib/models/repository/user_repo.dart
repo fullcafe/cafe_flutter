@@ -21,11 +21,7 @@ class UserRepository {
   Future<void> createUser(CustomUser user) async {
     var data = user.toJson();
     var encodedData = jsonEncode(data);
-    try{
-      await _apiService.postRequest('/register', encodedData);
-    } catch(e){
-      Fluttertoast.showToast(msg: '유저 생성에 실패했습니다.');
-    }
+    await _apiService.postRequest('/register', encodedData);
   }
 
 }
