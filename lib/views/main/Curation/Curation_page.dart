@@ -22,7 +22,8 @@ class _CurationPageState extends State<CurationPage> {
   @override
   void initState() {
     super.initState();
-    context.read<CurationViewModel>();
+    // 카페 데이터 fetch
+    context.read<CurationViewModel>().fetchData();
   }
 
   @override

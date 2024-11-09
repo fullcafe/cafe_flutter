@@ -18,7 +18,7 @@ class CafeRepository {
       'parking': filter.parking,
       'easyPayment': filter.easyPayment,
       'delivery': filter.delivery,
-      'keywords': filter.keywords, // 수정: 그대로 List<String>으로 전달
+      'keywords': filter.keywords,
     };
     try{
       var response = await _apiService.getRequest('/cafes/search',queryParam: queryParam);
