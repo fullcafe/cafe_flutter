@@ -66,8 +66,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                       child: CurationPage(),
                   ),
                   // "모임" 페이지
-                  CurationPage(),
-                  // MeetPage(),
+                   MeetPage(),
                 ],
               ),
             ),

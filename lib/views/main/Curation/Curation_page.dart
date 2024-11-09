@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
 import '../../../models/cafe_keyword.dart';
+import '../../../widgets/listview/build_list_view.dart';
 import 'CustomPhotoCard.dart';
 
 class CurationPage extends StatefulWidget {
@@ -98,12 +99,11 @@ class _CurationPageState extends State<CurationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 25),
                 const SectionTitle(title: '집 주변 카페 정복하기'),
                 buildHorizontalListView(cafes.sublist(0, 3)),
-                const SizedBox(height: 60),
+                const SizedBox(height: 30),
                 const SectionTitle(title: '서진님의 취향저격 카페'),
-                buildPreferredCafeListView(viewModel),
+                buildHorizontalListView(viewModel.preferredCafes ?? []),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
                 buildListViewWithCustomCards(cafes),
@@ -114,77 +114,4 @@ class _CurationPageState extends State<CurationPage> {
       ),
     );
   }
-
-  String _getRandomImagePath() {
-    int randomIndex = _random.nextInt(21); // 0부터 20까지의 랜덤 숫자
-    return 'assets/images/Frame $randomIndex.png';
-  }
-
-  Widget buildHorizontalListView(List<Cafe> cafes) {
-    return SizedBox(
-      height: 250,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: cafes.length,
-        separatorBuilder: (context, index) => const SizedBox(width: 12),
-        itemBuilder: (context, index) {
-          final cafe = cafes[index];
-          List<CafeKeyword> sortedKeywords = List.from(cafe.keywords);
-          sortedKeywords.sort((a, b) => b.frequency.compareTo(a.frequency));
-
-          return PhotoKeyCard(
-            imagePath: _getRandomImagePath(),
-            keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
-            keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
-            text: cafe.name,
-          );
-        },
-      ),
-    );
-  }
-
-  Widget buildPreferredCafeListView(CurationViewModel viewModel) {
-    if (viewModel.preferredCafes == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
-    final cafes = viewModel.preferredCafes!;
-    return buildHorizontalListView(cafes);
-  }
-
-  Widget buildListViewWithCustomCards(List<Cafe> cafes) {
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: cafes.length,
-        itemBuilder: (context, index) {
-          final cafe = cafes[index];
-          List<CafeKeyword> sortedKeywords = List.from(cafe.keywords);
-          sortedKeywords.sort((a, b) => b.frequency.compareTo(a.frequency));
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: CustomPhotoCard(
-              imagePath: _getRandomImagePath(),
-              storeName: cafe.name,
-              keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
-              keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
-              comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
-              revisitCount: 8,
-            ),
-          );
-        },
-      ),
-    );
-  }
 }
-/*
-  Future<List<Cafe>> fetchPreferredCafeData() async {
-    try {
-      return await cafeRepo.searchCafesByFilters(keywords: userPreferredKeywords);
-    } catch (e) {
-      print('Error fetching preferred cafes: $e');
-      return [];
-    }
-  }
- */

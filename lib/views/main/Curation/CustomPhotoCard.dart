@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../../models/cafe.dart';
 import '../../../models/visit.dart';
 
-class CustomPhotoCard extends StatelessWidget {
-  final String imagePath; // 고정 이미지 경로
-  final String storeName; // 가게 이름
-  final String keyword1; // 첫 번째 키워드
-  final String keyword2; // 두 번째 키워드
-  final String comment; // 고정 코멘트
-  final int revisitCount; // 고정 재방문 횟수
-  final Visit? visit; // 방문 정보 (optional)
+class CustomPhotoCard extends StatefulWidget {
+  final String imagePath;
+  final String storeName;
+  final String keyword1;
+  final String keyword2;
+  final String comment;
+  final int revisitCount;
+  final Visit? visit;
 
   const CustomPhotoCard({
     Key? key,
@@ -23,9 +23,23 @@ class CustomPhotoCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CustomPhotoCard> createState() => _CustomPhotoCardState();
+}
+
+class _CustomPhotoCardState extends State<CustomPhotoCard> {
+  bool isBookmarked = false;
+
+  void toggleBookmark() {
+    setState(() {
+      isBookmarked = !isBookmarked;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180, // 카드 너비
+      width: 180,
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,75 +47,94 @@ class CustomPhotoCard extends StatelessWidget {
             children: [
               // 이미지 배경
               ClipRRect(
+                borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
-                  imagePath,
+                  widget.imagePath,
                   width: 200,
                   height: 200,
                   fit: BoxFit.cover,
                 ),
               ),
-              // 우측 상단 재방문 횟수 박스
+              // 북마크 버튼
               Positioned(
-                top: 8,
-                right: 8,
+                top: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: toggleBookmark,
+                  child: Icon(
+                    isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
+                    color: isBookmarked ? Colors.orange : Colors.grey,
+                    size: 28,
+                  ),
+                ),
+              ),
+              // 재방문 횟수 박스
+              Positioned(
+                top: 10,
+                left: 10,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(1),
+                    color: Colors.white.withOpacity(0.8),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    '재방문 $revisitCount회', // 고정된 재방문 횟수
+                    '재방문 ${widget.revisitCount}회',
                     style: const TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: Colors.black87,
                     ),
                   ),
                 ),
               ),
-              // 우측 하단 키워드 박스 (revisitCount가 0 이상일 때만 표시)
-              if (revisitCount > 0)
+              // 키워드 박스 (재방문 횟수가 있을 때만 표시)
+              if (widget.revisitCount > 0)
                 Positioned(
-                  bottom: 8,
-                  right: 8,
+                  bottom: 10,
+                  right: 10,
                   child: Row(
                     children: [
-                      _buildKeywordBox(keyword1),
+                      _buildKeywordBox(widget.keyword1),
                       const SizedBox(width: 4),
-                      _buildKeywordBox(keyword2),
+                      _buildKeywordBox(widget.keyword2),
                     ],
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           ClipPath(
             clipper: InvertedSpeechBubbleClipper(),
             child: Container(
               color: Colors.grey[200],
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
               child: Text(
-                comment,
-                style: const TextStyle(color: Colors.grey, fontSize: 10, fontWeight: FontWeight.w700),
+                widget.comment,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
+          const SizedBox(height: 4),
           Text(
-            storeName,
+            widget.storeName,
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
             maxLines: 1,
-            overflow: TextOverflow.ellipsis, // 가게 이름이 너무 길면 말줄임표 표시
+            overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 1),
+          const SizedBox(height: 2),
           Text(
-            _getLastVisitText(), // 마지막 방문 날짜 표시
+            _getLastVisitText(),
             style: const TextStyle(
               fontSize: 10,
               color: Colors.black,
@@ -134,11 +167,11 @@ class CustomPhotoCard extends StatelessWidget {
 
   // 마지막 방문 날짜를 텍스트로 변환
   String _getLastVisitText() {
-    if (visit == null || visit!.recent == null) {
+    if (widget.visit == null || widget.visit!.recent == null) {
       return "방문한 적이 없는 곳이에요!";
     } else {
       final now = DateTime.now();
-      final lastVisit = visit!.recent!;
+      final lastVisit = widget.visit!.recent!;
       final differenceInDays = now.difference(lastVisit).inDays;
       final weeks = (differenceInDays / 7).floor();
 
