@@ -8,7 +8,6 @@ import 'package:cafe_front/widgets/bottom/custom_bottom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,9 +26,9 @@ class _MainLayoutState extends State<MainLayout> {
   Index index = Index();
 
   List pages = [
-    HomePage(),
-    SearchBase(),
-    CommunityPage(),
+    const HomePage(),
+    const SearchBase(),
+    const CommunityPage(),
     ChangeNotifierProvider(
         create: (BuildContext context) => MyPageStore(),
         child: const MyPage()

@@ -1,130 +1,117 @@
 import 'dart:math';
+import 'package:cafe_front/provider/main/curation/curation_viewmodel.dart';
 import 'package:cafe_front/views/main/Curation/More_Curation_Page.dart';
 import 'package:cafe_front/views/main/Curation/Photo_With_Keyword_Card.dart';
 import 'package:cafe_front/views/main/Curation/section_title.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
 import '../../../models/cafe_keyword.dart';
-import '../../../models/repository/cafe_repo.dart';
 import 'CustomPhotoCard.dart';
 
-class CurationPage extends StatelessWidget {
-  final List<String> userPreferredKeywords = ['아메리카노', '디저트', '커피', '라떼', '케이크', '녹차라떼'];
-  final CafeRepo cafeRepo = CafeRepo();
+class CurationPage extends StatefulWidget {
+  const CurationPage({Key? key}) : super(key: key);
+
+  @override
+  State<CurationPage> createState() => _CurationPageState();
+}
+
+class _CurationPageState extends State<CurationPage> {
   final Random _random = Random();
 
-  CurationPage({Key? key}) : super(key: key);
-
-  Future<List<Cafe>> fetchAllCafeData() async {
-    try {
-      return await cafeRepo.fetchAllCafes();
-    } catch (e) {
-      print('Error fetching all cafes: $e');
-      return [];
-    }
-  }
-
-  Future<List<Cafe>> fetchPreferredCafeData() async {
-    try {
-      return await cafeRepo.searchCafesByFilters(keywords: userPreferredKeywords);
-    } catch (e) {
-      print('Error fetching preferred cafes: $e');
-      return [];
-    }
+  @override
+  void initState() {
+    super.initState();
+    // 카페 데이터 fetch
+    context.read<CurationViewModel>().fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Cafe>>(
-      future: fetchAllCafeData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No data available'));
-        } else {
-          final cafes = snapshot.data!;
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      height: 500,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/Frame 6.png'),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 30,
-                      left: 20,
-                      right: 20,
-                      child: Text(
-                        '장마철에 딱 맞는\n당신의 취향 저격 카페 3선',
-                        style: const TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'Pretendard-Bold',
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          shadows: [
-                            Shadow(
-                              offset: Offset(0, 1),
-                              blurRadius: 5.0,
-                              color: Colors.black45,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 28,
-                      left: 360,
-                      right: 0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MoreCurationPage(),
-                            ),
-                          );
-                        },
-                        child: Image.asset(
-                          'assets/images/image_511371.png',
-                          width: 48,
-                          height: 48,
-                        ),
-                      ),
-                    ),
-                  ],
+    // 뷰모델
+    var viewModel = context.watch<CurationViewModel>();
+    // Future 데이터가 아닌 뷰모델 값을 기준으로 화면 업데이트
+    if (viewModel.cafes == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final cafes = viewModel.cafes!;
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 500,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Frame 6.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 25),
-                      const SectionTitle(title: '집 주변 카페 정복하기'),
-                      buildHorizontalListView(cafes.sublist(0, 3)),
-                      const SizedBox(height: 60),
-                      const SectionTitle(title: '서진님의 취향저격 카페'),
-                      buildPreferredCafeListView(),
-                      const SizedBox(height: 30),
-                      const SectionTitle(title: '이 카페 한 번 더?'),
-                      buildListViewWithCustomCards(cafes),
+              ),
+              Positioned(
+                bottom: 30,
+                left: 20,
+                right: 20,
+                child: Text(
+                  '장마철에 딱 맞는\n당신의 취향 저격 카페 3선',
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontFamily: 'Pretendard-Bold',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    shadows: [
+                      Shadow(
+                        offset: Offset(0, 1),
+                        blurRadius: 5.0,
+                        color: Colors.black45,
+                      ),
                     ],
                   ),
                 ),
+              ),
+              Positioned(
+                bottom: 28,
+                left: 360,
+                right: 0,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MoreCurationPage(),
+                      ),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/image_511371.png',
+                    width: 48,
+                    height: 48,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 25),
+                const SectionTitle(title: '집 주변 카페 정복하기'),
+                buildHorizontalListView(cafes.sublist(0, 3)),
+                const SizedBox(height: 60),
+                const SectionTitle(title: '서진님의 취향저격 카페'),
+                buildPreferredCafeListView(viewModel),
+                const SizedBox(height: 30),
+                const SectionTitle(title: '이 카페 한 번 더?'),
+                buildListViewWithCustomCards(cafes),
               ],
             ),
-          );
-        }
-      },
+          ),
+        ],
+      ),
     );
   }
 
@@ -156,22 +143,12 @@ class CurationPage extends StatelessWidget {
     );
   }
 
-  Widget buildPreferredCafeListView() {
-    return FutureBuilder<List<Cafe>>(
-      future: fetchPreferredCafeData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No preferred cafes found'));
-        } else {
-          final cafes = snapshot.data!;
-          return buildHorizontalListView(cafes);
-        }
-      },
-    );
+  Widget buildPreferredCafeListView(CurationViewModel viewModel) {
+    if (viewModel.preferredCafes == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    final cafes = viewModel.preferredCafes!;
+    return buildHorizontalListView(cafes);
   }
 
   Widget buildListViewWithCustomCards(List<Cafe> cafes) {
@@ -201,3 +178,13 @@ class CurationPage extends StatelessWidget {
     );
   }
 }
+/*
+  Future<List<Cafe>> fetchPreferredCafeData() async {
+    try {
+      return await cafeRepo.searchCafesByFilters(keywords: userPreferredKeywords);
+    } catch (e) {
+      print('Error fetching preferred cafes: $e');
+      return [];
+    }
+  }
+ */
