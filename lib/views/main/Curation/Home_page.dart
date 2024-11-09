@@ -1,5 +1,7 @@
+import 'package:cafe_front/provider/main/curation/curation_viewmodel.dart';
 import 'package:cafe_front/views/main/Curation/MeetPage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 import 'Curation_page.dart';
 
@@ -8,10 +10,10 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _homePageState();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -59,7 +61,10 @@ class _homePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 controller: _tabController,
                 children: [
                   // "큐레이션" 페이지
-                  CurationPage(),
+                  ChangeNotifierProvider(
+                      create: (context) => CurationViewModel(),
+                      child: CurationPage(),
+                  ),
                   // "모임" 페이지
                   CurationPage(),
                   // MeetPage(),
