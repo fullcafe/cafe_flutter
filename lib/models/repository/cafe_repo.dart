@@ -20,7 +20,7 @@ class CafeRepository {
       'keywords': filter.keywords.map((e)=>e.keyword).toList(), // 수정: 그대로 List<String>으로 전달
     };
     try{
-      var response = await _apiService.getRequestWithQueryParam('/cafes/search', queryParam);
+      var response = await _apiService.getRequest('/cafes/search',queryParam: queryParam);
       List<dynamic> data = response.data;
       return data.map((json) => Cafe.fromJson(json)).toList();
     } catch(e){

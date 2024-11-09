@@ -55,11 +55,7 @@ class ApiService {
     }
   }
 
-  Future<Response> getRequest(String path) async {
-    return await requestTemplate(() async => await _dio.get(path));
-  }
-
-  Future<Response> getRequestWithQueryParam(String path, Map<String, dynamic> queryParam) async {
+  Future<Response> getRequest(String path,{Map<String, dynamic>? queryParam}) async {
     return await requestTemplate(() async => await _dio.get(path,queryParameters: queryParam));
   }
 
