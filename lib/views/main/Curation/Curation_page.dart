@@ -10,7 +10,7 @@ import 'CustomPhotoCard.dart';
 
 class CurationPage extends StatelessWidget {
   final List<String> userPreferredKeywords = ['아메리카노', '디저트', '커피', '라떼', '케이크', '녹차라떼'];
-  final CafeRepo cafeRepo = CafeRepo();
+  final CafeRepository cafeRepo = CafeRepository();
   final Random _random = Random();
 
   CurationPage({Key? key}) : super(key: key);

@@ -59,6 +59,10 @@ class ApiService {
     return await requestTemplate(() async => await _dio.get(path));
   }
 
+  Future<Response> getRequestWithQueryParam(String path, Map<String, dynamic> queryParam) async {
+    return await requestTemplate(() async => await _dio.get(path,queryParameters: queryParam));
+  }
+
   Future<Response> postRequest(String path, String data) async {
     return await requestTemplate(() async => await _dio.post(path, data: data));
   }
