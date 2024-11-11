@@ -1,15 +1,23 @@
-
+import 'package:cafe_front/provider/main/my/my_bookmark_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class BookmarkPage extends StatelessWidget {
   const BookmarkPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MyBookmarkViewModel>();
+
+    if(viewModel.bookmarkCafeList == null){
+      return const Scaffold(
+        body: SafeArea(child: Center(child: CircularProgressIndicator())),
+      );
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -21,7 +29,7 @@ class BookmarkPage extends StatelessWidget {
 
 
             Expanded(child: ListView(
-              children: List.generate(100,
+              children: List.generate(viewModel.bookmarkCafeList!.length,
                       (idx) => VisitCafe(idx: idx,)
               ),
             )),

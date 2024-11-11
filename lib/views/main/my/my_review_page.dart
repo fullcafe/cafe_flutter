@@ -1,6 +1,6 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
-import 'package:cafe_front/provider/main/my/my_review_store.dart';
+import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/my/review_filter.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
@@ -14,10 +14,10 @@ class MyReviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var store = context.watch<MyReviewStore>();
+    var viewModel = context.watch<MyReviewViewModel>();
     var user = UserStore.getInstance().user;
     // 값 가져올 때 까지 로딩
-    if(store.myReviews.isEmpty){
+    if(viewModel.myReviews == null){
       return const Scaffold(
         body: SafeArea(child: Center(child: CircularProgressIndicator())),
       );
@@ -57,7 +57,7 @@ class MyReviewPage extends StatelessWidget {
             ),
           ),
           Expanded(child: ListView(
-            children: List.generate(store.myReviews.length,
+            children: List.generate(viewModel.myReviews!.length,
                 (idx) => ReviewListLayout(idx: idx,)
             ),
           )),

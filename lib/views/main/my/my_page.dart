@@ -1,9 +1,10 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
-import 'package:cafe_front/provider/main/my/my_favor_store.dart';
-import 'package:cafe_front/provider/main/my/my_page_store.dart';
-import 'package:cafe_front/provider/main/my/my_review_store.dart';
+import 'package:cafe_front/provider/main/my/my_favor_viewmodel.dart';
+import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
+import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
@@ -12,14 +13,14 @@ import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Visit_Page.dart';
+import 'visit_page.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final store = context.watch<MyPageStore>();
+    final viewModel = context.watch<MyPageViewModel>();
     const margin = EdgeInsets.symmetric(horizontal: 10);
     var user = UserStore.getInstance().user;
     const keywords = [
@@ -28,6 +29,9 @@ class MyPage extends StatelessWidget {
       ['#빠른주문','#많은음료용량','#높은책상'],
       ['#맛있는디저트','#케이크','#테이블간격이넓은']
     ];
+    if(viewModel.recentlyVisitCafeList == null){
+      return const Center(child: CircularProgressIndicator(),);
+    }
 
     return Column(
       children: [
@@ -90,9 +94,10 @@ class MyPage extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => const VisitPage(), // 상태 관리 없이 단순히 VisitPage로 이동
-                            ),
-                            );
+                              context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                              create: (context)=> MyVisitViewModel(),
+                              child: const VisitPage(),
+                            ),),);
                           },
                           child: SizedBox(
                             width: 120,
@@ -109,7 +114,7 @@ class MyPage extends StatelessWidget {
                         GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangeNotifierProvider(
-                              create: (context) => MyReviewStore(),
+                              create: (context) => MyReviewViewModel(),
                               child: const MyReviewPage(),
                             )));
                           },
@@ -155,11 +160,11 @@ class MyPage extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         height: 10,
-                        child: store.recentlyVisitCafeList.isEmpty?
+                        child: viewModel.recentlyVisitCafeList!.isEmpty?
                         const Text('최근 방문한 카페가 없습니다',style: TextStyle(fontSize: 15),) :
                         PageView(
                           controller: PageController(viewportFraction: 0.9),
-                          children: List.generate(store.recentlyVisitCafeList.length,
+                          children: List.generate(viewModel.recentlyVisitCafeList!.length,
                                   (idx)=> RecentVisitCafeLayout(idx: idx,)
                           ),
                         ),
@@ -223,7 +228,7 @@ class MyPage extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         ChangeNotifierProvider(
-                                            create: (context) => MyFavorStore(),
+                                            create: (context) => MyFavorViewModel(),
                                             child: const MyFavorPage())));
                           },
                           child: Row(

@@ -1,9 +1,10 @@
 
-import 'package:cafe_front/provider/main/my/my_review_store.dart';
+import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
+import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
-import 'package:cafe_front/provider/main/my/my_review_store.dart';
+import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/my/review_filter.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
@@ -17,6 +18,13 @@ class VisitPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<MyVisitViewModel>();
+
+    if(viewModel.visitCafeList == null){
+      return const Scaffold(
+        body: SafeArea(child: Center(child: CircularProgressIndicator())),
+      );
+    }
 
     return Scaffold(
       body: SafeArea(
@@ -27,7 +35,7 @@ class VisitPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               Expanded(child: ListView(
-                children: List.generate(100,
+                children: List.generate(viewModel.visitCafeList!.length,
                         (idx) => VisitCafe(idx: idx,)
                 ),
               )),
