@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyPageStore with ChangeNotifier {
+class MyPageViewModel with ChangeNotifier {
 
-  List _recentlyVisitCafeList = [];
-  List get recentlyVisitCafeList => _recentlyVisitCafeList;
+  List? _recentlyVisitCafeList;
+  List? get recentlyVisitCafeList => _recentlyVisitCafeList;
 
-  MyPageStore(){
+  MyPageViewModel(){
     getRecentlyVisitCafeList();
   }
 

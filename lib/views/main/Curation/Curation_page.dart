@@ -1,14 +1,10 @@
 import 'dart:math';
 import 'package:cafe_front/provider/main/curation/curation_viewmodel.dart';
 import 'package:cafe_front/views/main/Curation/More_Curation_Page.dart';
-import 'package:cafe_front/views/main/Curation/Photo_With_Keyword_Card.dart';
 import 'package:cafe_front/views/main/Curation/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../models/cafe.dart';
-import '../../../models/cafe_keyword.dart';
 import '../../../widgets/listview/build_list_view.dart';
-import 'CustomPhotoCard.dart';
 
 class CurationPage extends StatefulWidget {
   const CurationPage({Key? key}) : super(key: key);

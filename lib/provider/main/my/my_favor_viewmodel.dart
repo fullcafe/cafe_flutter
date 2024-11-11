@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyFavorStore with ChangeNotifier {
+class MyFavorViewModel with ChangeNotifier {
 
-  List _mostRevisitCafeList = [];
-  List get mostRevisitCafeList => _mostRevisitCafeList;
+  List? _mostRevisitCafeList;
+  List? get mostRevisitCafeList => _mostRevisitCafeList;
 
-  MyFavorStore(){
+  MyFavorViewModel(){
     getMostRevisitCafeList();
   }
 

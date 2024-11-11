@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyReviewStore with ChangeNotifier {
+class MyReviewViewModel with ChangeNotifier {
 
-  List _myReviews = [];
-  List get myReviews => _myReviews;
+  List? _myReviews;
+  List? get myReviews => _myReviews;
 
-  MyReviewStore(){
+  MyReviewViewModel(){
     getMyReviews();
   }
 

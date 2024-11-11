@@ -1,4 +1,4 @@
-import 'package:cafe_front/provider/main/my/my_page_store.dart';
+import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/Community/community_page.dart';
 import 'package:cafe_front/views/main/my/my_page.dart';
@@ -30,7 +30,7 @@ class _MainLayoutState extends State<MainLayout> {
     const SearchBase(),
     const CommunityPage(),
     ChangeNotifierProvider(
-        create: (BuildContext context) => MyPageStore(),
+        create: (BuildContext context) => MyPageViewModel(),
         child: const MyPage()
     )
   ];
