@@ -43,34 +43,34 @@ class CafeDetailPage extends StatelessWidget {
                   child: Stack(
                     children: [
                       Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(flex: 2,child: Container(
-                          child: Row(
-                            children: [
-                              Text('호이폴로이커피로스터스',style: titleStyle,),
-                              CustomButtonLayout(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                                borderColor: CustomColors.orange,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text('소금빵',style: TextStyle(color: CustomColors.orange),),
-                                ),
-                              ),
-                              CustomButtonLayout(
-                                borderColor: CustomColors.orange,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text('데이트',style: TextStyle(color: CustomColors.orange),),
-                                ),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(flex: 2,child: Container(
+                              child: Row(
+                                children: [
+                                  Text('호이폴로이커피로스터스',style: titleStyle,),
+                                  CustomButtonLayout(
+                                    margin: EdgeInsets.symmetric(horizontal: 10),
+                                    borderColor: CustomColors.orange,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('소금빵',style: TextStyle(color: CustomColors.orange),),
+                                    ),
+                                  ),
+                                  CustomButtonLayout(
+                                    borderColor: CustomColors.orange,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text('데이트',style: TextStyle(color: CustomColors.orange),),
+                                    ),
+                                  )
+                                ],
                               )
-                            ],
-                          )
-                        )),
-                        const Expanded(child: Text('서울 노원구 동일로186길 64 상가',style: TextStyle(color: CustomColors.deepGrey),)),
-                        const Expanded(child: Text('예상 선호도:90%   도보 15분    리뷰 999+',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
-                      ],
-                    ),
+                          )),
+                          const Expanded(child: Text('서울 노원구 동일로186길 64 상가',style: TextStyle(color: CustomColors.deepGrey),)),
+                          const Expanded(child: Text('예상 선호도:90%   도보 15분    리뷰 999+',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
+                        ],
+                      ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: SizedBox(
@@ -207,7 +207,7 @@ class CafeDetailPage extends StatelessWidget {
                       Text('사장님의 한마디',style: titleStyle),
                       SizedBox(height: 10,),
                       Text('작은 세일 하겠습니다.\n코스타리카 원두가 진짜 좋은데 새로운 커피가 나왔어서 남아있는 원두 200그램 원두백을 3,000원 할인으로 판매하겠습니다.',
-                      style: TextStyle(fontWeight: FontWeight.bold),)
+                        style: TextStyle(fontWeight: FontWeight.bold),)
                     ],
                   ),
                 ),
@@ -288,31 +288,31 @@ class _CustomToggleState extends State<CustomToggle> {
   Widget build(BuildContext context) {
     const style = TextStyle(color: CustomColors.deepGrey,);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: (){
-              setState(() {
-                _isSelected = !_isSelected;
-              });
-            },
-            child: Row(
-              children: [
-                SizedBox(width: 15,child: Image.asset(widget.image)),
-                const SizedBox(width: 5,),
-                Text(widget.title,style: style),
-                const SizedBox(width: 10,),
-                Expanded(child: Text(widget.content,style: style,)),
-                Icon(_isSelected? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,color: CustomColors.deepGrey,),
-              ],
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: (){
+                setState(() {
+                  _isSelected = !_isSelected;
+                });
+              },
+              child: Row(
+                children: [
+                  SizedBox(width: 15,child: Image.asset(widget.image)),
+                  const SizedBox(width: 5,),
+                  Text(widget.title,style: style),
+                  const SizedBox(width: 10,),
+                  Expanded(child: Text(widget.content,style: style,)),
+                  Icon(_isSelected? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,color: CustomColors.deepGrey,),
+                ],
+              ),
             ),
-          ),
-          _isSelected? (widget.toggle ?? const SizedBox()) : const SizedBox(),
-          const SizedBox(height: 5,),
-        ],
-      )
+            _isSelected? (widget.toggle ?? const SizedBox()) : const SizedBox(),
+            const SizedBox(height: 5,),
+          ],
+        )
     );
   }
 }
@@ -361,7 +361,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                             Text(titleList[idx],style: unselectedStyle,),
                             currentIdx == idx? SizedBox(width: titleList[idx].length.toDouble() * 12,
                                 child: const Divider(color: Colors.black,)) :
-                                const SizedBox()
+                            const SizedBox()
                           ],
                         ),
                       ),
@@ -411,56 +411,56 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                     Expanded(
                       flex: 4,
                       child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 250,
-                                child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
-                              ),
-                              const Text('미라쥬양과점',style: selectedStyle,),
-                              const Text('이 장소에서 186m',style: descriptionStyle,)
-                            ],
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            width: 180,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: Image.asset('assets/images/near/sweat.jpg',fit: BoxFit.fill,),
+                                ),
+                                const Text('미라쥬양과점',style: selectedStyle,),
+                                const Text('이 장소에서 186m',style: descriptionStyle,)
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 250,
-                                child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
-                              ),
-                              const Text('웨일스',style: selectedStyle,),
-                              const Text('이 장소에서 387m',style: descriptionStyle,)
-                            ],
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            width: 180,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: Image.asset('assets/images/near/bar.jpg',fit: BoxFit.fill,),
+                                ),
+                                const Text('웨일스',style: selectedStyle,),
+                                const Text('이 장소에서 387m',style: descriptionStyle,)
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(5),
-                          width: 180,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 250,
-                                child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
-                              ),
-                              const Text('싱싱제과 소품샵',style: selectedStyle,),
-                              const Text('이 장소에서 530m',style: descriptionStyle,)
-                            ],
+                          Container(
+                            margin: const EdgeInsets.all(5),
+                            width: 180,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: Image.asset('assets/images/near/cafe.jpg',fit: BoxFit.fill,),
+                                ),
+                                const Text('싱싱제과 소품샵',style: selectedStyle,),
+                                const Text('이 장소에서 530m',style: descriptionStyle,)
+                              ],
+                            ),
                           ),
-                        ),
 
-                      ],
-                                        ),
+                        ],
+                      ),
                     ),
                     // 스크롤 쉽게 하려고 넣음
                     const Expanded(flex: 3,child: SizedBox()),
@@ -474,4 +474,3 @@ class _ThreeSelectedState extends State<ThreeSelected> {
     );
   }
 }
-

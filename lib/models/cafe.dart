@@ -12,7 +12,7 @@ class Cafe {
   final bool easyPayment;
   final bool parking;
   final bool delivery;
-  final List<CafeKeyword> keywords; // 키워드 리스트를 CafeKeyword 객체로 받음
+  final List<CafeKeyword> keywords;
 
   Cafe({
     required this.name,
@@ -29,7 +29,6 @@ class Cafe {
     required this.keywords,
   });
 
-  // JSON 데이터를 Cafe 객체로 변환하는 factory 생성자
   factory Cafe.fromJson(Map<String, dynamic> json) {
     return Cafe(
       name: json['name'] ?? '카페 이름',
@@ -46,7 +45,24 @@ class Cafe {
       keywords: (json['keywords'] as List<dynamic>?)
           ?.map((keywordJson) => CafeKeyword.fromJson(keywordJson))
           .toList() ??
-          [], // 키워드를 CafeKeyword 객체 리스트로 변환
+          [],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'address': address,
+      'phone': phone,
+      'url': url,
+      'petFriendly': petFriendly,
+      'wifi': wifi,
+      'takeout': takeout,
+      'groupFriendly': groupFriendly,
+      'easyPayment': easyPayment,
+      'parking': parking,
+      'delivery': delivery,
+      'keywords': keywords.map((keyword) => keyword.toJson()).toList(),
+    };
   }
 }
