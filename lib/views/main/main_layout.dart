@@ -1,3 +1,4 @@
+import 'package:cafe_front/provider/main/cafe_detail/search_view_model.dart';
 import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/Community/community_page.dart';
@@ -27,7 +28,9 @@ class _MainLayoutState extends State<MainLayout> {
 
   List pages = [
     const HomePage(),
-    const SearchBase(),
+    ChangeNotifierProvider(
+        create: (BuildContext context) => SearchViewModel(),
+        child: const SearchBase()),
     const CommunityPage(),
     ChangeNotifierProvider(
         create: (BuildContext context) => MyPageViewModel(),
