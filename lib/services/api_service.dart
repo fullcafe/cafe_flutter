@@ -62,6 +62,11 @@ class ApiService {
   Future<Response> postRequest(String path, String data) async {
     return await requestTemplate(() async => await _dio.post(path, data: data));
   }
+
+  Future<Response> deleteRequest(String path, {Map<String, dynamic>? queryParam}) async {
+    return await requestTemplate(() async => await _dio.delete(path, queryParameters: queryParam,));
+  }
+
 }
 /*
  예외 처리는 exception 종류에 따라 달라지는 경우가 있기에
