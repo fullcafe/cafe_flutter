@@ -33,18 +33,11 @@ void main() async {
   // Check user credentials and determine initial route
   var initRoute = await _checkUserCredential();
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SearchViewModel()), // Provide SearchViewModel here
-      ],
-      child: MaterialApp(
-        theme: getMyAppTheme(),
-        initialRoute: initRoute,
-        routes: routes,
-      ),
-    ),
-  );
+  runApp(MaterialApp(
+    theme: getMyAppTheme(),
+    initialRoute: initRoute,
+    routes: routes,
+  ));
 
   // Remove splash screen after initialization
   FlutterNativeSplash.remove();

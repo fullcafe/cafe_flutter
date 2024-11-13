@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
-import 'package:cafe_front/provider/main/cafe_detail/search_view_model.dart';
 import '../../../models/cafe.dart';
+import '../../../provider/main/cafe_detail/search_view_model.dart';
 import '../../../widgets/appbar/FilterBar.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 

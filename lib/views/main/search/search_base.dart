@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:cafe_front/provider/main/cafe_detail/search_view_model.dart';
 
 import '../../../models/cafe.dart';
+import '../../../provider/main/cafe_detail/search_view_model.dart';
 import 'SearchBaaseCafeList.dart';
 
 
@@ -14,20 +15,17 @@ class SearchBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SearchViewModel(),
-      child: Scaffold(
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomSearchBar(),
-                const SizedBox(height: 20),
-                _buildSearchKeywords(),
-                const SizedBox(height: 20),
-                _buildPreviousVisitedCafes(context),
-              ],
-            ),
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomSearchBar(),
+              const SizedBox(height: 20),
+              _buildSearchKeywords(),
+              const SizedBox(height: 20),
+              _buildPreviousVisitedCafes(context),
+            ],
           ),
         ),
       ),
@@ -100,7 +98,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.read<SearchViewModel>();
+    final viewModel = context.watch<SearchViewModel>();
 
     return Container(
       margin: const EdgeInsets.all(10),
