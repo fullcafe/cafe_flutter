@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cafe_front/views/main/search/search_form.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
-import 'package:cafe_front/constants/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:cafe_front/provider/main/cafe_detail/search_view_model.dart';
 
 import '../../../models/cafe.dart';
-import '../../../provider/main/cafe_detail/search_view_model.dart';
 import 'SearchBaaseCafeList.dart';
 
 
@@ -94,7 +92,6 @@ class CustomSearchBar extends StatefulWidget {
 }
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -110,21 +107,24 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _searchController,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: '지역, 메뉴, 매장명 검색',
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: TextField(
+                controller: viewModel.searchController,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '지역, 메뉴, 매장명 검색',
+                ),
+                onSubmitted: (value) {
+                  _navigateToSearchForm(context, viewModel);
+                },
               ),
-              onSubmitted: (value) {
-                _navigateToSearchForm(context, value);
-              },
             ),
           ),
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              _navigateToSearchForm(context, _searchController.text);
+              _navigateToSearchForm(context, viewModel);
             },
           ),
         ],
@@ -132,14 +132,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     );
   }
 
-  void _navigateToSearchForm(BuildContext context, String keyword) {
+  void _navigateToSearchForm(BuildContext context, SearchViewModel viewModel) {
+    var keyword = viewModel.searchController.text;
+    viewModel.searchCafes(keyword);
     if (keyword.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SearchForm(keyword: keyword),
-        ),
-      );
+      viewModel.navigator(context, SearchForm(keyword: keyword));
     }
   }
 }
