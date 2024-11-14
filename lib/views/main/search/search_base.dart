@@ -159,6 +159,7 @@ class SearchKeyword extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           CustomButtonLayout(
+            borderColor: Colors.grey,
             child: const Padding(
               padding: EdgeInsets.all(4.0),
               child: Text('소금빵', style: TextStyle(color: Colors.grey)),

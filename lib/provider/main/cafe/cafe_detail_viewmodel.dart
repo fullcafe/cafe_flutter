@@ -1,25 +1,25 @@
+import 'package:cafe_front/provider/stack_handler.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
 
 
 class CafeDetailViewModel with ChangeNotifier{
   final Cafe? cafe;
-
+  final StackHandler _handler = StackHandler();
   CafeDetailViewModel(this.cafe);
 
-  /// 특정 카페의 리뷰를 가져오는 메서드
-  // Future<void> fetchReviewsByCafe(String cafeName) async {
-  //   _isLoading = true;
-  //   notifyListeners();
-  //   try {
-  //     _reviews = await _reviewRepository.getReviewsByCafeName(cafeName);
-  //   } catch (e) {
-  //     print('Error fetching reviews: $e');
-  //   } finally {
-  //     _isLoading = false;
-  //     notifyListeners();
-  //   }
-  // }
+  void navigator(BuildContext context, Widget child){
+    _handler.navigator(context, ChangeNotifierProvider(
+        create: (context) => this,
+        child: child,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _handler.disposeView(super.dispose);
+  }
 
 }
 /*

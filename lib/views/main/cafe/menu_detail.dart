@@ -205,7 +205,8 @@ class MenuDetail extends StatelessWidget {
                 ),
                 const SizedBox(height: 10,),
                 // 버튼
-                SizedBox(
+                Container(
+                  margin: const EdgeInsets.all(10),
                   height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -221,7 +222,7 @@ class MenuDetail extends StatelessWidget {
                           child: Center(child: Text('장바구니',style: TextStyle(color: CustomColors.deepGrey))),
                         ),
                       ),
-                      CustomButtonLayout(
+                      const CustomButtonLayout(
                         width: 150,
                         height: double.infinity,
                         backgroundColor: Colors.black,

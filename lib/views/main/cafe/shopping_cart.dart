@@ -1,8 +1,10 @@
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/views/main/cafe/order_success.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/count_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
 
@@ -14,6 +16,7 @@ class ShoppingCart extends StatelessWidget {
     const midSize = TextStyle(fontWeight: FontWeight.bold,fontSize: 15);
     const smallSizeGrey = TextStyle(color: CustomColors.deepGrey,fontSize: 12);
     const margin = EdgeInsets.all(10);
+    final viewModel = context.watch<CafeDetailViewModel>();
     return Scaffold(
       body: SafeArea(child: Column(
         children: [
@@ -35,9 +38,9 @@ class ShoppingCart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                    Text(viewModel.cafe!.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                     const SizedBox(height: 5,),
-                    Text('서울 노원구 동일로186길 64 상가',style: TextStyle(color: CustomColors.deepGrey,fontSize: 10),),
+                    Text(viewModel.cafe!.address,style: const TextStyle(color: CustomColors.deepGrey,fontSize: 10),),
                   ],
                 )),
               ],
@@ -157,7 +160,12 @@ class ShoppingCart extends StatelessWidget {
           // 주문하기
           GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const OrderSuccess())); // 좀 더 개선해야함
+              int count = 0;
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> OrderSuccess(cafe: viewModel.cafe!,)),
+                  (route){
+                    return count++ == 3;
+                  }
+              );
             },
             child: const CustomButtonLayout(
               margin: margin,

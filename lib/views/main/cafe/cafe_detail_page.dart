@@ -1,5 +1,4 @@
 import 'package:cafe_front/constants/colors.dart';
-import 'package:cafe_front/constants/routes.dart';
 import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/views/main/cafe/cafe_review_page.dart';
 import 'package:cafe_front/views/main/cafe/order_page.dart';
@@ -81,15 +80,9 @@ class CafeDetailPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: SizedBox(
-                          height: 50,
+                          height: 30,
                           width: 30,
-                          child: Column(
-                            children: [
-                              Expanded(child: Image.asset('assets/icons/bookmark_grey.png')),
-                              // 북마크 개수 수정 필요
-                              Text('1.3k',style: TextStyle(color: CustomColors.deepGrey,fontWeight: FontWeight.bold),)
-                            ],
-                          ),
+                          child: Image.asset('assets/icons/bookmark_grey.png'),
                         ),
                       )
                     ],
@@ -120,7 +113,7 @@ class CafeDetailPage extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OrderPage()));
+                            viewModel.navigator(context, const OrderPage());
                           },
                           child: const CustomButtonLayout(
                             height: double.infinity,
@@ -425,7 +418,6 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
                 // 가볼곳
