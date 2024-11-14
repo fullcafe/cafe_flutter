@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   // "큐레이션" 페이지
                   ChangeNotifierProvider(
                       create: (context) => CurationViewModel(),
-                      child: CurationPage(),
+                      child: const CurationPage(),
                   ),
                   // "모임" 페이지
                    MeetPage(),

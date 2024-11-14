@@ -1,11 +1,17 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/views/main/main_layout.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/cafe.dart';
 import '../../../widgets/button/custom_button_layout.dart';
 
 class OrderSuccess extends StatelessWidget {
-  const OrderSuccess({Key? key}) : super(key: key);
+  const OrderSuccess({
+    Key? key,
+    required this.cafe
+  }) : super(key: key);
+  final Cafe cafe;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +65,10 @@ class OrderSuccess extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
-                    Text('호이폴로이커피로스터스',style: midSize,),
-                    Text('서울 노원구 동일로 190길 65 2층',style: smallSizeGrey,),
-                    Text('예상평점 ★4.7   도보 15분',style: smallSizeGrey,),
+                    const SizedBox(height: 10,),
+                    Text(cafe.name,style: midSize,),
+                    Text(cafe.address,style: smallSizeGrey,),
+                    const Text('도보 15분',style: smallSizeGrey,),
                   ],
                 ),
                 const Align(
@@ -87,12 +93,17 @@ class OrderSuccess extends StatelessWidget {
             borderColor: CustomColors.deepGrey,
             child: Center(child: Text('카페 쿠폰 발급 받기',style: TextStyle(fontSize: 15,color: CustomColors.deepGrey),)),
           ),
-          const CustomButtonLayout(
-            margin: margin,
-            width: double.infinity,
-            height: 60,
-            backgroundColor: Colors.black,
-            child: Center(child: Text('홈으로 돌아가기',style: TextStyle(fontSize: 15,color: Colors.white),)),
+          GestureDetector(
+            onTap: (){
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainLayout(),), (_) => false);
+            },
+            child: const CustomButtonLayout(
+              margin: margin,
+              width: double.infinity,
+              height: 60,
+              backgroundColor: Colors.black,
+              child: Center(child: Text('홈으로 돌아가기',style: TextStyle(fontSize: 15,color: Colors.white),)),
+            ),
           ),
         ],
       )),

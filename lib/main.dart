@@ -1,15 +1,11 @@
 import 'package:cafe_front/constants/routes.dart';
 import 'package:cafe_front/common/user_store.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart'; // Import provider package
 import 'constants/colors.dart';
 import 'firebase_options.dart';
-import 'provider/main/cafe_detail/search_view_model.dart'; // Import SearchViewModel
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

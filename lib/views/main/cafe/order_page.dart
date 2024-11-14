@@ -1,9 +1,11 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/views/main/cafe/menu_detail.dart';
 import 'package:cafe_front/views/main/cafe/shopping_cart.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class OrderPage extends StatelessWidget {
     const sortBlack = TextStyle(fontWeight: FontWeight.bold,fontSize: 15);
     const sortGrey = TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.grey);
     const keywordStyle = TextStyle(fontSize: 12,color: CustomColors.deepGrey);
+    final viewModel = context.watch<CafeDetailViewModel>();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -21,7 +24,7 @@ class OrderPage extends StatelessWidget {
             BackButtonAppBar(text: '주문하기',
               icons: GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const ShoppingCart()));
+                  viewModel.navigator(context, const ShoppingCart());
                 },
                 child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -49,9 +52,9 @@ class OrderPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                          Text(viewModel.cafe!.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                           const SizedBox(height: 5,),
-                          Text('서울 노원구 동일로186길 64 상가',style: TextStyle(color: CustomColors.deepGrey,fontSize: 10),),
+                          Text(viewModel.cafe!.address,style: const TextStyle(color: CustomColors.deepGrey,fontSize: 10),),
                         ],
                       )),
                     ],
