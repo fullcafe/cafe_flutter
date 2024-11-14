@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cafe_front/views/main/search/search_form.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:provider/provider.dart';
-import 'package:cafe_front/provider/main/cafe_detail/search_view_model.dart';
+import 'package:cafe_front/provider/main/search/search_view_model.dart';
 
 import '../../../models/cafe.dart';
 import 'SearchBaaseCafeList.dart';

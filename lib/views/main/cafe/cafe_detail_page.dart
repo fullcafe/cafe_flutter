@@ -1,10 +1,13 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/constants/routes.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/views/main/cafe/cafe_review_page.dart';
 import 'package:cafe_front/views/main/cafe/order_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/review_format.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CafeDetailPage extends StatelessWidget {
   const CafeDetailPage({Key? key}) : super(key: key);
@@ -14,10 +17,16 @@ class CafeDetailPage extends StatelessWidget {
     const toggleStyle = TextStyle(color: CustomColors.deepGrey,);
     const titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 20);
     const summaryStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: CustomColors.deepGrey);
+    final viewModel = context.watch<CafeDetailViewModel>();
+
+    if(viewModel.cafe == null){
+      return const Center(child: CircularProgressIndicator(),);
+    }
+
     return Scaffold(
       body: SafeArea(child: Column(
         children: [
-          const BackButtonAppBar(text: '호이폴로이커피로스터스',),
+          BackButtonAppBar(text: viewModel.cafe!.name),
           Expanded(
             child: ListView(
               children: [
@@ -45,30 +54,28 @@ class CafeDetailPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(flex: 2,child: Container(
-                              child: Row(
-                                children: [
-                                  Text('호이폴로이커피로스터스',style: titleStyle,),
-                                  CustomButtonLayout(
-                                    margin: EdgeInsets.symmetric(horizontal: 10),
-                                    borderColor: CustomColors.orange,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text('소금빵',style: TextStyle(color: CustomColors.orange),),
-                                    ),
-                                  ),
-                                  CustomButtonLayout(
-                                    borderColor: CustomColors.orange,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text('데이트',style: TextStyle(color: CustomColors.orange),),
-                                    ),
-                                  )
-                                ],
+                          Expanded(flex: 2,child: Row(
+                            children: [
+                              Text(viewModel.cafe!.name,style: titleStyle,),
+                              CustomButtonLayout(
+                                margin: const EdgeInsets.symmetric(horizontal: 10),
+                                borderColor: CustomColors.orange,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(viewModel.cafe!.keywords[0].keyword,style: const TextStyle(color: CustomColors.orange),),
+                                ),
+                              ),
+                              CustomButtonLayout(
+                                borderColor: CustomColors.orange,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(viewModel.cafe!.keywords[1].keyword,style: const TextStyle(color: CustomColors.orange),),
+                                ),
                               )
+                            ],
                           )),
-                          const Expanded(child: Text('서울 노원구 동일로186길 64 상가',style: TextStyle(color: CustomColors.deepGrey),)),
-                          const Expanded(child: Text('예상 선호도:90%   도보 15분    리뷰 999+',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
+                          Expanded(child: Text(viewModel.cafe!.address,style: const TextStyle(color: CustomColors.deepGrey),)),
+                          const Expanded(child: Text('예상 선호도:90%   도보 15분',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),)),
                         ],
                       ),
                       Align(
@@ -79,6 +86,7 @@ class CafeDetailPage extends StatelessWidget {
                           child: Column(
                             children: [
                               Expanded(child: Image.asset('assets/icons/bookmark_grey.png')),
+                              // 북마크 개수 수정 필요
                               Text('1.3k',style: TextStyle(color: CustomColors.deepGrey,fontWeight: FontWeight.bold),)
                             ],
                           ),
@@ -188,10 +196,10 @@ class CafeDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const CustomToggle(
+                CustomToggle(
                   image: 'assets/icons/phone.png',
                   title: '전화',
-                  content: '21:00에 영업 종료',
+                  content: viewModel.cafe!.phone,
                 ),
                 const CustomToggle(
                   image: 'assets/icons/ghost.png',
@@ -229,7 +237,22 @@ class CafeDetailPage extends StatelessWidget {
                       const Text('편의시설',style: summaryStyle,),
                       Row(
                         children: [
-                          SizedBox(width: 50,child: Image.asset('assets/data/wifi.png')),
+                          viewModel.cafe!.wifi? Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: 40,child: Image.asset('assets/data/wifi.png')
+                          ) : const SizedBox(),
+                          viewModel.cafe!.delivery? Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: 50,child: Image.asset('assets/data/cover.png')
+                          ) : const SizedBox(),
+                          viewModel.cafe!.parking? Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: 30,child: Image.asset('assets/data/electric.png')
+                          ) : const SizedBox(),
+                          viewModel.cafe!.petFriendly? Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              width: 50,child: Image.asset('assets/data/toilet.png')
+                          ) : const SizedBox(),
                         ],
                       ),
                       const SizedBox(height: 10,),

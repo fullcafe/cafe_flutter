@@ -1,9 +1,11 @@
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
-import '../../../provider/main/cafe_detail/search_view_model.dart';
+import '../../../provider/main/search/search_view_model.dart';
 import '../../../widgets/appbar/FilterBar.dart';
 import '../../../widgets/appbar/custom_appbar.dart';
 
@@ -30,19 +32,27 @@ class SearchForm extends StatelessWidget {
       itemCount: viewModel.cafeResults.length,
       itemBuilder: (context, idx) {
         Cafe cafe = viewModel.cafeResults[idx];
-        return Container(
-          margin: const EdgeInsets.all(10),
-          height: 150,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(cafe.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-              const SizedBox(height: 5),
-              Text(cafe.address ?? '주소 없음', style: greyStyle),
-              const SizedBox(height: 5),
-              Text('예상평점 ★ 도보 15분 리뷰 999+', style: greyStyle),
-            ],
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                create: (context) => CafeDetailViewModel(cafe),
+                child: const CafeDetailPage(),
+            )));
+          },
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            height: 150,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(cafe.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                const SizedBox(height: 5),
+                Text(cafe.address ?? '주소 없음', style: greyStyle),
+                const SizedBox(height: 5),
+                Text('예상평점 ★ 도보 15분', style: greyStyle),
+              ],
+            ),
           ),
         );
       },
