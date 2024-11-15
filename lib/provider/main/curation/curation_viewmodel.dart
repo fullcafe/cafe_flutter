@@ -14,9 +14,6 @@ class CurationViewModel with ChangeNotifier {
   List<Cafe>? get preferredCafes => _preferredCafes;
   List<Cafe>? get cafes => _cafes;
 
-  // 사용자의 정보 가져오기
-  final user = UserStore.getInstance().user;
-
   // 캐릭터 인덱스별 선호 키워드 리스트
   static const charKeywords = [
     ['아메리카노','라떼','커피','디저트','마들렌'],
@@ -27,34 +24,15 @@ class CurationViewModel with ChangeNotifier {
     ['아메리카노', '라떼', '그린티','케이크','분위기'],
   ];
 
-  // 데이터를 가져오는 메서드
   Future<void> fetchData() async {
-    try {
-      // 사용자의 캐릭터 인덱스 가져오기 (기본값: 0)
-      int characterIdx = user?.characterIdx ?? 0;
+    // 필터 생성
+    final user = UserStore.getInstance().user;
+    List<String> userPreferredKeywords = charKeywords[user?.characterIdx ?? 0];
+    var filter = CafeFilter(keywords: userPreferredKeywords);
 
-
-      // 캐릭터 인덱스에 따라 선호 키워드 가져오기
-      final List<String> userPreferredKeywords = charKeywords[characterIdx];
-
-
-      // 필터 생성
-      var filter = CafeFilter(keywords: userPreferredKeywords);
-
-      // 카페 데이터 가져오기
-      _cafes = await _cafeRepository.searchCafeByFilters(filter);
-      _preferredCafes = await _cafeRepository.searchCafeByFilters(filter);
-
-      print('고정 카페 수: ${_cafes?.length}');
-      print('선호 카페 수: ${_preferredCafes?.length}');
-
-      // 예외 처리: 카페 데이터가 비어 있을 경우 빈 리스트로 설정
-      _cafes ??= [];
-      _preferredCafes ??= [];
-
-      notifyListeners();
-    } catch (e) {
-      print('Error fetching cafe data: $e');
-    }
+    // 카페 데이터 가져오기
+    _cafes = await _cafeRepository.searchCafeByFilters(filter);
+    _preferredCafes = await _cafeRepository.searchCafeByFilters(filter);
+    notifyListeners();
   }
 }

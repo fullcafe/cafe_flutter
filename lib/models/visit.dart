@@ -18,8 +18,8 @@ class Visit {
   // JSON 데이터를 Visit 객체로 변환하는 factory 생성자
   factory Visit.fromJson(Map<String, dynamic> json) {
     return Visit(
-      uid: json['visitId']['uid'] as String,
-      cafeName: json['visitId']['cafeName'] as String,
+      uid: json['uid'] as String,
+      cafeName: json['cafeName'] as String,
       count: json['count'] as int? ?? 0,
       writeReview: json['writeReview'] as bool? ?? false,
       recent: DateTime.parse(json['recent']),
@@ -29,10 +29,8 @@ class Visit {
   // Visit 객체를 JSON으로 변환하는 메서드
   Map<String, dynamic> toJson() {
     return {
-      'visitId': {
-        'uid': uid,
-        'cafeName': cafeName,
-      },
+      'uid' : uid,
+      'cafeName': cafeName,
       'count': count,
       'writeReview': writeReview,
       'recent': recent.toIso8601String(),
