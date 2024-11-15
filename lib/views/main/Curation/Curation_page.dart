@@ -22,9 +22,7 @@ class _CurationPageState extends State<CurationPage> {
   void initState() {
     super.initState();
     // 데이터 fetch
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CurationViewModel>().fetchData();
-    });
+    context.read<CurationViewModel>().fetchData();
   }
 
   @override
