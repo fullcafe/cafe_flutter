@@ -113,8 +113,8 @@ class _CurationPageState extends State<CurationPage> {
           ),
         ),
         Positioned(
-          bottom: 28,
-          right: 20,
+          bottom: 120,
+          left: 20,
           child: GestureDetector(
             onTap: () {
               Navigator.push(
