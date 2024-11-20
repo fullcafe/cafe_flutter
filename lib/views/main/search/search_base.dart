@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:cafe_front/provider/main/search/search_view_model.dart';
 
 import '../../../models/cafe.dart';
+import '../../../widgets/appbar/FilterBar.dart';
 import 'SearchBaaseCafeList.dart';
 
 
@@ -19,6 +20,34 @@ class SearchBase extends StatelessWidget {
           child: Column(
             children: [
               const CustomSearchBar(),
+              FilterBar(
+                onFilterApplied: (selectedFilters,booleanFilters) {
+                  final viewModel = context.read<SearchViewModel>();
+
+                  // 선택된 필터에서 빈 값을 제외하고 키워드로 변환
+                  final keywords = selectedFilters.entries
+                      .where((entry) => entry.value.isNotEmpty) // 빈 값을 제외
+                      .expand((entry) => entry.value) // 키워드 리스트로 변환
+                      .toList();
+                  print('적용된 필터: $selectedFilters');
+
+                  print('검색 실행 키워드: $keywords'); // 디버깅 로그
+                  viewModel.searchCafesFilter(
+                    keywords: keywords,
+                    petFriendly: booleanFilters['petFriendly'],
+                    wifi: booleanFilters['wifi'],
+                    parking: booleanFilters['parking'],
+                    delivery: booleanFilters['delivery'],
+                  );// 필터 기반 검색
+                  // SearchForm으로 이동
+                  if (keywords.isNotEmpty) {
+                    viewModel.navigator(
+                      context,
+                      SearchForm(keyword: keywords.join(', ')), // 키워드를 전달
+                    );
+                  }
+                },
+              ),
               const SizedBox(height: 20),
               _buildSearchKeywords(),
               const SizedBox(height: 20),

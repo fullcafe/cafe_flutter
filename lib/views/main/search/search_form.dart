@@ -41,11 +41,24 @@ class SearchForm extends StatelessWidget {
           },
           child: Container(
             margin: const EdgeInsets.all(10),
-            height: 150,
+            height: 200,
             width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 100,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: List.generate(10, (idx)=>
+                        Container(
+                          margin: const EdgeInsets.only(right: 5),
+                          width: 100,
+                          child: Image.asset('assets/images/Frame ${idx%7}.png',fit: BoxFit.fill,),
+                        ),
+                    ),
+                  ),
+                ),
                 Text(cafe.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 const SizedBox(height: 5),
                 Text(cafe.address ?? '주소 없음', style: greyStyle),
@@ -68,7 +81,33 @@ class SearchForm extends StatelessWidget {
           children: [
             const BackButtonAppBar(icons: SizedBox()),
             const CustomSearchBar(),
-            const FilterBar(),
+            FilterBar(
+              onFilterApplied: (selectedFilters,booleanFilters) {
+                final viewModel = context.read<SearchViewModel>();
+
+                // 선택된 필터에서 빈 값을 제외하고 키워드로 변환
+                final keywords = selectedFilters.entries
+                    .where((entry) => entry.value.isNotEmpty) // 빈 값을 제외
+                    .expand((entry) => entry.value) // 키워드 리스트로 변환
+                    .toList();
+
+                print('검색 실행 키워드: $keywords'); // 디버깅 로그
+                viewModel.searchCafesFilter(
+                  keywords: keywords,
+                  petFriendly: booleanFilters['petFriendly'],
+                  wifi: booleanFilters['wifi'],
+                  parking: booleanFilters['parking'],
+                  delivery: booleanFilters['delivery'],
+                );// 필터 기반 검색
+                // SearchForm으로 이동
+                if (keywords.isNotEmpty) {
+                  viewModel.navigator(
+                    context,
+                    SearchForm(keyword: keywords.join(', ')), // 키워드를 전달
+                  );
+                }
+              },
+            ),
             const Align(
               alignment: Alignment.centerRight,
               child: CustomButtonLayout(

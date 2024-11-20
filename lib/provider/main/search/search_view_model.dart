@@ -26,12 +26,42 @@ class SearchViewModel with ChangeNotifier {
     try {
       // 카페 필터를 생성하여 검색 (이름과 키워드 둘 다 포함)
       CafeFilter filter = CafeFilter(
-        name: keyword,
+        // name: keyword,
         keywords: keyword.isNotEmpty ? [keyword] : null,
       );
       _cafeResults = await _cafeRepository.searchCafeByFilters(filter);
+      print('검색결과 : $_cafeResults');
     } catch (e) {
       Fluttertoast.showToast(msg: 'Error searching cafes: $e');//
+      _cafeResults = [];
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> searchCafesFilter({
+    required List<String> keywords,
+    bool? petFriendly,
+    bool? wifi,
+    bool? parking,
+    bool? delivery,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final filter = CafeFilter(
+        keywords: keywords.isEmpty ? null : keywords,
+        petFriendly: petFriendly,
+        wifi: wifi,
+        parking: parking,
+        delivery: delivery,
+      );
+
+      _cafeResults = await _cafeRepository.searchCafeByFilters(filter);
+    } catch (e) {
+      Fluttertoast.showToast(msg: '검색 오류: $e');
       _cafeResults = [];
     } finally {
       _isLoading = false;
