@@ -350,6 +350,8 @@ class _ThreeSelectedState extends State<ThreeSelected> {
     const selectedStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 15);
     const unselectedStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.grey);
     const descriptionStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.grey);
+    final viewModel = context.watch<CafeDetailViewModel>();
+    final reviewSize = viewModel.cafe?.reviews.length ?? 0;
     return Container(
       margin: const EdgeInsets.all(10),
       height: 700,
@@ -401,10 +403,12 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ReviewFormat(),
-                    const SizedBox(height: 10,),
-                    ReviewFormat(),
-                    const SizedBox(height: 10,),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(reviewSize > 2? 2 : reviewSize,
+                          (idx) => ReviewFormat(review: viewModel.cafe?.reviews[idx],)
+                      ),
+                    ),
                     GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>const CafeReviewPage()));
