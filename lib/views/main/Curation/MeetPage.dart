@@ -74,9 +74,9 @@ class _MeetPageState extends State<MeetPage> {
                       ),
                     ),
                     Positioned(
-                      bottom: 28,
-                      left: 360,
-                      right: 0,
+                      bottom: 120,
+                      left: 0,
+                      right: 360,
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(
