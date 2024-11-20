@@ -5,7 +5,9 @@ import 'package:cafe_front/views/main/Curation/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
+import '../../../models/complex_visit.dart';
 import '../../../widgets/listview/build_list_view.dart';
+import 'CustomPhotoCard.dart';
 import 'Photo_With_Keyword_Card.dart';
 
 class CurationPage extends StatefulWidget {
@@ -36,13 +38,14 @@ class _CurationPageState extends State<CurationPage> {
     }
 
     // 카페 리스트 가져오기
-    final cafes = viewModel.cafes!;
+    final cafes = viewModel.cafes ?? [];
     final preferredCafes = viewModel.preferredCafes ?? [];
+    final visitHistory = viewModel.visitHistory ?? [];
 
-    // 예외 처리: 카페 리스트가 비어 있을 경우 메시지 표시
-    if (cafes.isEmpty && preferredCafes.isEmpty) {
-      return const Center(child: Text('추천할 카페가 없습니다.'));
-    }
+    // // 예외 처리: 카페 리스트가 비어 있을 경우 메시지 표시
+    // if (cafes.isEmpty && preferredCafes.isEmpty) {
+    //   return const Center(child: Text('추천할 카페가 없습니다.'));
+    // }
 
     return SingleChildScrollView(
       child: Column(
@@ -54,14 +57,18 @@ class _CurationPageState extends State<CurationPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SectionTitle(title: '집 주변 카페 정복하기'),
-                buildHorizontalListView(context), // 선호 카페 리스트 표시
+                //고정 카페
+                buildHorizontalListViewWithCafes(context,cafes),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '서진님의 취향저격 카페'),
-                buildHorizontalListViewWithCafes(context,cafes),
-                 // 커스텀 카드 리스트
+                buildHorizontalListView(context),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
-                buildListViewWithCustomCards(context),
+                visitHistory.isEmpty
+                    ? const Center(child: Text('방문 기록이 없습니다.'))
+                    : buildVisitHistoryList(context, visitHistory),
+
+                // buildListViewWithCustomCards(context),
                 // 고정 카페 리스트
               ],
             ),
@@ -126,18 +133,17 @@ class _CurationPageState extends State<CurationPage> {
     );
   }
 
-  /// 수평 리스트뷰에 랜덤으로 카페 표시
   Widget buildHorizontalListViewWithCafes(BuildContext context, List<Cafe> cafes) {
     if (cafes.isEmpty) {
       return const Center(child: Text('카페가 없습니다.'));
     }
 
     // 무작위로 3개의 카페 선택
-    final randomCafes = getRandomCafes(cafes, 3);
+    final randomCafes = getRandomCafes(cafes, 7);
 
     return SizedBox(
       height: 250,
-      child: ListView.builder(
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: randomCafes.length,
         itemBuilder: (context, index) {
@@ -149,10 +155,13 @@ class _CurationPageState extends State<CurationPage> {
             text: cafe.name,
           );
         },
+        separatorBuilder: (context, index) => const SizedBox(width: 16), // 항목 간 간격
       ),
     );
   }
+
   final Random random = Random();
+
   /// 카페 리스트에서 무작위로 N개의 카페를 선택하는 함수
   List<Cafe> getRandomCafes(List<Cafe> cafes, int count) {
     if (cafes.length <= count) return cafes; // 카페 수가 부족하면 전체 반환
@@ -160,9 +169,36 @@ class _CurationPageState extends State<CurationPage> {
     final List<Cafe> shuffledCafes = List.from(cafes)..shuffle(_random);
     return shuffledCafes.take(count).toList();
   }
+
   /// 랜덤 이미지 경로 생성
   String _getRandomImagePath() {
     int randomIndex = _random.nextInt(21);
     return 'assets/images/Frame $randomIndex.png';
+  }
+  /// 방문 기록 리스트뷰
+  Widget buildVisitHistoryList(BuildContext context, List<ComplexVisit> visitHistory) {
+    return SizedBox(
+      height: 300,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: visitHistory.length,
+        separatorBuilder: (context, index) => const SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          final visit = visitHistory[index];
+          final cafe = visit.cafe;
+          final sortedKeywords = List.from(cafe.keywords ?? [])
+            ..sort((a, b) => b.frequency.compareTo(a.frequency));
+
+          return CustomPhotoCard(
+            imagePath: 'assets/images/Frame ${index % 21}.png',
+            storeName: cafe.name,
+            keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
+            keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
+            comment: '방문일: ${visit.visit.recent}',
+            revisitCount: 10,
+          );
+        },
+      ),
+    );
   }
 }
