@@ -1,4 +1,5 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/models/review.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 
@@ -6,8 +7,10 @@ class ReviewFormat extends StatelessWidget {
   const ReviewFormat({
     Key? key,
     this.summary = true,
+    this.review,
   }) : super(key: key);
   final bool summary;
+  final Review? review;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +24,15 @@ class ReviewFormat extends StatelessWidget {
           height: 35,
           child: Row(
             children: [
-              CircleAvatar(),
-              SizedBox(width: 5,),
-              Text('디저트 조아',style: TextStyle(fontWeight: FontWeight.bold),),
-              SizedBox(width: 10,),
-              Expanded(child: Text('3시간 전',style: textStyle,)),
-              CustomButtonLayout(
+              const CircleAvatar(),
+              const SizedBox(width: 5,),
+              Text(review?.user.name ?? '',style: const TextStyle(fontWeight: FontWeight.bold),),
+              const SizedBox(width: 10,),
+              Expanded(child: Text(review?.timestamp.toString() ?? '',style: textStyle,)),
+              const CustomButtonLayout(
                 borderColor: CustomColors.deepGrey,
                 child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: EdgeInsets.all(3.0),
                   child: Text('팔로우',style: textStyle,),
                 ),
               ),
@@ -56,16 +59,14 @@ class ReviewFormat extends StatelessWidget {
           height: 35,
           child: Row(
             children: [
-              Expanded(child: Text('부모님과 | 대화하기 좋은 | 커피맛집 | 디저트 맛집 |',style: smallStyle,)),
-              Icon(Icons.star,color: CustomColors.deepGrey,),
-              Text('4.7',style: smallStyle,),
+              Expanded(child: Text('${review?.who[0] ?? ''} | ${review?.convenient ?? ''} | ${review?.object ?? ''} |',style: smallStyle,)),
+              const Icon(Icons.star,color: CustomColors.deepGrey,),
+              Text(review?.numOfStar.toString() ?? '0',style: smallStyle,),
             ],
           ),
         ),
         // 리뷰 내용
-        Text('ㅓㅣ히나러니아런아러ㅣㄴ알ㄴㅇㄹ니알닝란이ㅏㄹ'
-            'ㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴ어론이라니아러니아ㅓ린아ㅓ리나어리나'
-            'ㄴㅇ러ㅣㄴ아러ㅣㄴ아러ㅣ낭러ㅣㅏㅇ너리ㅏㄴㅇ',
+        Text(review?.content ?? '',
           style: textStyle,maxLines: summary? 2 : null,overflow: summary? TextOverflow.ellipsis : null),
         const SizedBox(height: 5,),
         // 메뉴
