@@ -12,11 +12,7 @@ class VisitRepository {
   Future<void> createVisit(Visit visit) async {
     var data = visit.toJson();
     var encodedData = jsonEncode(data);
-    try {
-      await _apiService.postRequest('/visit', encodedData);
-    } catch (e) {
-      Fluttertoast.showToast(msg: '주문에 실패했습니다.');
-    }
+    await _apiService.postRequest('/visit', encodedData);
   }
 
   // 특정 사용자 ID로 모든 방문 기록을 가져오는 메서드

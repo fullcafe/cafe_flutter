@@ -4,6 +4,7 @@ import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/count_button.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/colors.dart';
@@ -159,13 +160,18 @@ class ShoppingCart extends StatelessWidget {
           ),
           // 주문하기
           GestureDetector(
-            onTap: (){
-              int count = 0;
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> OrderSuccess(cafe: viewModel.cafe!,)),
-                  (route){
-                    return count++ == 3;
-                  }
-              );
+            onTap: () async{
+              try{
+                await viewModel.orderCreate();
+                int count = 0;
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> OrderSuccess(cafe: viewModel.cafe!,)),
+                        (route){
+                      return count++ == 3;
+                    }
+                );
+              } catch (e){
+                Fluttertoast.showToast(msg: '주문에 실패하였습니다.');
+              }
             },
             child: const CustomButtonLayout(
               margin: margin,

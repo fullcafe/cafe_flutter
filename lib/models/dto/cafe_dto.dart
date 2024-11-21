@@ -38,7 +38,7 @@ class CafeDto {
         json['easyPayment'],
         json['parking'],
         json['delivery'],
-        json['keywords']
+        (json['keywords'] as List).map((e) => e.toString()).toList()
     );
   }
 }

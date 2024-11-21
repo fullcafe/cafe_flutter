@@ -26,6 +26,7 @@ class VisitPage extends StatelessWidget {
       );
     }
 
+    var visitSize = viewModel.visitCafeList!.length;
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -34,11 +35,11 @@ class VisitPage extends StatelessWidget {
               const BackButtonAppBar(text: '방문한 카페',),
               const SizedBox(height: 20),
 
-              Expanded(child: ListView(
-                children: List.generate(viewModel.visitCafeList!.length,
+              Expanded(child: visitSize > 0 ? ListView(
+                children: List.generate(visitSize,
                         (idx) => VisitCafe(idx: idx,)
                 ),
-              )),
+              ) : const Center(child: Text('방문한 카페가 없습니다.'),)),
             ],
           ),
         ),
@@ -55,7 +56,8 @@ class VisitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
-
+    final viewModel = context.read<MyVisitViewModel>();
+    final visit = viewModel.visitCafeList![idx];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
       // margin: const EdgeInsets.all(10),
@@ -88,7 +90,7 @@ class VisitPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Container(margin: EdgeInsets.only(right: 10)),
+                  Container(margin: const EdgeInsets.only(right: 10)),
                   Expanded(child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -98,13 +100,13 @@ class VisitPage extends StatelessWidget {
 
                         child: Row(
                         children: [
-                          Text('Honor',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
+                          Text(visit.cafe.name,style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
                           const SizedBox(width: 15,),
                           CustomButtonLayout(
                             borderColor: CustomColors.deepGrey,
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
-                              child: Text('드롭커피',style: commonTextStyle,),
+                              child: Text(visit.cafe.keywords.first,style: commonTextStyle,),
                             ),
                           ),
                           const SizedBox(width: 5,),
@@ -112,7 +114,15 @@ class VisitPage extends StatelessWidget {
                             borderColor: CustomColors.deepGrey,
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
-                              child: Text('커피',style: commonTextStyle,),
+                              child: Text(visit.cafe.keywords.last,style: commonTextStyle,),
+                            ),
+                          ),
+                          const SizedBox(width: 5,),
+                          CustomButtonLayout(
+                            borderColor: CustomColors.deepGrey,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text('재방문 ${visit.visit.count}회',style: commonTextStyle,),
                             ),
                           ),
                         ],
@@ -127,9 +137,9 @@ class VisitPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 3.0), // 상하 간격 최소화
                             child: Row(
                               children: [
-                                Text('영업중', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 14,),),
+                                const Text('영업중', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 14,),),
                                 const SizedBox(width: 10),
-                                Text('서울 노원구 동일로 186길', style: commonTextStyle),
+                                Text(visit.cafe.address, style: commonTextStyle),
                               ],
                             ),
                           ),
@@ -138,11 +148,9 @@ class VisitPage extends StatelessWidget {
                             child: Row(
                               children: [
 
-                                Text('예상평점', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 12,),),
+                                const Text('예상평점', style: TextStyle(color: Color(0xFF716D6A),fontWeight: FontWeight.w600,fontFamily: 'Pretendard',fontSize: 12,),),
                                 const SizedBox(width: 25),
                                 Text('도보 15분', style: commonTextStyle),
-                                const SizedBox(width: 25),
-                                Text('리뷰 999+', style: commonTextStyle),
                               ],
                             ),
                           ),
