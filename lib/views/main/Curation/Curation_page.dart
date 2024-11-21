@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/provider/main/curation/curation_viewmodel.dart';
 import 'package:cafe_front/views/main/Curation/More_Curation_Page.dart';
 import 'package:cafe_front/views/main/Curation/section_title.dart';
@@ -24,6 +25,13 @@ class _CurationPageState extends State<CurationPage> {
   void initState() {
     super.initState();
     // 데이터 fetch
+    fetchData(context);
+  }
+
+  fetchData(BuildContext context) async {
+    // 유저 정보 가져 오는 딜레이
+    await Future.delayed(const Duration(milliseconds: 300));
+    // ignore: use_build_context_synchronously
     context.read<CurationViewModel>().fetchData();
   }
 
@@ -60,7 +68,7 @@ class _CurationPageState extends State<CurationPage> {
                 //고정 카페
                 buildHorizontalListViewWithCafes(context,cafes),
                 const SizedBox(height: 30),
-                const SectionTitle(title: '서진님의 취향저격 카페'),
+                SectionTitle(title: '${UserStore.getInstance().user!.name}님의 취향저격 카페'),
                 buildHorizontalListView(context),
                 const SizedBox(height: 30),
                 const SectionTitle(title: '이 카페 한 번 더?'),
@@ -186,16 +194,15 @@ class _CurationPageState extends State<CurationPage> {
         itemBuilder: (context, index) {
           final visit = visitHistory[index];
           final cafe = visit.cafe;
-          final sortedKeywords = List.from(cafe.keywords ?? [])
-            ..sort((a, b) => b.frequency.compareTo(a.frequency));
 
           return CustomPhotoCard(
             imagePath: 'assets/images/Frame ${index % 21}.png',
             storeName: cafe.name,
-            keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
-            keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
+            keyword1:  cafe.keywords.first,
+            keyword2: cafe.keywords.last,
             comment: '방문일: ${visit.visit.recent}',
-            revisitCount: 10,
+            revisitCount: visit.visit.count,
+            visit: visit.visit,
           );
         },
       ),
