@@ -1,8 +1,10 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:cafe_front/widgets/review_format.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CafeReviewPage extends StatelessWidget {
   const CafeReviewPage({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class CafeReviewPage extends StatelessWidget {
     const keywordStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 15);
     const sortBlack = TextStyle(fontWeight: FontWeight.bold,fontSize: 15);
     const sortGrey = TextStyle(fontWeight: FontWeight.bold,fontSize: 15,color: Colors.grey);
+    final viewModel = context.watch<CafeDetailViewModel>();
+    final reviewSize = viewModel.cafe?.reviews.length ?? 0;
     return Scaffold(
       floatingActionButton: CircleAvatar(
         radius: 30,
@@ -104,12 +108,13 @@ class CafeReviewPage extends StatelessWidget {
             ),
           ),
           // 리뷰
-          Expanded(child: ListView(
-            children: List.generate(10, (idx)=>Container(
+          Expanded(child: reviewSize > 0? ListView(
+            children: List.generate(viewModel.cafe?.reviews.length ?? 0, (idx)=>Container(
                 margin: const EdgeInsets.all(10),
-                child: ReviewFormat(summary: false,)
+                child: ReviewFormat(summary: false, review: viewModel.cafe?.reviews[idx])
             )),
-          ))
+          ) : const
+          Center(child: Text('등록된 리뷰가 없습니다.'),))
         ],
       )),
     );

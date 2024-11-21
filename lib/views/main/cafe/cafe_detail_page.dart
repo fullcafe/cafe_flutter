@@ -411,7 +411,7 @@ class _ThreeSelectedState extends State<ThreeSelected> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const CafeReviewPage()));
+                        viewModel.navigator(context, const CafeReviewPage());
                       },
                       child: const CustomButtonLayout(
                         width: double.infinity,
