@@ -1,8 +1,12 @@
+import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/complex_visit.dart';
+import 'package:cafe_front/models/repository/visit_repo.dart';
 import 'package:flutter/material.dart';
 
 class MyVisitViewModel with ChangeNotifier {
-  List? _visitCafeList;
-  List? get visitCafeList => _visitCafeList;
+  final VisitRepository _visitRepository = VisitRepository();
+  List<ComplexVisit>? _visitCafeList;
+  List<ComplexVisit>? get visitCafeList => _visitCafeList;
 
 
   MyVisitViewModel(){
@@ -10,8 +14,7 @@ class MyVisitViewModel with ChangeNotifier {
   }
 
   getMyVisits() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _visitCafeList = ['','','',''];
+   _visitCafeList = await _visitRepository.findAllVisitByUser(UserStore.getInstance().user!.uid);
     notifyListeners();
   }
 }
