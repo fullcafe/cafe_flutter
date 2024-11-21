@@ -1,3 +1,6 @@
+import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/repository/visit_repo.dart';
+import 'package:cafe_front/models/visit.dart';
 import 'package:cafe_front/provider/stack_handler.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +10,7 @@ import '../../../models/cafe.dart';
 class CafeDetailViewModel with ChangeNotifier{
   final Cafe? cafe;
   final StackHandler _handler = StackHandler();
+  final VisitRepository _visitRepository = VisitRepository();
   CafeDetailViewModel(this.cafe);
 
   void navigator(BuildContext context, Widget child){
@@ -14,6 +18,11 @@ class CafeDetailViewModel with ChangeNotifier{
         create: (context) => this,
         child: child,
     ));
+  }
+
+  Future<void> orderCreate() async {
+    var visit = Visit(uid: UserStore.getInstance().user!.uid, cafeName: cafe!.name, count: 1, writeReview: true, recent: DateTime.now());
+    await _visitRepository.createVisit(visit);
   }
 
   @override
