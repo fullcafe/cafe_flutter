@@ -19,7 +19,7 @@ class CafeDetailPage extends StatelessWidget {
     final viewModel = context.watch<CafeDetailViewModel>();
 
     if(viewModel.cafe == null){
-      return const Center(child: CircularProgressIndicator(),);
+      return const Scaffold(body: SafeArea(child: Center(child: CircularProgressIndicator(),)));
     }
 
     return Scaffold(

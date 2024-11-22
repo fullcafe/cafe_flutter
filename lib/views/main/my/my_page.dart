@@ -1,10 +1,12 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_favor_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
@@ -294,25 +296,33 @@ class RecentVisitCafeLayout extends StatelessWidget {
     final cafe = viewModel.recentlyVisitCafeList![idx].cafe;
     return Stack(
       children: [
-        Row(
-          children: [
-            SizedBox(
-                width: 90,
-                height: 120,
-                child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
-            ),
-            const SizedBox(width: 10,),
-            Expanded(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(cafe.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                const SizedBox(height: 5,),
-                Text(cafe.address,style: const TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
-                const SizedBox(height: 5,),
-                const Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
-              ],
-            ))
-          ],
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                create: (context) => CafeDetailViewModel(cafe.name),
+                child: const CafeDetailPage(),
+            )));
+          },
+          child: Row(
+            children: [
+              SizedBox(
+                  width: 90,
+                  height: 120,
+                  child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
+              ),
+              const SizedBox(width: 10,),
+              Expanded(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(cafe.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const SizedBox(height: 5,),
+                  Text(cafe.address,style: const TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
+                  const SizedBox(height: 5,),
+                  const Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
+                ],
+              ))
+            ],
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,

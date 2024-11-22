@@ -35,7 +35,7 @@ class SearchForm extends StatelessWidget {
         return GestureDetector(
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
-                create: (context) => CafeDetailViewModel(cafe),
+                create: (context) => CafeDetailViewModel(cafe.name),
                 child: const CafeDetailPage(),
             )));
           },

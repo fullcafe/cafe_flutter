@@ -1,4 +1,5 @@
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/repository/cafe_repo.dart';
 import 'package:cafe_front/models/repository/visit_repo.dart';
 import 'package:cafe_front/models/visit.dart';
 import 'package:cafe_front/provider/stack_handler.dart';
@@ -8,10 +9,22 @@ import '../../../models/cafe.dart';
 
 
 class CafeDetailViewModel with ChangeNotifier{
-  final Cafe? cafe;
+  final String cafeName;
   final StackHandler _handler = StackHandler();
+  final CafeRepository _cafeRepository = CafeRepository();
   final VisitRepository _visitRepository = VisitRepository();
-  CafeDetailViewModel(this.cafe);
+  Cafe? _cafe;
+  Cafe? get cafe => _cafe;
+
+  CafeDetailViewModel(this.cafeName){
+    initCafe();
+  }
+
+  void initCafe() async {
+    print(cafeName);
+    _cafe = await _cafeRepository.getCafeByName(cafeName);
+    notifyListeners();
+  }
 
   void navigator(BuildContext context, Widget child){
     _handler.navigator(context, ChangeNotifierProvider(
