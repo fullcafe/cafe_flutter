@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../models/cafe.dart';
 import '../../models/cafe_keyword.dart';
+import '../../provider/main/cafe/cafe_detail_viewmodel.dart';
+import '../../views/main/Cafe/cafe_detail_page.dart';
 import '../../views/main/Curation/CustomPhotoCard.dart';
 import '../../views/main/Curation/Photo_With_Keyword_Card.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +17,7 @@ String _getRandomImagePath() {
 }
 
 /// 수평 스크롤 리스트뷰
+
 Widget buildHorizontalListView(BuildContext context) {
   final viewModel = context.watch<CurationViewModel>();
   final cafes = viewModel.preferredCafes ?? [];
@@ -30,11 +33,24 @@ Widget buildHorizontalListView(BuildContext context) {
         List<CafeKeyword> sortedKeywords = List.from(cafe.keywords ?? []);
         sortedKeywords.sort((a, b) => b.frequency.compareTo(a.frequency));
 
-        return PhotoKeyCard(
-          imagePath: _getRandomImagePath(),
-          keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
-          keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
-          text: cafe.name,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider(
+                  create: (context) => CafeDetailViewModel(cafe.name),
+                  child: const CafeDetailPage(),
+                ),
+              ),
+            );
+          },
+          child: PhotoKeyCard(
+            imagePath: _getRandomImagePath(),
+            keyword1: sortedKeywords.isNotEmpty ? sortedKeywords[0].keyword : '디저트',
+            keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
+            text: cafe.name,
+          ),
         );
       },
     ),
@@ -56,7 +72,20 @@ Widget buildListViewWithCustomCards(BuildContext context) {
         List<CafeKeyword> sortedKeywords = List.from(cafe.keywords ?? []);
         sortedKeywords.sort((a, b) => b.frequency.compareTo(a.frequency));
 
-        return Padding(
+        return  GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider(
+                  create: (context) => CafeDetailViewModel(cafe.name),
+                  child: const CafeDetailPage(),
+                ),
+              ),
+            );
+          },
+
+          child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 4.0),
           child: CustomPhotoCard(
             imagePath: _getRandomImagePath(),
@@ -65,6 +94,7 @@ Widget buildListViewWithCustomCards(BuildContext context) {
             keyword2: sortedKeywords.length > 1 ? sortedKeywords[1].keyword : '커피',
             comment: '빵이 너무 부드러워서 자꾸 생각나요,,',
             revisitCount: visitCount,
+          ),
           ),
         );
       },

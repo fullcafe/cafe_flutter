@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
 import '../../../models/complex_visit.dart';
+import '../../../provider/main/cafe/cafe_detail_viewmodel.dart';
 import '../../../widgets/listview/build_list_view.dart';
+import '../Cafe/cafe_detail_page.dart';
 import 'CustomPhotoCard.dart';
 import 'Photo_With_Keyword_Card.dart';
 
@@ -156,11 +158,24 @@ class _CurationPageState extends State<CurationPage> {
         itemCount: randomCafes.length,
         itemBuilder: (context, index) {
           final cafe = randomCafes[index];
-          return PhotoKeyCard(
-            imagePath: _getRandomImagePath(),
-            keyword1: cafe.keywords.isNotEmpty ? cafe.keywords[0].keyword : '디저트',
-            keyword2: cafe.keywords.length > 1 ? cafe.keywords[1].keyword : '커피',
-            text: cafe.name,
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider(
+                    create: (context) => CafeDetailViewModel(cafe.name),
+                    child: const CafeDetailPage(),
+                  ),
+                ),
+              );
+            },
+            child: PhotoKeyCard(
+              imagePath: _getRandomImagePath(),
+              keyword1: cafe.keywords.isNotEmpty ? cafe.keywords[0].keyword : '디저트',
+              keyword2: cafe.keywords.length > 1 ? cafe.keywords[1].keyword : '커피',
+              text: cafe.name,
+            ),
           );
         },
         separatorBuilder: (context, index) => const SizedBox(width: 16), // 항목 간 간격
@@ -195,7 +210,19 @@ class _CurationPageState extends State<CurationPage> {
           final visit = visitHistory[index];
           final cafe = visit.cafe;
 
-          return CustomPhotoCard(
+            return GestureDetector(
+              onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider(
+                    create: (context) => CafeDetailViewModel(cafe.name),
+                    child: const CafeDetailPage(),
+                  ),
+                ),
+              );
+            },
+            child: CustomPhotoCard(
             imagePath: 'assets/images/Frame ${index % 21}.png',
             storeName: cafe.name,
             keyword1:  cafe.keywords.first,
@@ -203,7 +230,9 @@ class _CurationPageState extends State<CurationPage> {
             comment: '방문일: ${visit.visit.recent}',
             revisitCount: visit.visit.count,
             visit: visit.visit,
+            ),
           );
+
         },
       ),
     );
