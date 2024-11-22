@@ -1,10 +1,12 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_favor_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
 import 'package:cafe_front/views/main/my/my_review_page.dart';
@@ -84,8 +86,8 @@ class MyPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(width: 30,child: Image.asset('assets/icons/coupon.png')),
-                                SizedBox(height: 10,),
-                                Text('쿠폰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                const SizedBox(height: 10,),
+                                const Text('쿠폰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                               ],
                             ),
                           ),
@@ -105,8 +107,8 @@ class MyPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(width: 30,child: Image.asset('assets/icons/clock.png')),
-                                SizedBox(height: 10,),
-                                Text('방문한 카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                const SizedBox(height: 10,),
+                                const Text('방문한 카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                               ],
                             ),
                           ),
@@ -125,19 +127,19 @@ class MyPage extends StatelessWidget {
                               children: [
                                 SizedBox(width: 30,child: Image.asset('assets/icons/pencil.png')),
                                 const SizedBox(height: 10,),
-                                Text('내 리뷰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                const Text('내 리뷰',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                               ],
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 70,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(width: 30,child: Image.asset('assets/icons/star.png')),
-                              SizedBox(height: 10,),
-                              Text('단골카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                              const SizedBox(height: 10,),
+                              const Text('단골카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                             ],
                           ),
                         ),
@@ -150,7 +152,7 @@ class MyPage extends StatelessWidget {
               // 중단
               Container(
                 margin: margin,
-                height: 150,
+                height: 140,
                 width: double.infinity,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,29 +292,42 @@ class RecentVisitCafeLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<MyPageViewModel>();
+    final cafe = viewModel.recentlyVisitCafeList![idx].cafe;
     return Stack(
       children: [
-        Row(
-          children: [
-            Container(width: 90,color: Colors.black,),
-            const SizedBox(width: 10,),
-            const Expanded(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('호이폴로이커피로스터스',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
-                SizedBox(height: 5,),
-                Text('서울 노원구 동일로186길 64 상가',style: TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
-                SizedBox(height: 5,),
-                Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
-              ],
-            ))
-          ],
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                create: (context) => CafeDetailViewModel(cafe.name),
+                child: const CafeDetailPage(),
+            )));
+          },
+          child: Row(
+            children: [
+              SizedBox(
+                  width: 90,
+                  height: 120,
+                  child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
+              ),
+              const SizedBox(width: 10,),
+              Expanded(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(cafe.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 18),),
+                  const SizedBox(height: 5,),
+                  Text(cafe.address,style: const TextStyle(fontSize: 11,color: CustomColors.deepGrey),),
+                  const SizedBox(height: 5,),
+                  const Text('도보 15분    ★ 4.7',style: TextStyle(fontWeight: FontWeight.bold,color: CustomColors.deepGrey),),
+                ],
+              ))
+            ],
+          ),
         ),
         Align(
           alignment: Alignment.bottomRight,
           child: GestureDetector(
             onTap: (){
-              print(idx);
               Navigator.push(context, MaterialPageRoute(builder: (context)=> const WriteReviewPage()));
             },
             child: Container(
