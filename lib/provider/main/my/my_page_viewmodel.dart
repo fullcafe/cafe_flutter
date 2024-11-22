@@ -1,18 +1,19 @@
+import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/complex_visit.dart';
+import 'package:cafe_front/models/repository/visit_repo.dart';
 import 'package:flutter/material.dart';
 
 class MyPageViewModel with ChangeNotifier {
-
-  List? _recentlyVisitCafeList;
-  List? get recentlyVisitCafeList => _recentlyVisitCafeList;
+  final VisitRepository _visitRepository = VisitRepository();
+  List<ComplexVisit>? _recentlyVisitCafeList;
+  List<ComplexVisit>? get recentlyVisitCafeList => _recentlyVisitCafeList;
 
   MyPageViewModel(){
     getRecentlyVisitCafeList();
   }
 
   getRecentlyVisitCafeList() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    // 테스트용 static한 리스트 아무거나
-    _recentlyVisitCafeList = ['','','',''];
+    _recentlyVisitCafeList = await _visitRepository.findWriteReviewVisitByUser(UserStore.getInstance().user!.uid);
     notifyListeners();
   }
 
