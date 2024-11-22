@@ -12,55 +12,55 @@ class _AlertPageState extends State<AlertPage> {
     {
       "title": "새로운 메시지가 도착했습니다",
       "content": "잠시 후 도착할 메시지를 확인하세요.\n\n리뷰를 써주시고 포인트를 모아 다양한 혜택을 받아보세요",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 3.png",
       "isRead": false
     },
     {
       "title": "친구 요청이 도착했습니다",
       "content": "새로운 친구 요청이 도착했습니다. 프로필을 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 1.png",
       "isRead": false
     },
     {
       "title": "이벤트 참여가 완료되었습니다",
       "content": "이벤트에 성공적으로 참여하였습니다. 결과를 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 2.png",
       "isRead": false
     },
     {
       "title": "새로운 메시지가 도착했습니다",
       "content": "잠시 후 도착할 메시지를 확인하세요.\n\n리뷰를 써주시고 포인트를 모아 다양한 혜택을 받아보세요",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 0.png",
       "isRead": false
     },
     {
       "title": "친구 요청이 도착했습니다",
       "content": "새로운 친구 요청이 도착했습니다. 프로필을 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 5.png",
       "isRead": false
     },
     {
       "title": "이벤트 참여가 완료되었습니다",
       "content": "이벤트에 성공적으로 참여하였습니다. 결과를 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 6.png",
       "isRead": false
     },
     {
       "title": "새로운 메시지가 도착했습니다",
       "content": "잠시 후 도착할 메시지를 확인하세요.\n\n리뷰를 써주시고 포인트를 모아 다양한 혜택을 받아보세요",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 7.png",
       "isRead": false
     },
     {
       "title": "친구 요청이 도착했습니다",
       "content": "새로운 친구 요청이 도착했습니다. 프로필을 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 8.png",
       "isRead": false
     },
     {
       "title": "이벤트 참여가 완료되었습니다",
       "content": "이벤트에 성공적으로 참여하였습니다. 결과를 확인하세요.",
-      "image": "assets/images/Frame 394.png",
+      "image": "assets/images/Frame 9.png",
       "isRead": false
     },
   ];

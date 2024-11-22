@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../views/main/AppBar/AlertPage.dart';
+import '../../views/main/my/bookmark_page.dart';
+
 class LogoAppBar extends StatelessWidget {
   const LogoAppBar({
     Key? key,
@@ -118,15 +121,23 @@ class AppBarIconSet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
-              onTap: (){
-                print('알림 탭');
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AlertPage()),
+                );
               },
+
               child: SizedBox(width: 25,child: Image.asset('${defaultLink}notification.png'))
           ),
           GestureDetector(
-              onTap: (){
-                print('북마크 탭');
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                );
               },
+
               child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark.png'))
           ),
         ]
