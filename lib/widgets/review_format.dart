@@ -12,23 +12,42 @@ class ReviewFormat extends StatelessWidget {
   final bool summary;
   final Review? review;
 
+  String getDateFormat(DateTime time){
+    var now = DateTime.now();
+    if(now.difference(time).inMinutes < 1){
+      var difference = now.difference(time).inSeconds;
+      return '$difference초 전';
+    }
+    if(now.difference(time).inHours < 1){
+      var difference = now.difference(time).inMinutes;
+      return '$difference분 전';
+    }
+    if(now.difference(time).inDays < 1){
+      var difference = now.difference(time).inHours;
+      return '$difference시간 전';
+    }
+    return '${time.year}-${time.month}-${time.day} ${time.hour}:${time.month}:${time.second}';
+  }
+
   @override
   Widget build(BuildContext context) {
     const textStyle = TextStyle(color: CustomColors.deepGrey,);
     const smallStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    var character = ['ca_circle.png','gam_circle.png','sil_circle.png','mi_circle.png'];
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // 이름 부분
         SizedBox(
           height: 35,
           child: Row(
             children: [
-              const CircleAvatar(),
+              SizedBox(width: 30,child: Image.asset('assets/characters/${character[review?.user.characterIdx?? 0]}')),
               const SizedBox(width: 5,),
               Text(review?.user.name ?? '',style: const TextStyle(fontWeight: FontWeight.bold),),
               const SizedBox(width: 10,),
-              Expanded(child: Text(review?.timestamp.toString() ?? '',style: textStyle,)),
+              Expanded(child: Text(getDateFormat(review?.timestamp ?? DateTime.now()),style: textStyle,)),
               const CustomButtonLayout(
                 borderColor: CustomColors.deepGrey,
                 child: Padding(
@@ -59,7 +78,7 @@ class ReviewFormat extends StatelessWidget {
           height: 35,
           child: Row(
             children: [
-              Expanded(child: Text('${review?.who[0] ?? ''} | ${review?.convenient ?? ''} | ${review?.object ?? ''} |',style: smallStyle,)),
+              Expanded(child: Text('${review?.who[0] ?? ''} | ${review?.convenient[0] ?? ''} | ${review?.object[0] ?? ''} |',style: smallStyle,)),
               const Icon(Icons.star,color: CustomColors.deepGrey,),
               Text(review?.numOfStar.toString() ?? '0',style: smallStyle,),
             ],
