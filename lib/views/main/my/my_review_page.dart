@@ -87,11 +87,11 @@ class ReviewListLayout extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(10),
-      height: 400,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // 상반
-          Expanded(flex: 2,child: ListView(
+          SizedBox(height: 200,child: ListView(
             scrollDirection: Axis.horizontal,
             children: List.generate(5, (idx)=>Container(
               width: 180,
@@ -100,7 +100,7 @@ class ReviewListLayout extends StatelessWidget {
             )),
           )),
           // 중반
-          Expanded(child: Stack(
+          SizedBox(height: 100, child: Stack(
             children: [
               Row(
               children: [
@@ -115,8 +115,12 @@ class ReviewListLayout extends StatelessWidget {
                     // 제목
                     SizedBox(height: 50,child: Row(
                       children: [
-                        Text(cafeDto.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                        const SizedBox(width: 10,),
+                        SizedBox(
+                          width: 100,
+                          child: Text(cafeDto.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                        ),
                         CustomButtonLayout(
                           borderColor: CustomColors.deepGrey,
                           child: Padding(
@@ -166,24 +170,29 @@ class ReviewListLayout extends StatelessWidget {
             ],
           )),
           // 하단
-          Expanded(child: Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 정보
-              Expanded(child: Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('${review.who[0]} | ${review.convenient[0]} | ${review.object[0]} |',style: commonTextStyle,),
-                  Text('★ ${review.numOfStar}',style: commonTextStyle,)
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.star,color: CustomColors.deepGrey,size: 20,),
+                      Text(review.numOfStar.toString(),style: commonTextStyle,)
+                    ],
+                  ),
                 ],
-              )),
+              ),
               // 리뷰
-              Expanded(flex: 2,child: Text(review.content,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
+              Text(review.content,
+                style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15),),
+              const SizedBox(height: 10,),
               // 메뉴
-              Expanded(child: Row(
+              Row(
                 children: [
                   CustomButtonLayout(
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -196,9 +205,9 @@ class ReviewListLayout extends StatelessWidget {
                   const Expanded(child: Text('깔끔한 맛이에요 무난함',style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15))),
                   SizedBox(width: 20,child: Image.asset('assets/icons/good.png'))
                 ],
-              )),
+              ),
             ],
-          )),
+          ),
         ],
       ),
     );
