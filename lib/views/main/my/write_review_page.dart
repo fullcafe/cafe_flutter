@@ -5,6 +5,8 @@ import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main_layout.dart';
+
 class WriteReviewPage extends StatelessWidget {
   const WriteReviewPage({Key? key}) : super(key: key);
 
@@ -153,7 +155,7 @@ class WriteReviewPage extends StatelessWidget {
                         onTap: () async{
                           if(await viewModel.writeReview()){
                             // ignore: use_build_context_synchronously
-                            Navigator.pop(context);
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainLayout(),), (_) => false);
                           }
                         },
                         child: const CustomButtonLayout(
