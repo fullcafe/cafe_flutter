@@ -14,6 +14,7 @@ class MyReviewViewModel with ChangeNotifier {
 
   getMyReviews() async {
     _myReviews = await _reviewRepository.getReviewsByUser(UserStore.getInstance().user!.uid);
+    _myReviews = _myReviews?.reversed.toList();
     notifyListeners();
   }
 }
