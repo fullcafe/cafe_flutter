@@ -1,5 +1,6 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/models/dto/complex_review_dto.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/views/main/my/review_filter.dart';
@@ -22,6 +23,7 @@ class MyReviewPage extends StatelessWidget {
         body: SafeArea(child: Center(child: CircularProgressIndicator())),
       );
     }
+    var reviewSize = viewModel.myReviews!.length;
     return Scaffold(
       body: SafeArea(child: Column(
         children: [
@@ -56,11 +58,12 @@ class MyReviewPage extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: ListView(
+          Expanded(child: reviewSize > 0 ? ListView(
             children: List.generate(viewModel.myReviews!.length,
-                (idx) => ReviewListLayout(idx: idx,)
+                (idx) => ReviewListLayout(idx: idx, reviewDto: viewModel.myReviews![idx],)
             ),
-          )),
+          ) :
+              const Center(child: Text('작성하신 리뷰가 없습니다.'),)),
         ],
       )),
     );
@@ -71,12 +74,16 @@ class ReviewListLayout extends StatelessWidget {
   const ReviewListLayout({
     Key? key,
     required this.idx,
+    required this.reviewDto,
   }) : super(key: key);
   final int idx;
+  final ComplexReviewDto reviewDto;
 
   @override
   Widget build(BuildContext context) {
     var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    var cafeDto = reviewDto.cafeDto;
+    var review = reviewDto.reviewDto;
 
     return Container(
       margin: const EdgeInsets.all(10),
@@ -108,13 +115,13 @@ class ReviewListLayout extends StatelessWidget {
                     // 제목
                     SizedBox(height: 50,child: Row(
                       children: [
-                        Text('아너카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                        Text(cafeDto.name,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                         const SizedBox(width: 10,),
                         CustomButtonLayout(
                           borderColor: CustomColors.deepGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Text('커피',style: commonTextStyle,),
+                            child: Text(cafeDto.keywords.first,style: commonTextStyle,),
                           ),
                         ),
                         const SizedBox(width: 5,),
@@ -122,13 +129,13 @@ class ReviewListLayout extends StatelessWidget {
                           borderColor: CustomColors.deepGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Text('커피',style: commonTextStyle,),
+                            child: Text(cafeDto.keywords.last,style: commonTextStyle,),
                           ),
                         ),
                       ],
                     ),),
                     // 주소
-                    Text('서울 노원구 동일로192다길 9',style: commonTextStyle,),
+                    Text(cafeDto.address,style: commonTextStyle,),
                     // 짤짤이
                     Expanded(child: Row(
                       children: [
@@ -166,12 +173,12 @@ class ReviewListLayout extends StatelessWidget {
               Expanded(child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('카공 | 대기시간 없음 | 커피맛집 | 디저트 맛집 |',style: commonTextStyle,),
-                  Text('★ 4.7',style: commonTextStyle,)
+                  Text('${review.who[0]} | ${review.convenient[0]} | ${review.object[0]} |',style: commonTextStyle,),
+                  Text('★ ${review.numOfStar}',style: commonTextStyle,)
                 ],
               )),
               // 리뷰
-              Expanded(flex: 2,child: Text('블아르ㅏㅇ릐낭리넝린아리ㅏㄴㅇ리ㅏㄴ어리ㅏㄴㅇ링나dfsldjflsdkfjㄴ얼닝ㄹㅏㅇ니ㅏ러ㅣㄴ아러ㅣㄴ아러ㅣ낭러이ㅏ러이나안',
+              Expanded(flex: 2,child: Text(review.content,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
@@ -186,7 +193,7 @@ class ReviewListLayout extends StatelessWidget {
                       child: Text('아메리카노',style: commonTextStyle,),
                     ),
                   ),
-                  Expanded(child: Text('ㅇ리ㅏㅓ니ㅏ런',style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15))),
+                  const Expanded(child: Text('깔끔한 맛이에요 무난함',style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15))),
                   SizedBox(width: 20,child: Image.asset('assets/icons/good.png'))
                 ],
               )),

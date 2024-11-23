@@ -15,7 +15,7 @@ class ReviewRepository {
   Future<List<ComplexReviewDto>> getReviewsByUser(String uid) async {
     try {
       var response = await _apiService.getRequest('/reviews/user/$uid');
-      var data = response.data;
+      List data = response.data;
       return data.map((json) => ComplexReviewDto.fromJson(json)).toList();
     } catch (e) {
       Fluttertoast.showToast(msg: '리뷰 데이터를 불러 오는데 실패하였습니다.');

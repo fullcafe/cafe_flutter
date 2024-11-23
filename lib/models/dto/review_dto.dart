@@ -9,6 +9,9 @@ class ReviewDto {
   String _uid;
   String _cafeName;
 
+
+  int get id => _id;
+
   ReviewDto(this._id, this._numOfStar, this._who, this._convenient,
       this._object, this._content, this._timestamp,this._uid, this._cafeName);
   factory ReviewDto.fromJson(Map<String, dynamic> json){
@@ -38,4 +41,19 @@ class ReviewDto {
     };
   }
 
+  int get numOfStar => _numOfStar;
+
+  List<String> get who => _who;
+
+  List<String> get convenient => _convenient;
+
+  List<String> get object => _object;
+
+  String get content => _content;
+
+  DateTime get timestamp => _timestamp;
+
+  String get uid => _uid;
+
+  String get cafeName => _cafeName;
 }

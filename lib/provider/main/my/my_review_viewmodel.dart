@@ -1,3 +1,4 @@
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/models/repository/review_repo.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +12,7 @@ class MyReviewViewModel with ChangeNotifier {
   }
 
   getMyReviews() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _myReviews = ['','','',''];
+    _myReviews = await _reviewRepository.getReviewsByUser(UserStore.getInstance().user!.uid);
     notifyListeners();
   }
 }
