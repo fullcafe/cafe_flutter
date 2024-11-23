@@ -43,49 +43,6 @@ class ReviewViewModel extends ChangeNotifier {
     }
   }
 
-  /// 리뷰 추가하기
-  Future<void> addReview(Review review) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      bool isSuccess = await _reviewRepository.addReview(review);
-      if (isSuccess) {
-        Fluttertoast.showToast(msg: 'Review added successfully');
-        _reviews.add(review);
-        notifyListeners();
-      } else {
-        Fluttertoast.showToast(msg: 'Failed to add review');
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error adding review: $e');
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  /// 특정 리뷰 삭제하기
-  Future<void> deleteReview(int reviewId) async {
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      bool isSuccess = await _reviewRepository.deleteReview(reviewId);
-      if (isSuccess) {
-        Fluttertoast.showToast(msg: 'Review deleted successfully');
-        _reviews.removeWhere((review) => review.id == reviewId);
-        notifyListeners();
-      } else {
-        Fluttertoast.showToast(msg: 'Failed to delete review');
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Error deleting review: $e');
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
 
   /// 리뷰 목록 초기화
   void clearReviews() {
