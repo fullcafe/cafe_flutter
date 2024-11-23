@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/main/my/my_bookmark_viewmodel.dart';
 import '../../views/main/AppBar/AlertPage.dart';
 import '../../views/main/my/bookmark_page.dart';
 
@@ -134,9 +136,15 @@ class AppBarIconSet extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                  MaterialPageRoute(
+                    builder: (context) => ChangeNotifierProvider(
+                      create: (context) => MyBookmarkViewModel(), // ViewModel 인스턴스 생성
+                      child: const BookmarkPage(),
+                    ),
+                  ),
                 );
               },
+
 
               child: SizedBox(width: 20,child: Image.asset('${defaultLink}bookmark.png'))
           ),
