@@ -1,7 +1,10 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/models/dto/complex_review_dto.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/views/main/my/review_filter.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
@@ -22,6 +25,7 @@ class MyReviewPage extends StatelessWidget {
         body: SafeArea(child: Center(child: CircularProgressIndicator())),
       );
     }
+    var reviewSize = viewModel.myReviews!.length;
     return Scaffold(
       body: SafeArea(child: Column(
         children: [
@@ -56,11 +60,20 @@ class MyReviewPage extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: ListView(
+          Expanded(child: reviewSize > 0 ? ListView(
             children: List.generate(viewModel.myReviews!.length,
-                (idx) => ReviewListLayout(idx: idx,)
+                (idx) => GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                          create: (context) => CafeDetailViewModel(viewModel.myReviews![idx].cafeDto.name),
+                          child: const CafeDetailPage(),
+                      )));
+                    },
+                    child: ReviewListLayout(idx: idx, reviewDto: viewModel.myReviews![idx],)
+                )
             ),
-          )),
+          ) :
+              const Center(child: Text('작성하신 리뷰가 없습니다.'),)),
         ],
       )),
     );
@@ -71,46 +84,58 @@ class ReviewListLayout extends StatelessWidget {
   const ReviewListLayout({
     Key? key,
     required this.idx,
+    required this.reviewDto,
   }) : super(key: key);
   final int idx;
+  final ComplexReviewDto reviewDto;
 
   @override
   Widget build(BuildContext context) {
     var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    var cafeDto = reviewDto.cafeDto;
+    var review = reviewDto.reviewDto;
 
     return Container(
       margin: const EdgeInsets.all(10),
-      height: 400,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // 상반
-          Expanded(flex: 2,child: PageView(
-            pageSnapping: false,
-            controller: PageController(viewportFraction: 0.7),
+          SizedBox(height: 200,child: ListView(
+            scrollDirection: Axis.horizontal,
             children: List.generate(5, (idx)=>Container(
+              width: 180,
               margin: const EdgeInsets.all(5),
-              color: Colors.black,
+              child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
             )),
           )),
           // 중반
-          Expanded(child: Stack(
+          SizedBox(height: 100, child: Stack(
             children: [
               Row(
               children: [
-                Container(margin: EdgeInsets.only(right: 5),width: 90,color: Colors.black,),
+                Container(
+                  margin: const EdgeInsets.only(right: 5),
+                  width: 90,
+                  child: Image.asset('assets/images/details/image0.jpg',fit: BoxFit.fill,),
+                ),
                 Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // 제목
                     SizedBox(height: 50,child: Row(
                       children: [
-                        Text('아너카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                        const SizedBox(width: 10,),
+                        SizedBox(
+                          width: 100,
+                          child: Text(cafeDto.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                        ),
                         CustomButtonLayout(
                           borderColor: CustomColors.deepGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Text('커피',style: commonTextStyle,),
+                            child: Text(cafeDto.keywords.first,style: commonTextStyle,),
                           ),
                         ),
                         const SizedBox(width: 5,),
@@ -118,13 +143,13 @@ class ReviewListLayout extends StatelessWidget {
                           borderColor: CustomColors.deepGrey,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Text('커피',style: commonTextStyle,),
+                            child: Text(cafeDto.keywords.last,style: commonTextStyle,),
                           ),
                         ),
                       ],
                     ),),
                     // 주소
-                    Text('서울 노원구 동일로192다길 9',style: commonTextStyle,),
+                    Text(cafeDto.address,style: commonTextStyle,),
                     // 짤짤이
                     Expanded(child: Row(
                       children: [
@@ -132,8 +157,6 @@ class ReviewListLayout extends StatelessWidget {
                         Text('92%',style: commonTextStyle,),
                         const SizedBox(width: 10,),
                         Text('도보 15분',style: commonTextStyle,),
-                        const SizedBox(width: 10,),
-                        Text('리뷰 999+',style: commonTextStyle,)
                       ],
                     ))
                   ],
@@ -157,24 +180,29 @@ class ReviewListLayout extends StatelessWidget {
             ],
           )),
           // 하단
-          Expanded(child: Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 정보
-              Expanded(child: Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('카공 | 대기시간 없음 | 커피맛집 | 디저트 맛집 |',style: commonTextStyle,),
-                  Text('★ 4.7',style: commonTextStyle,)
+                  Text('${review.who[0]} | ${review.convenient[0]} | ${review.object[0]} |',style: commonTextStyle,),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.star,color: CustomColors.deepGrey,size: 20,),
+                      Text(review.numOfStar.toString(),style: commonTextStyle,)
+                    ],
+                  ),
                 ],
-              )),
+              ),
               // 리뷰
-              Expanded(flex: 2,child: Text('블아르ㅏㅇ릐낭리넝린아리ㅏㄴㅇ리ㅏㄴ어리ㅏㄴㅇ링나dfsldjflsdkfjㄴ얼닝ㄹㅏㅇ니ㅏ러ㅣㄴ아러ㅣㄴ아러ㅣ낭러이ㅏ러이나안',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15),)),
+              Text(review.content,
+                style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15),),
+              const SizedBox(height: 10,),
               // 메뉴
-              Expanded(child: Row(
+              Row(
                 children: [
                   CustomButtonLayout(
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -184,12 +212,12 @@ class ReviewListLayout extends StatelessWidget {
                       child: Text('아메리카노',style: commonTextStyle,),
                     ),
                   ),
-                  Expanded(child: Text('ㅇ리ㅏㅓ니ㅏ런',style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15))),
+                  const Expanded(child: Text('깔끔한 맛이에요 무난함',style: const TextStyle(color: CustomColors.deepGrey,fontSize: 15))),
                   SizedBox(width: 20,child: Image.asset('assets/icons/good.png'))
                 ],
-              )),
+              ),
             ],
-          )),
+          ),
         ],
       ),
     );

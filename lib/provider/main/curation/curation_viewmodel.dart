@@ -1,6 +1,6 @@
 import 'package:cafe_front/models/cafe.dart';
 import 'package:cafe_front/models/cafe_filter.dart';
-import 'package:cafe_front/models/complex_visit.dart';
+import 'package:cafe_front/models/dto/complex_visit_dto.dart';
 import 'package:cafe_front/models/repository/cafe_repo.dart';
 import 'package:cafe_front/models/repository/visit_repo.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +14,11 @@ class CurationViewModel with ChangeNotifier {
   // 고정 카페 목록과 선호 카페 목록
   List<Cafe>? _cafes;
   List<Cafe>? _preferredCafes;
-  List<ComplexVisit>? _visitHistory;
+  List<ComplexVisitDto>? _visitHistory;
 
   List<Cafe>? get preferredCafes => _preferredCafes;
   List<Cafe>? get cafes => _cafes;
-  List<ComplexVisit>? get visitHistory=>_visitHistory;
+  List<ComplexVisitDto>? get visitHistory=>_visitHistory;
 
   Future<void> fetchData() async {
     // 필터 생성

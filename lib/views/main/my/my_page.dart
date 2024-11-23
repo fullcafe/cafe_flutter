@@ -6,6 +6,7 @@ import 'package:cafe_front/provider/main/my/my_page_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
+import 'package:cafe_front/provider/main/my/write_review_viewmodel.dart';
 import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/views/main/my/Coupon_page.dart';
 import 'package:cafe_front/views/main/my/my_favor_page.dart';
@@ -328,7 +329,10 @@ class RecentVisitCafeLayout extends StatelessWidget {
           alignment: Alignment.bottomRight,
           child: GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> const WriteReviewPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangeNotifierProvider(
+                  create: (context) => WriteReviewViewModel(cafe),
+                  child: const WriteReviewPage(),
+              )));
             },
             child: Container(
               margin: const EdgeInsets.all(5),

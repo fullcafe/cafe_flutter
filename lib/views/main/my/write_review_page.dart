@@ -1,133 +1,23 @@
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/my/write_review_viewmodel.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class WriteReviewPage extends StatefulWidget {
+import '../main_layout.dart';
+
+class WriteReviewPage extends StatelessWidget {
   const WriteReviewPage({Key? key}) : super(key: key);
-
-  @override
-  State<WriteReviewPage> createState() => _WriteReviewPageState();
-}
-
-class _WriteReviewPageState extends State<WriteReviewPage> {
-
-  String? testValue;
-  var numOfStar = 0;
-  var whoList = [
-    {
-      'key' : '혼자',
-      'check' : false,
-    },
-    {
-      'key' : '연인',
-      'check' : false,
-    },
-    {
-      'key' : '친구',
-      'check' : false,
-    },
-    {
-      'key' : '어르신',
-      'check' : false,
-    },
-    {
-      'key' : '어린이',
-      'check' : false,
-    },
-    {
-      'key' : '반려동물',
-      'check' : false,
-    }
-  ];
-  var convenientList = [
-    {
-      'key' : '콘센트',
-      'check' : false,
-    },
-    {
-      'key' : '5인이상 단체석',
-      'check' : false,
-    },
-    {
-      'key' : '휠체어',
-      'check' : false,
-    },
-    {
-      'key' : '엘레베이터',
-      'check' : false,
-    },
-    {
-      'key' : '내부 화장실',
-      'check' : false,
-    },
-    {
-      'key' : '충전기',
-      'check' : false,
-    },
-    {
-      'key' : '와이파이',
-      'check' : false,
-    },
-    {
-      'key' : '담요',
-      'check' : false,
-    },
-    {
-      'key' : '주차장',
-      'check' : false,
-    },
-  ];
-  var objectList = [
-    {
-      'key' : '공부/작업',
-      'check' : false,
-    },
-    {
-      'key' : '대화',
-      'check' : false,
-    },
-    {
-      'key' : '데이트',
-      'check' : false,
-    },
-    {
-      'key' : 'SNS',
-      'check' : false,
-    },
-    {
-      'key' : '휴식',
-      'check' : false,
-    },
-    {
-      'key' : '브런치/식사',
-      'check' : false,
-    },
-    {
-      'key' : '디저트/빵투어',
-      'check' : false,
-    },
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    getCafeInfo();
-  }
-
-  getCafeInfo() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      testValue = '';
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     const titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 20);
+    const keywordMargin = EdgeInsets.all(5);
+    final viewModel = context.watch<WriteReviewViewModel>();
 
-    if(testValue == null){
+    if(viewModel.cafeDto == null){
       return const Scaffold(
         body: SafeArea(child: Center(child: CircularProgressIndicator())),
       );
@@ -153,17 +43,18 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                             Container(
                               margin: const EdgeInsets.all(10),
                               width: 70,
-                              color: Colors.blue,
+                              child: Image.asset('assets/images/details/image0.jpg'),
                             ),
                             Expanded(child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('호이폴로이커피로스터스',
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
+                                Text(viewModel.cafeDto!.name,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 17),),
                                 const SizedBox(height: 10,),
-                                Text('서울 노원구 동일로186길 64 상가',
-                                style: TextStyle(color: CustomColors.deepGrey,fontSize: 11),),
+                                Text(viewModel.cafeDto!.address,
+                                style: const TextStyle(color: CustomColors.deepGrey,fontSize: 11),),
                               ],
                             ))
                           ],
@@ -172,13 +63,15 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                       // 이미지
                       SizedBox(
                         height: 300,
-                        child: PageView(
-                          pageSnapping: false,
-                          controller: PageController(viewportFraction: 0.8),
-                          children: List.generate(5, (idx)=>Container(
-                            margin: const EdgeInsets.all(5),
-                            color: Colors.black,
-                          )),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(5,
+                                  (idx)=> Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 5),
+                                      width: 250,
+                                      child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,)
+                                  )
+                          ),
                         ),
                       ),
                       const SizedBox(height: 60,),
@@ -191,13 +84,11 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                           children: List.generate(5, (idx) {
                         return GestureDetector(
                           onTap: (){
-                            setState(() {
-                              numOfStar = idx + 1;
-                            });
+                            viewModel.numOfStar = idx + 1;
                           },
                           child: SizedBox(
                               width: 50,
-                              child: idx < numOfStar? Image.asset('assets/icons/star_selected.png')  :
+                              child: idx < viewModel.numOfStar? Image.asset('assets/icons/star_selected.png')  :
                               Image.asset('assets/icons/star_unselected.png')),
                         ); }
                           ),
@@ -210,20 +101,9 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                         height: 60,
                         child: Column(
                           children: [
-                            Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(6,
-                                      (idx)=> GestureDetector(
-                                        onTap: (){
-                                          setState(() {
-                                            whoList[idx]['check'] = !(whoList[idx]['check'] as bool);
-                                          });
-                                        },
-                                        child: ReviewKeyword(
-                                            keyword: whoList[idx]['key'].toString(),
-                                            selected: whoList[idx]['check'] as bool,
-                                        ),
-                                      )
+                            Expanded(child: Wrap(
+                              children: List.generate(viewModel.whoList.length,
+                                  (idx) => ReviewKeyword(margin: keywordMargin,keyword: viewModel.whoList[idx],selectedList: viewModel.selectedWhoList,)
                               ),
                             )),
                           ],
@@ -236,39 +116,10 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                         height: 90,
                         child: Column(
                           children: [
-                            Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(4,
-                                      (idx)=> GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        convenientList[idx]['check'] = !(convenientList[idx]['check'] as bool);
-                                      });
-                                    },
-                                    child: ReviewKeyword(
-                                      keyword: convenientList[idx]['key'].toString(),
-                                      selected: convenientList[idx]['check'] as bool,
-                                    ),
-                                  )
+                            Expanded(child: Wrap(
+                              children: List.generate(viewModel.convenientList.length,
+                                      (idx) => ReviewKeyword(margin: keywordMargin,keyword: viewModel.convenientList[idx],selectedList: viewModel.selectedConvenientList,)
                               ),
-                            )),
-                            Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(5, (idx) {
-                            idx = idx + 4;
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  convenientList[idx]['check'] =
-                                      !(convenientList[idx]['check'] as bool);
-                                });
-                              },
-                              child: ReviewKeyword(
-                                keyword: convenientList[idx]['key'].toString(),
-                                selected: convenientList[idx]['check'] as bool,
-                              ),
-                            );
-                          }),
                             )),
                           ],
                         ),
@@ -280,39 +131,10 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                         height: 90,
                         child: Column(
                           children: [
-                            Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(5,
-                                      (idx)=> GestureDetector(
-                                    onTap: (){
-                                      setState(() {
-                                        objectList[idx]['check'] = !(objectList[idx]['check'] as bool);
-                                      });
-                                    },
-                                    child: ReviewKeyword(
-                                      keyword: objectList[idx]['key'].toString(),
-                                      selected: objectList[idx]['check'] as bool,
-                                    ),
-                                  )
+                            Expanded(child: Wrap(
+                              children: List.generate(viewModel.objectList.length,
+                                      (idx) => ReviewKeyword(margin: keywordMargin,keyword: viewModel.objectList[idx],selectedList: viewModel.selectedObjectList,)
                               ),
-                            )),
-                            Expanded(child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: List.generate(2, (idx) {
-                                idx = idx + 5;
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      objectList[idx]['check'] =
-                                      !(objectList[idx]['check'] as bool);
-                                    });
-                                  },
-                                  child: ReviewKeyword(
-                                    keyword: objectList[idx]['key'].toString(),
-                                    selected: objectList[idx]['check'] as bool,
-                                  ),
-                                );
-                              }),
                             )),
                           ],
                         ),
@@ -321,6 +143,7 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                       // 말씀
                       const Text('카페에 추가로 해주고픈 말씀이 있나요?',style: titleStyle,),
                       Expanded(child: TextFormField(
+                        controller: viewModel.textEditingController,
                         maxLines: 10,
                         decoration: const InputDecoration(
                           hintText: '최소 10자 이상 입력해주세요.',
@@ -328,11 +151,19 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
                           border: InputBorder.none,
                         ),
                       )),
-                      const CustomButtonLayout(
-                        backgroundColor: Colors.black,
-                        height: 60,
-                        width: double.infinity,
-                        child: Center(child: Text('리뷰 올리기',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                      GestureDetector(
+                        onTap: () async{
+                          if(await viewModel.writeReview()){
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainLayout(),), (_) => false);
+                          }
+                        },
+                        child: const CustomButtonLayout(
+                          backgroundColor: Colors.black,
+                          height: 60,
+                          width: double.infinity,
+                          child: Center(child: Text('리뷰 올리기',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                        ),
                       ),
                     ],
                   ),
@@ -345,22 +176,47 @@ class _WriteReviewPageState extends State<WriteReviewPage> {
   }
 }
 
-class ReviewKeyword extends StatelessWidget {
-  const ReviewKeyword({
+class ReviewKeyword extends StatefulWidget {
+  ReviewKeyword({
     Key? key,
     required this.keyword,
+    required this.selectedList,
     this.selected = false,
+    this.margin
   }) : super(key: key);
   final String keyword;
-  final bool selected;
+  bool selected;
+  final EdgeInsetsGeometry? margin;
+  final List<String> selectedList;
 
   @override
+  State<ReviewKeyword> createState() => _ReviewKeywordState();
+}
+
+class _ReviewKeywordState extends State<ReviewKeyword> {
+  @override
   Widget build(BuildContext context) {
-    return CustomButtonLayout(
-      borderColor: selected? Colors.black : Colors.grey,
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Text(keyword,style: TextStyle(color: selected? Colors.black : Colors.grey,),),
+    final viewModel = context.read<WriteReviewViewModel>();
+    return GestureDetector(
+      onTap: (){
+        if(!widget.selected){
+          widget.selectedList.add(widget.keyword);
+        } else {
+          widget.selectedList.remove(widget.keyword);
+        }
+        setState(() {
+          widget.selected = !widget.selected;
+        });
+      },
+      child: CustomButtonLayout(
+        margin: widget.margin,
+        borderColor: widget.selected? Colors.black : Colors.grey,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(widget.keyword,
+            style: TextStyle(color: widget.selected? Colors.black : Colors.grey,
+                fontWeight: widget.selected? FontWeight.bold : FontWeight.normal),),
+        ),
       ),
     );
   }

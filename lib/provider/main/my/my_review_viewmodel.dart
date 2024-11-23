@@ -1,17 +1,20 @@
+import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/dto/complex_review_dto.dart';
+import 'package:cafe_front/models/repository/review_repo.dart';
 import 'package:flutter/material.dart';
 
 class MyReviewViewModel with ChangeNotifier {
-
-  List? _myReviews;
-  List? get myReviews => _myReviews;
+  final ReviewRepository _reviewRepository = ReviewRepository();
+  List<ComplexReviewDto>? _myReviews;
+  List<ComplexReviewDto>? get myReviews => _myReviews;
 
   MyReviewViewModel(){
     getMyReviews();
   }
 
   getMyReviews() async {
-    await Future.delayed(Duration(milliseconds: 500));
-    _myReviews = ['','','',''];
+    _myReviews = await _reviewRepository.getReviewsByUser(UserStore.getInstance().user!.uid);
+    _myReviews = _myReviews?.reversed.toList();
     notifyListeners();
   }
 }

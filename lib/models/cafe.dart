@@ -53,7 +53,7 @@ class Cafe {
             [],
         (json['reviews'] as List<dynamic>?)
                 ?.map((review) => Review.fromJson(review))
-                .toList() ??
+                .toList().reversed.toList() ??
             []);
   }
 

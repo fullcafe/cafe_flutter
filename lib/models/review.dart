@@ -10,7 +10,6 @@ class Review {
   final String content;
   final DateTime timestamp;
   final CustomUser user;
-  final Cafe cafe;
 
   Review({
     required this.id,
@@ -20,8 +19,7 @@ class Review {
     required this.object,
     required this.content,
     required this.timestamp,
-    required this.user,
-    required this.cafe,
+    required this.user
   });
 
   /// JSON 데이터를 Review 객체로 변환
@@ -34,8 +32,7 @@ class Review {
       object: List<String>.from(json['object'] ?? []),
       content: json['content'] ?? '',
       timestamp: DateTime.parse(json['timestamp']),
-      user: CustomUser.fromMap(json['user']),
-      cafe: Cafe.fromJson(json['cafe']),
+      user: CustomUser.fromMap(json['user'])
     );
   }
 
@@ -50,7 +47,6 @@ class Review {
       'content': content,
       'timestamp': timestamp.toIso8601String(),
       'user': user.toJson(),
-      'cafe': cafe.toJson(),
     };
   }
 
