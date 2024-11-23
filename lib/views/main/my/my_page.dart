@@ -16,6 +16,8 @@ import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../provider/main/my/my_bookmark_viewmodel.dart';
+import 'bookmark_page.dart';
 import 'visit_page.dart';
 
 class MyPage extends StatelessWidget {
@@ -133,7 +135,16 @@ class MyPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        GestureDetector(
+                          onTap: () {Navigator.push(context,MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider(
+                          create: (context) => MyBookmarkViewModel(), // ViewModel 인스턴스 생성
+                          child: const BookmarkPage(),
+                              ),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
                           width: 70,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -143,6 +154,7 @@ class MyPage extends StatelessWidget {
                               const Text('단골카페',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
                             ],
                           ),
+                        ),
                         ),
                       ],
                     ))
