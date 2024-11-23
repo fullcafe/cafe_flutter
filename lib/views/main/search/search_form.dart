@@ -26,18 +26,22 @@ class SearchForm extends StatelessWidget {
     }
 
     const greyStyle = TextStyle(color: CustomColors.deepGrey);
-    const smallStyle = TextStyle(color: CustomColors.deepGrey, fontSize: 10);
 
     return ListView.builder(
       itemCount: viewModel.cafeResults.length,
       itemBuilder: (context, idx) {
         Cafe cafe = viewModel.cafeResults[idx];
         return GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
-                create: (context) => CafeDetailViewModel(cafe.name),
-                child: const CafeDetailPage(),
-            )));
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider(
+                  create: (context) => CafeDetailViewModel(cafe.name),
+                  child: const CafeDetailPage(),
+                ),
+              ),
+            );
           },
           child: Container(
             margin: const EdgeInsets.all(10),
@@ -75,6 +79,7 @@ class SearchForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<SearchViewModel>();
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -82,7 +87,7 @@ class SearchForm extends StatelessWidget {
             const BackButtonAppBar(icons: SizedBox()),
             const CustomSearchBar(),
             FilterBar(
-              onFilterApplied: (selectedFilters,booleanFilters) {
+              onFilterApplied: (selectedFilters, booleanFilters) {
                 final viewModel = context.read<SearchViewModel>();
 
                 // 선택된 필터에서 빈 값을 제외하고 키워드로 변환
@@ -91,21 +96,13 @@ class SearchForm extends StatelessWidget {
                     .expand((entry) => entry.value) // 키워드 리스트로 변환
                     .toList();
 
-                print('검색 실행 키워드: $keywords'); // 디버깅 로그
                 viewModel.searchCafesFilter(
                   keywords: keywords,
                   petFriendly: booleanFilters['petFriendly'],
                   wifi: booleanFilters['wifi'],
                   parking: booleanFilters['parking'],
                   delivery: booleanFilters['delivery'],
-                );// 필터 기반 검색
-                // SearchForm으로 이동
-                if (keywords.isNotEmpty) {
-                  viewModel.navigator(
-                    context,
-                    SearchForm(keyword: keywords.join(', ')), // 키워드를 전달
-                  );
-                }
+                ); // 필터 기반 검색
               },
             ),
             const Align(
@@ -120,7 +117,10 @@ class SearchForm extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.swap_vert, color: Colors.white, size: 20),
-                      Text('추천순', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(
+                        '추천순',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),
