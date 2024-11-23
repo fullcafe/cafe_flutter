@@ -1,7 +1,9 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_favor_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
 import 'package:flutter/material.dart';
@@ -121,6 +123,7 @@ class RevisitCafeColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.watch<MyFavorViewModel>();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         // 많이 간 카페
@@ -132,10 +135,10 @@ class RevisitCafeColumn extends StatelessWidget {
         Container(
           margin: margin,
           height: 300,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
             children: List.generate(viewModel.mostRevisitCafeList!.length,
-                  (idx) => RevisitCafe(idx: idx),
+                  (idx) => Container(margin: const EdgeInsets.symmetric(horizontal: 5),child: RevisitCafe(idx: idx)),
             ),
           ),
         ),
@@ -155,45 +158,55 @@ class RevisitCafe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.read<MyFavorViewModel>();
+    final visit = viewModel.mostRevisitCafeList![idx];
     const commonStyle = TextStyle(color: CustomColors.deepGrey,fontSize: 10);
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.45,
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.black,
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangeNotifierProvider(
+            create: (context) => CafeDetailViewModel(visit.cafe.name),
+            child: const CafeDetailPage(),
+        )));
+      },
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.45,
+        child: Column(
+          children: [
+            Expanded(
+              child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(5),
-            width: double.infinity,
-            height: 60,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 30,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Honor',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                      CustomButtonLayout(
-                        borderColor: CustomColors.deepGrey,
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text('재방문 25회',style: commonStyle,),
-                        ),
-                      )
-                    ],
+            Container(
+              margin: const EdgeInsets.all(5),
+              width: double.infinity,
+              height: 60,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                            width: 80,
+                            child: Text(visit.cafe.name,overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 15),)),
+                        CustomButtonLayout(
+                          borderColor: CustomColors.deepGrey,
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text('재방문 ${visit.visit.count}회',style: commonStyle,),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Text('서울 노원구 동일로190길 65 2층',style: commonStyle,overflow: TextOverflow.ellipsis,),
-                Text('예상평점 ★4.7   도보 15분',style: commonStyle,),
-              ],
-            ),
-          )
-        ],
+                  Text(visit.cafe.address,style: commonStyle,overflow: TextOverflow.ellipsis,),
+                  const Text('예상평점 ★4.7   도보 15분',style: commonStyle,),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
