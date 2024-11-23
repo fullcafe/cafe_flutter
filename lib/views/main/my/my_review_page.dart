@@ -84,12 +84,12 @@ class ReviewListLayout extends StatelessWidget {
       child: Column(
         children: [
           // 상반
-          Expanded(flex: 2,child: PageView(
-            pageSnapping: false,
-            controller: PageController(viewportFraction: 0.7),
+          Expanded(flex: 2,child: ListView(
+            scrollDirection: Axis.horizontal,
             children: List.generate(5, (idx)=>Container(
+              width: 180,
               margin: const EdgeInsets.all(5),
-              color: Colors.black,
+              child: Image.asset('assets/images/details/image${idx % 3}.jpg',fit: BoxFit.fill,),
             )),
           )),
           // 중반
@@ -97,7 +97,11 @@ class ReviewListLayout extends StatelessWidget {
             children: [
               Row(
               children: [
-                Container(margin: EdgeInsets.only(right: 5),width: 90,color: Colors.black,),
+                Container(
+                  margin: const EdgeInsets.only(right: 5),
+                  width: 90,
+                  child: Image.asset('assets/images/details/image0.jpg',fit: BoxFit.fill,),
+                ),
                 Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -132,8 +136,6 @@ class ReviewListLayout extends StatelessWidget {
                         Text('92%',style: commonTextStyle,),
                         const SizedBox(width: 10,),
                         Text('도보 15분',style: commonTextStyle,),
-                        const SizedBox(width: 10,),
-                        Text('리뷰 999+',style: commonTextStyle,)
                       ],
                     ))
                   ],

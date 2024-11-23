@@ -6,7 +6,7 @@ import 'package:cafe_front/views/main/Curation/section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../models/cafe.dart';
-import '../../../models/complex_visit.dart';
+import '../../../models/dto/complex_visit_dto.dart';
 import '../../../provider/main/cafe/cafe_detail_viewmodel.dart';
 import '../../../widgets/listview/build_list_view.dart';
 import '../Cafe/cafe_detail_page.dart';
@@ -199,7 +199,7 @@ class _CurationPageState extends State<CurationPage> {
     return 'assets/images/Frame $randomIndex.png';
   }
   /// 방문 기록 리스트뷰
-  Widget buildVisitHistoryList(BuildContext context, List<ComplexVisit> visitHistory) {
+  Widget buildVisitHistoryList(BuildContext context, List<ComplexVisitDto> visitHistory) {
     return SizedBox(
       height: 300,
       child: ListView.separated(

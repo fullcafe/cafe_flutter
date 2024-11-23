@@ -1,5 +1,5 @@
 import 'package:cafe_front/common/user_store.dart';
-import 'package:cafe_front/models/complex_visit.dart';
+import 'package:cafe_front/models/dto/complex_visit_dto.dart';
 import 'package:cafe_front/models/repository/visit_repo.dart';
 import 'package:cafe_front/provider/stack_handler.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +19,11 @@ class SearchViewModel with ChangeNotifier {
     fetchPreviousCafe();
   }
 
-  List<ComplexVisit>? _previousCafe;
+  List<ComplexVisitDto>? _previousCafe;
   List<Cafe> _cafeResults = [];
   bool _isLoading = false;
 
-  List<ComplexVisit>? get previousCafe => _previousCafe;
+  List<ComplexVisitDto>? get previousCafe => _previousCafe;
   List<Cafe> get cafeResults => _cafeResults;
   bool get isLoading => _isLoading;
 
