@@ -28,16 +28,16 @@ class CafeDto {
   factory CafeDto.fromJson(Map<String, dynamic> json){
     return CafeDto(
         json['name'],
-        json['address'],
-        json['phone'],
-        json['url'],
-        json['petFriendly'],
-        json['wifi'],
-        json['takeout'],
-        json['groupFriendly'],
-        json['easyPayment'],
-        json['parking'],
-        json['delivery'],
+        json['address'] ?? '',
+        json['phone'] ?? '',
+        json['url'] ?? '',
+        json['petFriendly'] ?? false,
+        json['wifi'] ?? false,
+        json['takeout'] ?? false,
+        json['groupFriendly'] ?? false,
+        json['easyPayment'] ?? false,
+        json['parking'] ?? false,
+        json['delivery'] ?? false,
         (json['keywords'] as List).map((e) => e.toString()).toList()
     );
   }

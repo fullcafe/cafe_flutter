@@ -4,8 +4,9 @@ import 'package:cafe_front/models/cafe.dart';
 
 class SearchBaseCafeList extends StatelessWidget {
   final Cafe cafe;
+  final int visitCount;
 
-  const SearchBaseCafeList({Key? key, required this.cafe}) : super(key: key);
+  const SearchBaseCafeList({Key? key, required this.cafe, required this.visitCount}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +34,13 @@ class SearchBaseCafeList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      cafe.name,
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: 120,
+                      child: Text(
+                        cafe.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
                     ),
                     Text(
                       cafe.address ?? '주소 정보 없음',
@@ -59,9 +64,9 @@ class SearchBaseCafeList extends StatelessWidget {
                 border: Border.all(color: CustomColors.deepGrey),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: const Text(
-                '재방문 1회',
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+              child: Text(
+                '재방문 $visitCount회',
+                style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
               ),
             ),
           ),

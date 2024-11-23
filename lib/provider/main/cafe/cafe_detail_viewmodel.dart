@@ -21,7 +21,6 @@ class CafeDetailViewModel with ChangeNotifier{
   }
 
   void initCafe() async {
-    print(cafeName);
     _cafe = await _cafeRepository.getCafeByName(cafeName);
     notifyListeners();
   }

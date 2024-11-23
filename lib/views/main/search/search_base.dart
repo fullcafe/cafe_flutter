@@ -1,3 +1,5 @@
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_front/views/main/search/search_form.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
@@ -14,6 +16,8 @@ class SearchBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<SearchViewModel>();
+    var previousSize = viewModel.previousCafe?.length ?? 0;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -51,7 +55,7 @@ class SearchBase extends StatelessWidget {
               const SizedBox(height: 20),
               _buildSearchKeywords(),
               const SizedBox(height: 20),
-              _buildPreviousVisitedCafes(context),
+              previousSize > 0? _buildPreviousVisitedCafes(context) : const SizedBox(),
             ],
           ),
         ),
@@ -71,6 +75,8 @@ class SearchBase extends StatelessWidget {
 
   // 최근 방문한 카페 목록 예시
   Widget _buildPreviousVisitedCafes(BuildContext context) {
+    var viewModel = context.watch<SearchViewModel>();
+    var previousCafe = viewModel.previousCafe;
     return Container(
       margin: const EdgeInsets.all(10),
       height: 120,
@@ -85,23 +91,32 @@ class SearchBase extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 3,
+              itemCount: previousCafe?.length,
               itemBuilder: (context, index) {
-                return SearchBaseCafeList(
-                  cafe: Cafe(
-                    '메트로폴리스',
-                    '서울 노원구 어쩌구',
-                    '02-123-4567',
-                    '',
-                    false,
-                    true,
-                    true,
-                    false,
-                    false,
-                    true,
-                    false,
-                    [],
-                    [],
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                        create: (context) => CafeDetailViewModel(previousCafe![index].cafe.name),
+                        child: const CafeDetailPage(),
+                    )));
+                  },
+                  child: SearchBaseCafeList(
+                    cafe: Cafe(
+                      previousCafe![index].cafe.name,
+                      previousCafe[index].cafe.address,
+                      previousCafe[index].cafe.phone,
+                      previousCafe[index].cafe.url,
+                      previousCafe[index].cafe.petFriendly,
+                      previousCafe[index].cafe.wifi,
+                      previousCafe[index].cafe.takeout,
+                      previousCafe[index].cafe.groupFriendly,
+                      previousCafe[index].cafe.easyPayment,
+                      previousCafe[index].cafe.parking,
+                      previousCafe[index].cafe.delivery,
+                      [],
+                      [],
+                    ),
+                    visitCount: previousCafe[index].visit.count,
                   ),
                 );
               },
