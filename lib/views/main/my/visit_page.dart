@@ -100,7 +100,9 @@ class VisitPage extends StatelessWidget {
 
                         child: Row(
                         children: [
-                          Text(visit.cafe.name,style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),),
+                          SizedBox(
+                              width: 90,
+                              child: Text(visit.cafe.name,overflow: TextOverflow.ellipsis,style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),)),
                           const SizedBox(width: 15,),
                           CustomButtonLayout(
                             borderColor: CustomColors.deepGrey,
