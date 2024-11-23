@@ -1,8 +1,13 @@
+import 'package:cafe_front/common/user_store.dart';
 import 'package:cafe_front/models/dto/cafe_dto.dart';
+import 'package:cafe_front/models/repository/review_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../models/dto/review_dto.dart';
+
 class WriteReviewViewModel with ChangeNotifier {
+  final ReviewRepository _reviewRepository = ReviewRepository();
   final CafeDto? cafeDto;
   final TextEditingController textEditingController = TextEditingController();
   int _numOfStar = 0;
@@ -46,10 +51,21 @@ class WriteReviewViewModel with ChangeNotifier {
     }
     return true;
   }
+  ReviewDto makeReviewDto(){
+    return ReviewDto(0, _numOfStar, selectedWhoList, selectedConvenientList, selectedObjectList,
+        textEditingController.text, DateTime.now(), UserStore.getInstance().user!.uid, cafeDto!.name);
+  }
 
-  writeReview(){
-    if(checkValidate()){
-
+  Future<bool> writeReview() async {
+    if(!checkValidate()) {
+      return false;
+    }
+    try{
+      await _reviewRepository.createReview(makeReviewDto());
+      return true;
+    } catch(e) {
+      Fluttertoast.showToast(msg: '리뷰 작성에 실패하였습니다.');
+      return false;
     }
   }
 

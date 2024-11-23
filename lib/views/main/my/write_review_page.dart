@@ -150,8 +150,11 @@ class WriteReviewPage extends StatelessWidget {
                         ),
                       )),
                       GestureDetector(
-                        onTap: (){
-                          viewModel.writeReview();
+                        onTap: () async{
+                          if(await viewModel.writeReview()){
+                            // ignore: use_build_context_synchronously
+                            Navigator.pop(context);
+                          }
                         },
                         child: const CustomButtonLayout(
                           backgroundColor: Colors.black,
