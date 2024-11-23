@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cafe_front/provider/main/my/my_bookmark_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:cafe_front/constants/colors.dart';
@@ -41,18 +43,31 @@ class BookmarkPage extends StatelessWidget {
   }
 }
 class VisitCafe extends StatelessWidget {
-  const VisitCafe({
+   VisitCafe({
     Key? key,
     required this.idx,
   }) : super(key: key);
+
   final int idx;
+
+  final List<String> imagePaths = List.generate(
+    10,
+        (index) => 'assets/images/Frame ${index + 1}.png', // 이미지 경로 리스트
+  );
+
+  final Random _random = Random();
+
+  String getRandomImage() {
+    int randomIndex = _random.nextInt(imagePaths.length);
+    return imagePaths[randomIndex];
+  }
+
   @override
   Widget build(BuildContext context) {
-    var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    var commonTextStyle = const TextStyle(color: CustomColors.deepGrey, fontSize: 12);
 
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-      // margin: const EdgeInsets.all(10),
       height: 370,
       child: Column(
         children: [
@@ -65,14 +80,14 @@ class VisitCafe extends StatelessWidget {
                 initialPage: 0,
                 viewportFraction: 0.6, // 변경 가능
               ),
-              itemCount: 5, // 표시할 이미지 수
+              itemCount: 10, // 표시할 이미지 수
               itemBuilder: (context, idx) {
                 return Container(
-                  margin: EdgeInsets.only(left: idx == 0 ? 0 : 3, right: 3), // 첫 번째 페이지는 왼쪽 마진 제거
+                  margin: EdgeInsets.only(left: idx == 0 ? 0 : 3, right: 3),
                   decoration: BoxDecoration(
                     color: Colors.black,
                     image: DecorationImage(
-                      image: AssetImage('assets/images/Frame 1.png'), // 각 이미지를 구분하여 경로 설정
+                      image: AssetImage(getRandomImage()), // 랜덤 이미지 경로
                       fit: BoxFit.cover,
                     ),
                   ),

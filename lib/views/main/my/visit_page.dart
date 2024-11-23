@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_visit_viewmodel.dart';
 import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
@@ -41,27 +43,45 @@ class VisitPage extends StatelessWidget {
     );
   }
 }
-  class VisitCafe extends StatelessWidget {
-  const VisitCafe({
-  Key? key,
-  required this.idx,
+class VisitCafe extends StatelessWidget {
+  VisitCafe({
+    Key? key,
+    required this.idx,
   }) : super(key: key);
   final int idx;
+
+  final List<String> imagePaths = List.generate(
+    10,
+        (index) => 'assets/images/Frame ${index + 1}.png', // 이미지 경로 리스트
+  );
+
+  final Random _random = Random();
+
+  String getRandomImage() {
+    int randomIndex = _random.nextInt(imagePaths.length);
+    return imagePaths[randomIndex];
+  }
+
   @override
   Widget build(BuildContext context) {
-    var commonTextStyle = const TextStyle(color: CustomColors.deepGrey,fontSize: 12);
+    var commonTextStyle = const TextStyle(
+        color: CustomColors.deepGrey, fontSize: 12);
     final viewModel = context.read<MyVisitViewModel>();
     final visit = viewModel.visitCafeList![idx];
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChangeNotifierProvider(
-            create: (context) => CafeDetailViewModel(visit.cafe.name),
-            child: const CafeDetailPage(),
-        )));
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChangeNotifierProvider(
+              create: (context) => CafeDetailViewModel(visit.cafe.name),
+              child: const CafeDetailPage(),
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-        // margin: const EdgeInsets.all(10),
         height: 280,
         child: Column(
           children: [
@@ -70,17 +90,16 @@ class VisitPage extends StatelessWidget {
               flex: 1,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal, // 수평 스크롤 설정
-                itemCount: 4,
+                itemCount: 10,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0), // 아이템 간 간격 설정
-                      child: Image.asset(
-                        'assets/images/Frame 1.png', // 이미지 경로 설정
-                        width: 150, // 각 이미지의 너비 설정
-                        height: 250, // 각 이미지의 높이 설정
-                        fit: BoxFit.cover, // 이미지를 꽉 채우도록 설정
-                      ),
-
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Image.asset(
+                      getRandomImage(), // 랜덤 이미지 경로
+                      width: 150, // 각 이미지의 너비 설정
+                      height: 250, // 각 이미지의 높이 설정
+                      fit: BoxFit.cover, // 이미지를 꽉 채우도록 설정
+                    ),
                   );
                 },
               ),
