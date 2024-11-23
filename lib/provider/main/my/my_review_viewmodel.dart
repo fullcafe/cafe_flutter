@@ -1,11 +1,12 @@
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/models/dto/complex_review_dto.dart';
 import 'package:cafe_front/models/repository/review_repo.dart';
 import 'package:flutter/material.dart';
 
 class MyReviewViewModel with ChangeNotifier {
   final ReviewRepository _reviewRepository = ReviewRepository();
-  List? _myReviews;
-  List? get myReviews => _myReviews;
+  List<ComplexReviewDto>? _myReviews;
+  List<ComplexReviewDto>? get myReviews => _myReviews;
 
   MyReviewViewModel(){
     getMyReviews();

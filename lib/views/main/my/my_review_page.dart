@@ -1,8 +1,10 @@
 import 'package:cafe_front/constants/characters.dart';
 import 'package:cafe_front/constants/colors.dart';
 import 'package:cafe_front/models/dto/complex_review_dto.dart';
+import 'package:cafe_front/provider/main/cafe/cafe_detail_viewmodel.dart';
 import 'package:cafe_front/provider/main/my/my_review_viewmodel.dart';
 import 'package:cafe_front/common/user_store.dart';
+import 'package:cafe_front/views/main/Cafe/cafe_detail_page.dart';
 import 'package:cafe_front/views/main/my/review_filter.dart';
 import 'package:cafe_front/widgets/appbar/custom_appbar.dart';
 import 'package:cafe_front/widgets/button/custom_button_layout.dart';
@@ -60,7 +62,15 @@ class MyReviewPage extends StatelessWidget {
           ),
           Expanded(child: reviewSize > 0 ? ListView(
             children: List.generate(viewModel.myReviews!.length,
-                (idx) => ReviewListLayout(idx: idx, reviewDto: viewModel.myReviews![idx],)
+                (idx) => GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
+                          create: (context) => CafeDetailViewModel(viewModel.myReviews![idx].cafeDto.name),
+                          child: const CafeDetailPage(),
+                      )));
+                    },
+                    child: ReviewListLayout(idx: idx, reviewDto: viewModel.myReviews![idx],)
+                )
             ),
           ) :
               const Center(child: Text('작성하신 리뷰가 없습니다.'),)),
